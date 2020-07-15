@@ -17,7 +17,7 @@ import environ
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_NAME = os.path.basename(BASE_DIR)
 env = environ.Env()
-env.read_env(os.path.join(BASE_DIR,'.env'))
+env.read_env(os.path.join(BASE_DIR, '.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -30,7 +30,6 @@ DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -40,9 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'hello.apps.HelloConfig',
-    'cms.apps.CmsConfig',
     'bootstrap4',
+    'accounts.apps.AccountsConfig',
+    'users.apps.UsersConfig',
+    'ticket.apps.TicketConfig',
+    'task.apps.TaskConfig',
 ]
 
 MIDDLEWARE = [
@@ -75,7 +76,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
@@ -90,7 +90,6 @@ DATABASES = {
         'PORT': env('DB_PORT'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -110,7 +109,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
@@ -123,7 +121,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
@@ -189,10 +186,21 @@ LOGGING = {
     }
 }
 
-
 #######################
 # Authentication      #
 #######################
 
 LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = '/account/login/'
+LOGOUT_REDIRECT_URL = '/accounts/login/'
+
+#######################
+# Email settings      #
+#######################
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+#######################
+# Custom user model   #
+#######################
+
+AUTH_USER_MODEL = 'accounts.Parent'

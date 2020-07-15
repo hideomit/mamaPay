@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}ホーム{% endblock %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+ままペイにようこそ、 {{ user.get_username }}まま
+
+<p><button><a href="{% url 'admin_home' %}">ママ画面</a></button></p>
+
+<p><a href="{% url 'password_change' %}">パスワード変更</a></p>
+
+
+
+<p><a href="{% url 'logout' %}">ログアウト</a></p>
+{% else %}
+<p><a href="{% url 'login' %}">ログイン</a></p>
+{% endif %}
+{% endblock %}

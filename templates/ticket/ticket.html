@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}チケットの一覧{% endblock %}
+
+{% block content %}
+
+ <h2>登録されているチケット</h2>
+
+<p><button><a href="{% url 'ticket_regist' %}">新しいチケットを登録する</a></button></p>
+<p><button>チケットを削除する</button></p>
+
+{% endblock %}

@@ -16,14 +16,28 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from django.views.generic import TemplateView
+from django.contrib.auth import views
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('cms/', include('cms.urls')),   # ←ここを追加
-    path('hello/', include('hello.urls')),
-    path('account/', include('django.contrib.auth.urls')),
- #   path('account/login/', views.LoginView.as_view(), name='login'),
+    path('accounts/', include('accounts.urls')),
+    path('users/', include('users.urls')),
+    path('tasks/', include('task.urls')),
+    path('ticket/', include('ticket.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('', TemplateView.as_view(template_name='home.html'), name='home'),
+    path('admin_home/', TemplateView.as_view(template_name='admin_home.html'), name='admin_home'),
+    path('status/', TemplateView.as_view(template_name='status.html'), name='status'),
+    path('status/change', TemplateView.as_view(template_name='status_change.html'), name='status_change'),
+    path('accounts/login/', views.LoginView.as_view(), name='login'),
+    path('accounts/password_change/', views.PasswordChangeView.as_view(), name="password_change"),
+    path('accounts/password_change/done/', views.PasswordChangeDoneView.as_view(), name='password_change_done'),
+    path('accounts/password_reset/', views.PasswordResetCompleteView.as_view(), name='password_reset'),
+    path('accounts/password_reset/done/', views.PasswordResetDoneView.as_view(), name='password_reset_done'),
+    path('accounts/reset/<uidb64>/<token>/', views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('accounts/reset/done/', views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
+
 ]
 
 

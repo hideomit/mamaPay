@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}タスクの一覧{% endblock %}
+
+{% block content %}
+
+ <h2>登録されているタスク</h2>
+
+<ul>
+ {% for data in task_list %}
+ <li>{{ data.task_name }} : {{ data.price }}</li>
+</ul>
+{% endfor %}
+
+<p><button><a href="{% url 'task_regist' %}">新しいタスクを登録する</a></button></p>
+<p><button>タスクを削除する</button></p>
+
+{% endblock %}
