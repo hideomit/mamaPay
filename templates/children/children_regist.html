@@ -1,10 +1,20 @@
 {% extends "base.html" %}
+{% load bootstrap4 %}
 
 {% block title %}こどもを登録{% endblock %}
 
 {% block content %}
 
 <p><button>写真のアップロード</button></p>
-<p><button>登録する</button></p>
+
+
+<form method="post">
+{% csrf_token %}
+ {# csrf_token はpostメソッドを使うときは必ず入れる #}
+ {% bootstrap_form form %}
+
+
+ <button class="btn btn-primary" type="submit">登録する</button>
+</form>
 
 {% endblock %}

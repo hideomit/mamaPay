@@ -6,6 +6,18 @@
 
  <h2>チケットを変更する</h2>
 
-<p></p><button>変更する</button></p>
+<form method="post" action="{% url 'ticket_update' ticket.id %}">
+
+ {% csrf_token %}
+ {# csrf_token はpostメソッドを使うときは必ず入れる #}
+
+  <input type="text" value="{{ ticket.ticket_name }}" name="ticket_name">
+  <input type="text" value="{{ ticket.price }}" name="price">
+
+ <br>
+ <br>
+ <button type="submit" class="btn btn-outline-primary">変更する</button>
+
+ </form>
 
 {% endblock %}

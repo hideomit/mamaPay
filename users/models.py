@@ -28,7 +28,7 @@ class Child(CommonColumnModel):
     #テーブルのカラムに対応するフィールドを定義 appを超えたFKははれない？
     puser = models.ForeignKey(Parent, verbose_name='親ユーザーID', on_delete=models.CASCADE)
     name = models.CharField(verbose_name='名前', max_length=255)
-    photo = models.ImageField(verbose_name='写真', max_length=255)
+    photo = models.ImageField(verbose_name='写真', max_length=255, upload_to='child/')
 
     def __str__(self):
         return self.name
@@ -43,7 +43,7 @@ class Balance(CommonColumnModel):
     balance = models.IntegerField(verbose_name='残高', default=0)
 
     def __str__(self):
-        return self.cuser_id
+        return self.cuser
 
 
 class Ticket_holding(CommonColumnModel):

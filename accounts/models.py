@@ -9,4 +9,4 @@ class Parent(AbstractUser):
         #テーブル名を定義
         db_table = 'puser'
     #テーブルのカラムに対応するフィールドを定義
-    photo = models.ImageField(verbose_name='写真', null=True, max_length=255)
+    photo = models.ImageField(verbose_name='写真', null=True, max_length=255, upload_to='parent/')

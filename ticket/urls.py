@@ -1,10 +1,13 @@
 from django.views.generic import TemplateView
 from django.urls import path
 
+from ticket.views import TicketListView, TicketRegistView, TicketDetailView, TicketUpdateView
+
 urlpatterns = [
 
-    path('', TemplateView.as_view(template_name='ticket/ticket.html'), name='ticket'),
-    path('regist', TemplateView.as_view(template_name='ticket/ticket_regist.html'), name='ticket_regist'),
-    path('change/', TemplateView.as_view(template_name='ticket/ticket_change.html'), name='ticket_change'),
+    path('', TicketListView.as_view(), name='ticket'),
+    path('regist/', TicketRegistView.as_view(), name='ticket_regist'),
+    path('update/<int:pk>', TicketUpdateView.as_view(), name='ticket_update'),
+    path('detail/<int:pk>', TicketDetailView.as_view(), name='ticket_detail'),
 
 ]

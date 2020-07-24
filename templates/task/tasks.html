@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% load bootstrap4 %}
+
 
 {% block title %}タスクの一覧{% endblock %}
 
@@ -7,12 +9,12 @@
  <h2>登録されているタスク</h2>
 
 <ul>
- {% for data in task_list %}
- <li>{{ data.task_name }} : {{ data.price }}</li>
-</ul>
+ {% for data in object_list %}
+ <li><a href="{% url 'task_detail' data.id %}"> {{ data.task_name }} : {{ data.price }}ペイ</a></li>
 {% endfor %}
+</ul>
 
-<p><button><a href="{% url 'task_regist' %}">新しいタスクを登録する</a></button></p>
-<p><button>タスクを削除する</button></p>
+ <p><a href="{% url 'task_regist' %}" class="btn btn-primary">新しいタスクを登録する</a></p>
+ <p><button class="btn btn-primary">タスクを削除する</button></p>
 
 {% endblock %}

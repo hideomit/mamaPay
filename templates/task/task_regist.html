@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load bootstrap4 %}
 
 {% block title %}タスクの登録{% endblock %}
 
@@ -6,6 +7,11 @@
 
  <h2>新しいタスクを登録する</h2>
 
-<p></p><button>登録する</button></p>
+<form method="post">
+ {% csrf_token %}
+ {# csrf_token はpostメソッドを使うときは必ず入れる #}
+  {% bootstrap_form form %}
+ <button type="submit" class="btn btn-primary">登録する</button>
+</form>
 
 {% endblock %}
