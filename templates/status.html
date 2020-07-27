@@ -6,6 +6,13 @@
 
 <h2>ステータス管理</h2>
 
-<p><button><a href="{% url 'status_change' %}">{{ user.get_username }}ママ</a></button></p>
+<ul>
+{% for data in object_list %}
+    <li><a href="{% url 'status_change' data.id %}">{{ data.name }}</a></li>
+{% endfor %}
+</ul>
+
+
+<p><button>{{ user.get_username }}ママ</button></p>
 
 {% endblock %}

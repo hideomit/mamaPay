@@ -4,9 +4,23 @@
 
 {% block content %}
 
-<h2>たろう</h2>
+<h2>{{ context.0.name }}</h2>
 
-<h2>たろうの申請</h2>
+<table border="1">
+    <tr>
+        <th>なまえ</th>
+        <th>親ユーザー</th>
+    </tr>
+    {% for data in context %}
+    <tr>
+        <th>{{data.name}}</th>
+        <th>{{data.puser}}</th>
+    </tr>
+    {% endfor %}
+</table>
+
+
+<h2>{{ context.0.name }}の申請</h2>
 
 <p><button>承認する</button></p>
 <p><button><a href="{% url 'children_history' %}">履歴を見る</a></button></p>

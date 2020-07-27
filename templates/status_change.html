@@ -1,14 +1,22 @@
 {% extends "base.html" %}
+{% load bootstrap4 %}
 
 {% block title %}ステータス変更{% endblock %}
 
 {% block content %}
 
+
 {{ user.get_username }}のステータス
 
-<p><button>写真アップロード</button></p>
+<h2>写真アップロード</h2>
 
+<form method="post" action="{% url 'status_update' child.id %}">
+ {% csrf_token %}
+ {# csrf_token はpostメソッドを使うときは必ず入れる #}
 
-<p><button>ステータス変更</button></p>
+ <input type="text" value="{{ child.name }}" name="name">
+
+<button class="btn btn-outline-primary" type="submit">ステータス変更</button>
+</form>
 
 {% endblock %}

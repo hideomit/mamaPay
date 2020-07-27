@@ -4,6 +4,28 @@
 
 {% block content %}
 
-<h2>たろうの履歴</h2>
+ <h4 class="mt-4 border-bottom">たろうの履歴</h4>
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">日時</th>
+          <th scope="col">タスク名</th>
+          <th scope="col">チケット名</th>
+          <th scope="col">金額</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for data in object_list %}
+        <tr>
+          <th scope="row">{{ data.id }}</th>
+          <td>{{ data.ymd }}</td>
+          <td>{{ data.task }}</td>
+          <td>{{ data.ticket }}</td>
+          <td>{{ data.amount }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
 
 {% endblock %}

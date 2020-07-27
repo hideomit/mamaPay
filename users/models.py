@@ -3,6 +3,7 @@ from django.db import models
 # Create your models here.
 # 共通カラムを定義（appを超えるのは不可？）
 from accounts.models import Parent
+from task.models import Task
 from ticket.models import Ticket
 
 
@@ -25,13 +26,14 @@ class Child(CommonColumnModel):
         #テーブル名を定義
         db_table = 'cuser'
 
-    #テーブルのカラムに対応するフィールドを定義 appを超えたFKははれない？
+    #テーブルのカラムに対応するフィールドを定義 appを超えたFKははれない？⇒　importすればよい
     puser = models.ForeignKey(Parent, verbose_name='親ユーザーID', on_delete=models.CASCADE)
     name = models.CharField(verbose_name='名前', max_length=255)
-    photo = models.ImageField(verbose_name='写真', max_length=255, upload_to='child/')
+    photo = models.ImageField(verbose_name='写真', null=True, max_length=255, upload_to='Child/')
 
-    def __str__(self):
-        return self.name
+#    def __str__(self):
+#        return str(self.name)
+
 
 class Balance(CommonColumnModel):
     """残高"""
@@ -42,9 +44,8 @@ class Balance(CommonColumnModel):
     cuser = models.ForeignKey(Child, verbose_name='子ユーザーID', on_delete=models.CASCADE)
     balance = models.IntegerField(verbose_name='残高', default=0)
 
-    def __str__(self):
-        return self.cuser
-
+ #   def __str__(self):
+ #       return str(self.cuser)
 
 class Ticket_holding(CommonColumnModel):
     """保有チケット"""
@@ -57,7 +58,7 @@ class Ticket_holding(CommonColumnModel):
     used_flg = models.IntegerField(verbose_name='利用フラグ', default=0)
 
     def __str__(self):
-        return self.balance
+        return str(self.balance)
 
 class Request(CommonColumnModel):
     """リクエスト・承認"""
@@ -67,23 +68,25 @@ class Request(CommonColumnModel):
 
     cuser = models.ForeignKey(Child, verbose_name='子ユーザーID', on_delete=models.CASCADE)
     puser = models.ForeignKey(Parent, verbose_name='親ユーザーID', on_delete=models.CASCADE)
-#    task = models.ForeignKey(Task, verbose_name='タスクID', on_delete=models.CASCADE)
+    task = models.ForeignKey(Task, verbose_name='タスクID', on_delete=models.CASCADE)
     status = models.CharField(verbose_name='ステータス', max_length=255)
 
     def __str__(self):
-        return self.cuser
+        return str(self.cuser)
 
 class History(CommonColumnModel):
     class Meta:
         #テーブル名を定義
         db_table = 'history'
-
-  #  task = models.ForeignKey(Task, verbose_name='タスクID', on_delete=models.CASCADE)
+    ymd = models.DateTimeField(verbose_name='入出金日時')
+    cuser = models.ForeignKey(Child, verbose_name='子ユーザーID', on_delete=models.CASCADE)
+    task = models.ForeignKey(Task, verbose_name='タスクID', on_delete=models.CASCADE)
     ticket = models.ForeignKey(Ticket, verbose_name='チケットID', on_delete=models.CASCADE)
     amount = models.IntegerField(verbose_name='金額', default=0)
 
     def __str__(self):
-        return self.ymd
+        return str(self.ymd)
+
 
 class History_ticket(CommonColumnModel):
     class Meta:
@@ -94,4 +97,4 @@ class History_ticket(CommonColumnModel):
     ticket_holding = models.ForeignKey(Ticket_holding, verbose_name='チケット保有ID', on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.ymd
+        return str(self.ymd)

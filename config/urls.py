@@ -18,6 +18,7 @@ from django.urls import include, path
 from django.views.generic import TemplateView
 from django.contrib.auth import views
 
+from accounts.views import ChildStatusListView, ChildStatusDetailView, ChildStatusUpdateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,8 +29,9 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
     path('admin_home/', TemplateView.as_view(template_name='admin_home.html'), name='admin_home'),
-    path('status/', TemplateView.as_view(template_name='status.html'), name='status'),
-    path('status/change', TemplateView.as_view(template_name='status_change.html'), name='status_change'),
+    path('status/', ChildStatusListView.as_view(), name='status'),
+    path('status/change/<int:pk>/', ChildStatusDetailView.as_view(), name='status_change'),
+    path('status/update/<int:pk>/', ChildStatusUpdateView.as_view(), name='status_update'),
     path('accounts/login/', views.LoginView.as_view(), name='login'),
     path('accounts/password_change/', views.PasswordChangeView.as_view(), name="password_change"),
     path('accounts/password_change/done/', views.PasswordChangeDoneView.as_view(), name='password_change_done'),

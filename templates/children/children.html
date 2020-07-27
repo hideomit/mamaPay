@@ -9,7 +9,7 @@
 
 <ul>
  {% for data in object_list %}
- <li>{{ data.name }}</li>
+ <li><a href="{% url 'child_status' data.id %}">{{ data.name }}</a></li>
 {% endfor %}
 </ul>
 

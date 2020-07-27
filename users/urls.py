@@ -1,13 +1,14 @@
 from django.views.generic import TemplateView
 from django.urls import path
 
-from users.views import ChildListView
+from accounts.views import ChildStatusGetView
+from users.views import ChildListView, ChildRegistView, ChildDetailView, ChildInputView
 
 urlpatterns = [
 
     path('children/', ChildListView.as_view(), name='children'),
-    path('children/regist/', TemplateView.as_view(template_name='children/children_regist.html'), name='children_regist'),
-    path('children/status/', TemplateView.as_view(template_name='children/child_status.html'), name='child_status'),
+    path('children/regist/', ChildInputView.as_view(), name='children_regist'),
+#    path('children/status/<int:pk>', ChildDetailView.as_view(), name='child_status'),
+    path('children/status/<int:pk>', ChildStatusGetView.as_view(), name='child_status'),
     path('children/history/', TemplateView.as_view(template_name='children/child_history.html'), name='children_history'),
-
 ]

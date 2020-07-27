@@ -5,14 +5,15 @@
 
 {% block content %}
 
-<p><button>写真のアップロード</button></p>
+<h2>写真のアップロード</h2>
 
 
-<form method="post">
+<form method="post" enctype="multipart/form-data">
 {% csrf_token %}
  {# csrf_token はpostメソッドを使うときは必ず入れる #}
- {% bootstrap_form form %}
+ {# {% bootstrap_form form %} #}
 
+ {{ form.as_p }}
 
  <button class="btn btn-primary" type="submit">登録する</button>
 </form>
