@@ -7,14 +7,19 @@
 
  <h2>登録されているチケット</h2>
 
-<ul>
- {% for data in object_list %}
-  <li><a href="{% url 'ticket_detail' data.id %}">{{ data.ticket_name }} : {{ data.price }}ペイ</a></li>
- {% endfor %}
-</ul>
+<form method="post" action="{% url 'selected_ticket_delete' %}">
+{% csrf_token %}
 
+<p>
+ {% for data in object_list %}
+  <input type="checkbox" name="delete_list" value="{{ data.id }}">
+   <a href="{% url 'ticket_detail' data.id %}">{{ data.ticket_name }} : {{ data.price }}ペイ</a><br>
+ {% endfor %}
+</p>
 
 <p><button class="btn btn-outline-primary"><a href="{% url 'ticket_regist' %}">新しいチケットを登録する</a></button></p>
 <p><button class="btn btn-outline-primary">チケットを削除する</button></p>
+
+ </form>
 
 {% endblock %}

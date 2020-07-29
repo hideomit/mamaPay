@@ -80,8 +80,8 @@ class History(CommonColumnModel):
         db_table = 'history'
     ymd = models.DateTimeField(verbose_name='入出金日時')
     cuser = models.ForeignKey(Child, verbose_name='子ユーザーID', on_delete=models.PROTECT)
-    task = models.ForeignKey(Task, verbose_name='タスクID', on_delete=models.PROTECT, null=True)
-    ticket = models.ForeignKey(Ticket, verbose_name='チケットID', on_delete=models.PROTECT, null=True)
+    task = models.ForeignKey(Task, verbose_name='タスクID', on_delete=models.PROTECT, null=True, blank=True)
+    ticket = models.ForeignKey(Ticket, verbose_name='チケットID', on_delete=models.PROTECT, null=True, blank=True)
     amount = models.IntegerField(verbose_name='金額', default=0)
 
     def __str__(self):

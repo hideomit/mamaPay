@@ -1,5 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import ListView, TemplateView, CreateView, DeleteView, UpdateView, DetailView
@@ -49,9 +49,12 @@ class TaskRegistView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('tasks') ##reverse_lazy　name=に逆びきする。アプリ名左側
 
 
-class TaskDeleteView(LoginRequiredMixin, DeleteView):##deleteviewはtemplatenameいらない
-    model = Task
-    success_url = reverse_lazy('tasks')
+class TaskDeleteView(LoginRequiredMixin, View):##deleteviewはtemplatenameいらない
+
+    def post(self, request, *args, **kwargs):
+        delete_list = request.POST.getlist('delete_list') #単品はrequest.POST.get 複数はrequest.POST.getlist
+        Task.objects.filter(id__in=delete_list).delete() #複数の場合は__in=
+        return redirect(reverse_lazy('tasks'))
 
 
 class TaskUpdateView(LoginRequiredMixin, UpdateView):

@@ -43,7 +43,7 @@ class ChildInputView(LoginRequiredMixin, View):
             return render(request, 'children/children_regist.html', {'form': form})
 
         child = form.save(commit=False)
-        child.submitter = self.request.user
+        child.puser = self.request.user ##request.userはログインユーザー
         child.save()
 
         return redirect(reverse('children'))

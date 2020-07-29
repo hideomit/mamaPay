@@ -8,13 +8,20 @@
 
  <h2>登録されているタスク</h2>
 
-<ul>
+<form method="post" action="{% url 'selected_task_delete' %}">
+{% csrf_token %}
+
+<p>
  {% for data in object_list %}
- <li><a href="{% url 'task_detail' data.id %}"> {{ data.task_name }} : {{ data.price }}ペイ</a></li>
-{% endfor %}
-</ul>
+
+ <input type="checkbox" name="delete_list" value="{{ data.id }}">
+  <a href="{% url 'task_detail' data.id %}"> {{ data.task_name }} : {{ data.price }}ペイ</a><br>
+
+ {% endfor %}
+</p>
 
  <p><a href="{% url 'task_regist' %}" class="btn btn-primary">新しいタスクを登録する</a></p>
  <p><button class="btn btn-primary">タスクを削除する</button></p>
+ </form>
 
 {% endblock %}

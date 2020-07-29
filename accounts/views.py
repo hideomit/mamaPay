@@ -4,6 +4,7 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import CreateView, ListView, UpdateView, DetailView
 
+from users.forms import ChildModelForm
 from users.models import Child, Balance, Request
 from .forms import SignupForm, ChildStatusModelForm
 
@@ -41,5 +42,10 @@ class ChildStatusUpdateView(LoginRequiredMixin, UpdateView):
 
 class ChildStatusDetailView(LoginRequiredMixin, DetailView):
     template_name = 'children\children_change.html'
+  #  form_class = ChildModelForm
     model = Child
 
+    def get(self, request, *args, **kwargs):
+        child = Child.objects.get(id=kwargs['pk']) ##getは1件⇒1レコード、filterは複数⇒query set
+        form = ChildModelForm(initial={'name': child.name, 'photo': child.photo})
+        return render(request, self.template_name, {'form': form})

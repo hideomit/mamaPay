@@ -7,11 +7,11 @@
  <h2>こどもステータス変更</h2>
 {{ child.name }}のステータス
 
-<form method="post" action="{% url 'child_update' child.id %}">
+<form method="post" action="{% url 'children_regist' %}" enctype="multipart/form-data">
  {% csrf_token %}
 
-  <input type="text" value="{{ child.name }}" name="name">
-
+ {# <input type="text" value="{{ child.name }}" name="name"> #}
+ {{ form.as_p }}
 
  <p><input type="submit" value="変更する" class="btn btn-primary"></p>
 </form>

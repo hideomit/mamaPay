@@ -1,8 +1,9 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
+from django.views import View
 from django.views.generic import CreateView, DetailView, UpdateView
 from django.views.generic.list import ListView
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 # Create your views here.
 from .forms import TicketModelForm
@@ -34,3 +35,11 @@ class TicketUpdateView(LoginRequiredMixin, UpdateView):
 class TicketDetailView(LoginRequiredMixin, DetailView):
     template_name = 'ticket/ticket_change.html'
     model = Ticket
+
+
+class TicketDeleteView(LoginRequiredMixin, View):
+
+    def post(self, request, *args, **kwargs):
+        delete_list = request.POST.getlist('delete_list')
+        Ticket.objects.filter(id__in=delete_list).delete()
+        return redirect(reverse_lazy('ticket'))
