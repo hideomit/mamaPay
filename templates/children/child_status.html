@@ -4,25 +4,20 @@
 
 {% block content %}
 
-<h2>{{ context.0.name }}</h2>
+<h2>{{ context.0.cuser.name }}</h2>
+<h2>{{ context.0.balance }}ペイ</h2>
 
-<table border="1">
-    <tr>
-        <th>なまえ</th>
-        <th>親ユーザー</th>
-    </tr>
-    {% for data in context %}
-    <tr>
-        <th>{{data.name}}</th>
-        <th>{{data.puser}}</th>
-    </tr>
+<h2>{{ context.0.cuser.name }}の申請</h2>
+
+<form method="post">
+    {% for list in object_list %}
+    <input type="radio" name="apply_task">{{ list.task }}</input>
     {% endfor %}
-</table>
+
+    <p><input type="submit" value="承認する"></p>
+</form>
 
 
-<h2>{{ context.0.name }}の申請</h2>
-
-<p><button>承認する</button></p>
 <p><button><a href="{% url 'children_history' %}">履歴を見る</a></button></p>
 
 {% endblock %}

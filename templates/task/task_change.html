@@ -7,11 +7,8 @@
  <h2>タスクを変更する</h2>
 
 <form method="post" action="{% url 'task_update' task.id %}">
- {#
-  get（参照）だとurlのパラメータにくっついていく。post（更新、削除）だと裏でパラメータがくっつく
-  actionはurl指定
- 　指定しない場合はgetになる。actionはデフォルトだとその画面のURL
-#}
+ {#  get（参照）だとurlのパラメータにくっついていく。post（更新、削除）だと裏でパラメータがくっつく #}
+{#  actionはurl指定  　指定しない場合はgetになる。actionはデフォルトだとその画面のURL #}
 
  {% csrf_token %}
  {# csrf_token はpostメソッドを使うときは必ず入れる #}

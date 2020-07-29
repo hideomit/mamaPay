@@ -31,8 +31,8 @@ class Child(CommonColumnModel):
     name = models.CharField(verbose_name='名前', max_length=255)
     photo = models.ImageField(verbose_name='写真', null=True, max_length=255, upload_to='Child/')
 
-#    def __str__(self):
-#        return str(self.name)
+    def __str__(self):
+        return str(self.name)
 
 
 class Balance(CommonColumnModel):
@@ -44,8 +44,8 @@ class Balance(CommonColumnModel):
     cuser = models.ForeignKey(Child, verbose_name='子ユーザーID', on_delete=models.CASCADE)
     balance = models.IntegerField(verbose_name='残高', default=0)
 
- #   def __str__(self):
- #       return str(self.cuser)
+    def __str__(self):
+        return str(self.cuser)
 
 class Ticket_holding(CommonColumnModel):
     """保有チケット"""
@@ -69,7 +69,7 @@ class Request(CommonColumnModel):
     cuser = models.ForeignKey(Child, verbose_name='子ユーザーID', on_delete=models.CASCADE)
     puser = models.ForeignKey(Parent, verbose_name='親ユーザーID', on_delete=models.CASCADE)
     task = models.ForeignKey(Task, verbose_name='タスクID', on_delete=models.CASCADE)
-    status = models.CharField(verbose_name='ステータス', max_length=255)
+    status = models.IntegerField(verbose_name='ステータス', default=1)
 
     def __str__(self):
         return str(self.cuser)
@@ -79,9 +79,9 @@ class History(CommonColumnModel):
         #テーブル名を定義
         db_table = 'history'
     ymd = models.DateTimeField(verbose_name='入出金日時')
-    cuser = models.ForeignKey(Child, verbose_name='子ユーザーID', on_delete=models.CASCADE)
-    task = models.ForeignKey(Task, verbose_name='タスクID', on_delete=models.CASCADE)
-    ticket = models.ForeignKey(Ticket, verbose_name='チケットID', on_delete=models.CASCADE)
+    cuser = models.ForeignKey(Child, verbose_name='子ユーザーID', on_delete=models.PROTECT)
+    task = models.ForeignKey(Task, verbose_name='タスクID', on_delete=models.PROTECT, null=True)
+    ticket = models.ForeignKey(Ticket, verbose_name='チケットID', on_delete=models.PROTECT, null=True)
     amount = models.IntegerField(verbose_name='金額', default=0)
 
     def __str__(self):

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+
+{% block title %}子供の変更{% endblock %}
+
+{% block content %}
+ <h2>こどもステータス変更</h2>
+{{ child.name }}のステータス
+
+<form method="post" action="{% url 'child_update' child.id %}">
+ {% csrf_token %}
+
+  <input type="text" value="{{ child.name }}" name="name">
+
+
+ <p><input type="submit" value="変更する" class="btn btn-primary"></p>
+</form>
+
+
+{% endblock %}
