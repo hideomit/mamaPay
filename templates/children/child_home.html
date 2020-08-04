@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+
+{% block title %}こどもホーム{% endblock %}
+
+{% block content %}
+
+<h2>{{ child_data.0.name }}</h2>
+
+{% if balance_data.balance == None %}
+<h2>0</h2>
+{% else %}
+<h2>{{ balance_data.balance }}</h2>
+{% endif %}
+
+
+<h2><a href="{% url 'apply_task' child_data.0.id %}">タスクを申請する</a></h2>
+<h2>チケットを使う</h2>
+<h2><a href="{% url 'ticket_shop' child_data.0.id %}">チケットショップ</a></h2>
+<h2>履歴を見る</h2>
+
+{% endblock %}

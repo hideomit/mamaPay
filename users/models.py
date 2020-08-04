@@ -1,3 +1,5 @@
+
+
 from django.db import models
 
 # Create your models here.
@@ -53,7 +55,7 @@ class Ticket_holding(CommonColumnModel):
         #テーブル名を定義
         db_table = 'ticket_holding'
 
-    balance = models.ForeignKey(Balance, verbose_name='残高id', on_delete=models.CASCADE)
+    cuser = models.ForeignKey(Child, verbose_name='子ユーザーid', on_delete=models.CASCADE)
     ticket = models.ForeignKey(Ticket, verbose_name='チケットID', on_delete=models.CASCADE)
     used_flg = models.IntegerField(verbose_name='利用フラグ', default=0)
 

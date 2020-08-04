@@ -7,7 +7,11 @@
 {% if user.is_authenticated %}
 ままペイにようこそ、 {{ user.get_username }}まま
 
-
+<ul>
+{% for data in object_list %}
+    <li><a href="{% url 'child_home' data.id %}">{{ data.name }}</a></li>
+{% endfor %}
+</ul>
 <p><button><a href="{% url 'admin_home' %}">ママ画面</a></button></p>
 
 <p><a href="{% url 'password_change' %}">パスワード変更</a></p>

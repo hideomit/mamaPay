@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+
+{% block title %}チケットショップ{% endblock %}
+
+{% block content %}
+
+<p>{{ child_data.name }}</p>
+<p>{{ balance_data.balance }}</p>
+
+ <h2>チケット一覧</h2>
+
+<form method="post" action="{% url 'selected_ticket_buy' %}">
+{% csrf_token %}
+
+<p>
+ {% for data in object_list %}
+  <input type="checkbox" name="buy_list" value="{{ data.id }}">
+   <a href="{% url 'ticket_detail' data.id %}">{{ data.ticket_name }} : {{ data.price }}ペイ</a><br>
+ {% endfor %}
+</p>
+
+<p><button class="btn btn-outline-primary">チケットを買う</button></p>
+
+ </form>
+
+{% endblock %}

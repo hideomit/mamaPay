@@ -19,7 +19,7 @@ from django.urls import include, path
 from django.views.generic import TemplateView
 from django.contrib.auth import views
 
-from accounts.views import ChildStatusListView, ChildStatusDetailView, ChildStatusUpdateView
+from accounts.views import ChildStatusListView, ChildStatusDetailView, ChildStatusUpdateView, HomeListView
 from config import settings
 
 urlpatterns = [
@@ -29,7 +29,7 @@ urlpatterns = [
     path('tasks/', include('task.urls')),
     path('ticket/', include('ticket.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('', TemplateView.as_view(template_name='home.html'), name='home'),
+    path('', HomeListView.as_view(), name='home'),
     path('admin_home/', TemplateView.as_view(template_name='admin_home.html'), name='admin_home'),
     path('status/', ChildStatusListView.as_view(), name='status'),
     path('status/change/<int:pk>/', ChildStatusDetailView.as_view(), name='status_change'),

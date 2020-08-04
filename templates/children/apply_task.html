@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}タスクの申請{% endblock %}
+
+{% block content %}
+
+<h2>登録されているタスク</h2>
+
+<p>{{ child_data.name }}</p>
+
+<form method="post" action="task_apply_update">
+    {% csrf_token %}
+
+    {% for list in object_list %}
+    <input type="radio" name="apply_task" value="{{ list.id }}">{{ list.task_name }}</input><br>
+    {% endfor %}
+
+    <input type="hidden" name="apply_child_id" value="{{ child_data.id }}" />
+
+    <p><input type="submit" value="申請する"></p>
+</form>
+
+{% endblock %}

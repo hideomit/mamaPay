@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}申請完了{% endblock %}
+
+{% block content %}
+
+<h2>タスクを申請しました。</h2>
+<h2>承認されるまでお待ちください。</h2>
+
+<p>{{ child_data.name }}</p>
+<p>{{ task_data.task_name }}:{{ task_data.price }}</p>
+
+<a href="{% url 'child_home' child_data.id %}">Homeへ</a>
+
+{% endblock %}
