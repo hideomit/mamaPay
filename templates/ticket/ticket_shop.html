@@ -19,6 +19,7 @@
    <a href="{% url 'ticket_detail' data.id %}">{{ data.ticket_name }} : {{ data.price }}ペイ</a><br>
  {% endfor %}
 </p>
+  <input type="hidden" name="child_id" value="{{ child_data.id }}" />
 
 <p><button class="btn btn-outline-primary">チケットを買う</button></p>
 
