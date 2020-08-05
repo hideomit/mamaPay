@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+
+{% block title %}チケットをつかう{% endblock %}
+
+{% block content %}
+
+<p>{{ child_data.name }}</p>
+<p>{{ child_data.balance }}</p>
+
+ <h2>持っているチケット</h2>
+
+<form method="post" action="{% url 'selected_ticket_use' %}">
+{% csrf_token %}
+
+<p>
+ {% for data in object_list %}
+  <input type="checkbox" name="use_list" value="{{ data.ticket_id }}">
+   {{ data.ticket }} <br>
+ {% endfor %}
+</p>
+  <input type="hidden" name="child_id" value="{{ child_data.id }}" />
+
+<p><button class="btn btn-outline-primary">チケットを使う</button></p>
+
+ </form>
+
+{% endblock %}

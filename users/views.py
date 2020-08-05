@@ -48,7 +48,10 @@ class ChildInputView(LoginRequiredMixin, View):
 
         child = form.save(commit=False)
         child.puser = self.request.user  ##request.userはログインユーザー
-        child.save()
+        child.save()  ##childはmodelではなくForm。これでDB登録してる？
+
+        balance = Balance(cuser_id=child.id, balance=0)
+        balance.save()
 
         return redirect(reverse('children'))
 
@@ -72,6 +75,12 @@ class ChildHistoryView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         child_id = self.kwargs['pk']
         return self.model.objects.filter(cuser_id=child_id)
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        child_id = self.kwargs['pk']
+        context['child_data'] = Child.objects.get(id=child_id)
+        return context
 
 
 class ChildHomeView(LoginRequiredMixin, View):
@@ -119,4 +128,4 @@ class TaskApplyCompView(LoginRequiredMixin, View):
         child_data = Child.objects.get(id=self.kwargs['cpk'])
         task_data = Task.objects.get(id=self.kwargs['tpk'])
 
-        return render(request, 'children/apply_complete.html', {'child_data':child_data, 'task_data':task_data})
+        return render(request, 'children/apply_complete.html', {'child_data': child_data, 'task_data': task_data})

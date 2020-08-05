@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+
+{% block title %}チケット利用完了{% endblock %}
+
+{% block content %}
+
+<p>{{ child_data.cuser }}</p>
+<p>{{ child_data.balance }}</p>
+
+ <h2>チケットを使いました</h2>
+
+{% for data in object_list %}
+<p>{{ data.ticket_name }}:{{ data.price }}</p>
+{% endfor %}
+
+
+{% endblock %}

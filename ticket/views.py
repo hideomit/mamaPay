@@ -120,7 +120,7 @@ class TicketBuyView(LoginRequiredMixin, View):
 
             ##履歴を更新
             for buy_ticket in buy_list:
-                history = History(cuser_id=child_id, ticket_id=buy_ticket, amount=-totalAmount)
+                history = History(cuser_id=child_id, ticket_id=buy_ticket, amount=-totalAmount, kind=2)
                 history.ymd = timezone.now()
                 history.save()
 
@@ -130,3 +130,40 @@ class TicketBuyView(LoginRequiredMixin, View):
             return render(request, 'ticket/ticket_shop_complete.html', {'object_list': object_list, 'child_data': child_data})
 
 
+class ChildHoldingTicketView(LoginRequiredMixin, ListView):
+    model = Ticket_holding
+    template_name = 'ticket/use_ticket.html'
+
+    def get_queryset(self):
+        return Ticket_holding.objects.filter(cuser_id=self.kwargs['pk'], used_flg=0)
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        child_id = self.kwargs['pk']
+        pprint(child_id)
+        context['child_data'] = Child.objects.get(id=child_id)
+
+        return context
+
+
+class TicketUseView(LoginRequiredMixin, View):
+
+    def post(self, request, *args, **kwargs):
+        use_list = request.POST.getlist('use_list')
+        child_id = request.POST.get('child_id')
+
+        for ticket in use_list:
+            ##チケット保有リストの更新  ##履歴の更新
+            ticket_holding = Ticket_holding.objects.filter(ticket_id=ticket, cuser_id=child_id).first()
+            ticket_holding.used_flg = 1  ##使用済み
+            history = History(cuser_id=child_id, ticket_id=ticket, kind=3, ticket_holding_id=ticket_holding.id)
+            history.ymd = timezone.now()
+
+            ticket_holding.save()
+            history.save()
+
+        ##返却値を作成
+        object_list = Ticket.objects.filter(id__in=use_list)
+        child_data = Balance.objects.select_related('cuser').get(cuser_id=child_id)
+
+        return render(request, 'ticket/use_ticket_complete.html', {'object_list': object_list, 'child_data': child_data})

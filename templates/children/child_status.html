@@ -4,10 +4,10 @@
 
 {% block content %}
 
-<h2>{{ context.0.cuser.name }}</h2>
-<h2>{{ context.0.balance }}ペイ</h2>
+<h2>{{ balance.cuser }}</h2>
+<h2>{{ balance.balance }}ペイ</h2>
 
-<h2>{{ context.0.cuser.name }}の申請</h2>
+<h2>{{ balance.cuser }}の申請</h2>
 
 <form method="post" action="child_approve">
     {% csrf_token %}
@@ -20,6 +20,6 @@
 </form>
 
 
-{# <p><button><a href="{% url 'children_history' context.0.cuser.id %}">履歴を見る</a></button></p> #}
+{# <p><a href="{% url 'children_history' balance.cuser_id %}">タスクとチケット購入履歴を見る</a></p> #}
 
 {% endblock %}

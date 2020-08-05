@@ -30,11 +30,14 @@ class ChildStatusListView(LoginRequiredMixin, ListView):
 
 class ChildStatusGetView(LoginRequiredMixin, View):
 
- #   def get(self, request, *args, **kwargs):
-    def get(self, request, pk):
-        context = Balance.objects.filter(cuser_id=pk)
-        object_list = Request.objects.filter(cuser_id=pk, status='1')
-        return render(request, 'children\child_status.html', {'context': context, 'object_list': object_list})
+    def get(self, request, *args, **kwargs):
+        try:
+            balance = Balance.objects.select_related('cuser').get(cuser_id=kwargs['pk'])
+        except Balance.DoesNotExist:
+            balance = None
+        object_list = Request.objects.filter(cuser_id=kwargs['pk'], status='1')
+
+        return render(request, 'children\child_status.html', {'balance': balance, 'object_list': object_list})
 
 
 class ChildStatusUpdateView(LoginRequiredMixin, UpdateView):
@@ -84,7 +87,7 @@ class ApproveTaskView(LoginRequiredMixin, View):
             child_balance = Balance(cuser_id=request_child_id, balance=request_task.price)
         child_balance.save()
 
-        createHistory = History(cuser_id=request_child_id, task_id=request_task_id, amount=request_task.price)
+        createHistory = History(cuser_id=request_child_id, task_id=request_task_id, amount=request_task.price, kind=1)
         createHistory.ymd = timezone.now()
         createHistory.save()
 

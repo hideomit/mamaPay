@@ -60,7 +60,7 @@ class Ticket_holding(CommonColumnModel):
     used_flg = models.IntegerField(verbose_name='利用フラグ', default=0)
 
     def __str__(self):
-        return str(self.balance)
+        return str(self.ticket)
 
 class Request(CommonColumnModel):
     """リクエスト・承認"""
@@ -84,19 +84,21 @@ class History(CommonColumnModel):
     cuser = models.ForeignKey(Child, verbose_name='子ユーザーID', on_delete=models.PROTECT)
     task = models.ForeignKey(Task, verbose_name='タスクID', on_delete=models.PROTECT, null=True, blank=True)
     ticket = models.ForeignKey(Ticket, verbose_name='チケットID', on_delete=models.PROTECT, null=True, blank=True)
-    amount = models.IntegerField(verbose_name='金額', default=0)
+    amount = models.IntegerField(verbose_name='金額', null=True, blank=True)
+    ticket_holding = models.ForeignKey(Ticket_holding, verbose_name='保有チケットID', on_delete=models.PROTECT, null=True, blank=True)
+    kind = models.IntegerField(verbose_name='取引種類')
 
     def __str__(self):
         return str(self.ymd)
 
-
-class History_ticket(CommonColumnModel):
-    class Meta:
-        #テーブル名を定義
-        db_table = 'history_ticket'
-
-    ymd = models.DateTimeField(verbose_name='入出金日時')
-    ticket_holding = models.ForeignKey(Ticket_holding, verbose_name='チケット保有ID', on_delete=models.CASCADE)
-
-    def __str__(self):
-        return str(self.ymd)
+# Histotyに統合
+#class History_ticket(CommonColumnModel):
+#    class Meta:
+#        #テーブル名を定義
+#        db_table = 'history_ticket'
+#
+#    ymd = models.DateTimeField(verbose_name='入出金日時')
+#    ticket_holding = models.ForeignKey(Ticket_holding, verbose_name='チケット保有ID', on_delete=models.CASCADE)#
+#
+#    def __str__(self):
+#        return str(self.ymd)

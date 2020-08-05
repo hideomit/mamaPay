@@ -15,8 +15,8 @@
 
 
 <h2><a href="{% url 'apply_task' child_data.0.id %}">タスクを申請する</a></h2>
-<h2>チケットを使う</h2>
+<h2><a href="{% url 'use_ticket' child_data.0.id %}">チケットを使う</a></h2>
 <h2><a href="{% url 'ticket_shop' child_data.0.id %}">チケットショップ</a></h2>
-<h2>履歴を見る</h2>
+<h2><a href="{% url 'children_history' child_data.0.id %}">履歴を見る</a></h2>
 
 {% endblock %}
