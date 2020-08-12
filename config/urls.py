@@ -21,6 +21,7 @@ from django.contrib.auth import views
 
 from accounts.views import ChildStatusListView, ChildStatusDetailView, ChildStatusUpdateView, HomeListView
 from config import settings
+from users.views import ChildDeleteView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -33,6 +34,7 @@ urlpatterns = [
     path('admin_home/', TemplateView.as_view(template_name='admin_home.html'), name='admin_home'),
     path('status/', ChildStatusListView.as_view(), name='status'),
     path('status/change/<int:pk>/', ChildStatusDetailView.as_view(), name='status_change'),
+    path('status/delete/', ChildDeleteView.as_view(), name='selected_child_delete'),
     path('status/update/<int:pk>/', ChildStatusUpdateView.as_view(), name='status_update'),
     path('accounts/login/', views.LoginView.as_view(), name='login'),
     path('accounts/password_change/', views.PasswordChangeView.as_view(), name="password_change"),

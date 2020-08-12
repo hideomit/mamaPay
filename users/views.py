@@ -33,6 +33,17 @@ class ChildRegistView(LoginRequiredMixin, CreateView):
         return super(ChildRegistView, self).form_valid(form)
 
 
+class ChildUpdateView(LoginRequiredMixin, UpdateView):
+    template_name = "children/children_regist.html"
+    model = Child
+    form_class = ChildModelForm
+    success_url = reverse_lazy('children')
+
+    def form_valid(self, form):
+        form.instance.puser_id = self.request.user.id
+        return super(ChildUpdateView, self).form_valid(form)
+
+
 class ChildInputView(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
@@ -54,12 +65,6 @@ class ChildInputView(LoginRequiredMixin, View):
         balance.save()
 
         return redirect(reverse('children'))
-
-
-class ChildUpdateView(LoginRequiredMixin, UpdateView):
-    model = Child
-    form_class = ChildModelForm
-    success_url = reverse_lazy('children')
 
 
 class ChildDetailView(LoginRequiredMixin, DetailView):
@@ -84,11 +89,13 @@ class ChildHistoryView(LoginRequiredMixin, ListView):
 
 
 class ChildHomeView(LoginRequiredMixin, View):
-    def get(self, request, pk):
-        child_data = Child.objects.filter(id=pk)
+    def get(self, request, *args, **kwargs):
+        child_data = Child.objects.get(id=self.kwargs['pk'])
 
-        if Balance.objects.filter(cuser_id=pk).exists():  ##exists()はfilterのmethod? getだと動かなかった
-            balance_data = Balance.objects.get(cuser_id=pk)
+        print(child_data.id)
+
+        if Balance.objects.filter(cuser_id=child_data.id).exists():  ##exists()はfilterのmethod? getだと動かなかった
+            balance_data = Balance.objects.get(cuser_id=child_data.id)
             print(balance_data.balance)
         else:
             balance_data = None
@@ -111,15 +118,20 @@ class ChildApplyView(LoginRequiredMixin, ListView):
 class TaskApplyView(LoginRequiredMixin, View):
 
     def post(self, request, *args, **kwargs):
-        apply_task_id = request.POST.get('apply_task', None)
+        apply_task_list = request.POST.getlist('apply_task_list')
         apply_child_id = request.POST.get('apply_child_id', None)
-        print(apply_task_id)
-        print(apply_child_id)
-        childRequest = Request(cuser_id=apply_child_id, task_id=apply_task_id, status=1)
-        childRequest.puser = self.request.user
-        childRequest.save()
 
-        return redirect('apply_task_complete', apply_child_id, apply_task_id)
+        for apply_task in apply_task_list:
+            ##申請リストの更新
+            childRequest = Request(cuser_id=apply_child_id, task_id=apply_task, status=1)
+            childRequest.puser = self.request.user
+            childRequest.save()
+
+        request_list = Request.objects.select_related('task').filter(cuser_id=apply_child_id, status=1)
+        child_data = Child.objects.get(id=apply_child_id)
+
+        return render(request, 'children/apply_complete.html',
+                      {'child_data': child_data, 'request_list': request_list})
 
 
 class TaskApplyCompView(LoginRequiredMixin, View):
@@ -129,3 +141,11 @@ class TaskApplyCompView(LoginRequiredMixin, View):
         task_data = Task.objects.get(id=self.kwargs['tpk'])
 
         return render(request, 'children/apply_complete.html', {'child_data': child_data, 'task_data': task_data})
+
+
+class ChildDeleteView(LoginRequiredMixin, View):
+
+    def post(self, request, *args, **kwargs):
+        delete_list = request.POST.getlist('delete_list')
+        Child.objects.filter(id__in=delete_list).delete()
+        return redirect(reverse_lazy('status'))

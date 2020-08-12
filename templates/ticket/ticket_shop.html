@@ -16,7 +16,7 @@
 <p>
  {% for data in object_list %}
   <input type="checkbox" name="buy_list" value="{{ data.id }}">
-   <a href="{% url 'ticket_detail' data.id %}">{{ data.ticket_name }} : {{ data.price }}ペイ</a><br>
+   {{ data.ticket_name }} : {{ data.price }}ペイ<br>
  {% endfor %}
 </p>
   <input type="hidden" name="child_id" value="{{ child_data.id }}" />
@@ -24,5 +24,7 @@
 <p><button class="btn btn-outline-primary">チケットを買う</button></p>
 
  </form>
+
+<a href="{% url 'child_home' child_data.id %}">Homeへ</a>
 
 {% endblock %}

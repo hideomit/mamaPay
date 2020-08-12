@@ -1,5 +1,6 @@
 
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db import transaction
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.utils import timezone
@@ -65,30 +66,36 @@ class HomeListView(LoginRequiredMixin, ListView):
 
 class ApproveTaskView(LoginRequiredMixin, View):
 
+    @transaction.atomic
+    def task_data_save(self, request_id_list):
+
+        for request_id in request_id_list:
+            applyRequests = Request.objects.get(id=request_id)
+            applyRequests.status = 2  ##1が未承認、2が承認
+            applyRequests.save()
+
+            request_child_id = applyRequests.cuser_id
+            #        print(request_child_id)
+
+            request_task_id = applyRequests.task_id  ## 'task'だとtask名が、'task_id'だとidが取れる・・・
+            #       print(request_task_id)
+
+            request_task = Task.objects.get(id=request_task_id)
+            #      print(request_task.price)
+
+            if Balance.objects.filter(cuser_id=request_child_id).exists():
+                child_balance = Balance.objects.get(cuser_id=request_child_id)
+                child_balance.balance = child_balance.balance + request_task.price
+            else:
+                child_balance = Balance(cuser_id=request_child_id, balance=request_task.price)
+            child_balance.save()
+
+            createHistory = History(cuser_id=request_child_id, task_id=request_task_id, amount=request_task.price, kind=1)
+            createHistory.ymd = timezone.now()
+            createHistory.save()
+
     def post(self, request, *args, **kwargs):
-        request_id = request.POST.get('approve_task', None)
-        applyRequests = Request.objects.get(id= request_id)
-        applyRequests.status = 2 ##1が未承認、2が承認
-        applyRequests.save()
-
-        request_child_id = applyRequests.cuser_id
-#        print(request_child_id)
-
-        request_task_id = applyRequests.task_id ## 'task'だとtask名が、'task_id'だとidが取れる・・・
-#       print(request_task_id)
-
-        request_task = Task.objects.get(id=request_task_id)
-#      print(request_task.price)
-
-        if Balance.objects.filter(cuser_id=request_child_id).exists():
-            child_balance = Balance.objects.get(cuser_id=request_child_id)
-            child_balance.balance = child_balance.balance + request_task.price
-        else:
-            child_balance = Balance(cuser_id=request_child_id, balance=request_task.price)
-        child_balance.save()
-
-        createHistory = History(cuser_id=request_child_id, task_id=request_task_id, amount=request_task.price, kind=1)
-        createHistory.ymd = timezone.now()
-        createHistory.save()
+        request_id_list = request.POST.getlist('approve_task_list')
+        self.task_data_save(request_id_list)
 
         return redirect(reverse('children'))

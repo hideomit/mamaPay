@@ -14,5 +14,6 @@
 <p>{{ data.ticket_name }}:{{ data.price }}</p>
 {% endfor %}
 
+<a href="{% url 'child_home' child_data.cuser_id %}">Homeへ</a>
 
 {% endblock %}

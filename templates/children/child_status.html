@@ -13,13 +13,14 @@
     {% csrf_token %}
 
     {% for list in object_list %}
-    <input type="radio" name="approve_task" value="{{ list.id }}">{{ list.task }}</input><br>
+    <input type="checkbox" name="approve_task_list" value="{{ list.id }}">{{ list.task }}</input><br>
     {% endfor %}
 
-    <p><input type="submit" value="承認する"></p>
+    <p><button class="btn btn-outline-primary">承認する</button></p>
 </form>
 
 
 {# <p><a href="{% url 'children_history' balance.cuser_id %}">タスクとチケット購入履歴を見る</a></p> #}
+<h2><a href="{% url 'admin_home' %}">ホームに戻る</a></h2>
 
 {% endblock %}

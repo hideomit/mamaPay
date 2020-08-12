@@ -5,7 +5,7 @@
 
 {% block content %}
 
-<h2>{{ child_data.0.name }}</h2>
+<h2>{{ child_data.name }}</h2>
 
 {% if balance_data.balance == None %}
 <h2>0</h2>
@@ -14,9 +14,10 @@
 {% endif %}
 
 
-<h2><a href="{% url 'apply_task' child_data.0.id %}">タスクを申請する</a></h2>
-<h2><a href="{% url 'use_ticket' child_data.0.id %}">チケットを使う</a></h2>
-<h2><a href="{% url 'ticket_shop' child_data.0.id %}">チケットショップ</a></h2>
-<h2><a href="{% url 'children_history' child_data.0.id %}">履歴を見る</a></h2>
+ <h2><a href="{% url 'apply_task' child_data.id %}">タスクを申請する</a></h2>
+ <h2><a href="{% url 'use_ticket' child_data.id %}">チケットを使う</a></h2>
+ <h2><a href="{% url 'ticket_shop' child_data.id %}">チケットショップ</a></h2>
+ <h2><a href="{% url 'children_history' child_data.id %}">履歴を見る</a></h2>
+ <h2><a href="{% url 'home' %}">ホームに戻る</a></h2>
 
 {% endblock %}

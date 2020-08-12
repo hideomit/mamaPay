@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'ticket.apps.TicketConfig',
     'task.apps.TaskConfig',
+    'batch.apps.BatchConfig',
 ]
 
 MIDDLEWARE = [
@@ -155,6 +156,14 @@ LOGGING = {
             'maxBytes': 1024 * 1024 * 1024,
             'backupCount': 2,
         },
+        'file_batch': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(LOG_BASE_DIR, 'batch.log'),
+            'formatter': 'develop',
+            'maxBytes': 1024 * 1024 * 1024,
+            'backupCount': 2,
+        },
         'console': {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
@@ -164,8 +173,13 @@ LOGGING = {
     # ロガー
     'loggers': {
         # 自作アプリ全般のログを拾うロガー
-        '': {
+        'app': {
             'handlers': ['file', 'console'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        'batch': {
+            'handlers': ['file_batch', 'console'],
             'level': 'DEBUG',
             'propagate': False,
         },

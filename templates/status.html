@@ -6,13 +6,23 @@
 
 <h2>ステータス管理</h2>
 
-<ul>
-{% for data in object_list %}
-    <li><a href="{% url 'status_change' data.id %}">{{ data.name }}</a></li>
-{% endfor %}
-</ul>
+<form method="post" action="{% url 'selected_child_delete' %}">
+{% csrf_token %}
 
+<p>
+ {% for data in object_list %}
+
+ <input type="checkbox" name="delete_list" value="{{ data.id }}">
+  <a href="{% url 'status_change' data.id %}"> {{ data.name }}</a><br>
+
+ {% endfor %}
+</p>
+
+<p><button class="btn btn-primary">こどもを削除する</button></p>
+</form>
 
 <p><a href="">{{ user.get_username }}ママ</a></p>
+
+<h2><a href="{% url 'admin_home' %}">ホームに戻る</a></h2>
 
 {% endblock %}

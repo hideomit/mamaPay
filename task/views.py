@@ -17,7 +17,7 @@ from .models import Task
 class TaskListView(LoginRequiredMixin, ListView):
 #    model = Task ##ここのテーブルのデータがくる　object_listという名前
     template_name = 'task/tasks.html'
-    pagenate_by = 10
+    paginate_by = 10
 
     def get_queryset(self):
         return Task.objects.all()

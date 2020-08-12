@@ -8,7 +8,12 @@
 <h2>承認されるまでお待ちください。</h2>
 
 <p>{{ child_data.name }}</p>
-<p>{{ task_data.task_name }}:{{ task_data.price }}</p>
+
+<h2>未承認のタスク</h2>
+
+{% for request in request_list %}
+<p>{{ request.task.task_name }}:{{ request.task.price }}</p>
+{% endfor %}
 
 <a href="{% url 'child_home' child_data.id %}">Homeへ</a>
 

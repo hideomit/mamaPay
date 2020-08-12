@@ -120,7 +120,8 @@ class TicketBuyView(LoginRequiredMixin, View):
 
             ##履歴を更新
             for buy_ticket in buy_list:
-                history = History(cuser_id=child_id, ticket_id=buy_ticket, amount=-totalAmount, kind=2)
+                ticket_price = Ticket.objects.get(id=buy_ticket).price
+                history = History(cuser_id=child_id, ticket_id=buy_ticket, amount=-ticket_price, kind=2)
                 history.ymd = timezone.now()
                 history.save()
 
@@ -154,12 +155,13 @@ class TicketUseView(LoginRequiredMixin, View):
 
         for ticket in use_list:
             ##チケット保有リストの更新  ##履歴の更新
-            ticket_holding = Ticket_holding.objects.filter(ticket_id=ticket, cuser_id=child_id).first()
-            ticket_holding.used_flg = 1  ##使用済み
+            ticket_holding = Ticket_holding.objects.filter(ticket_id=ticket, cuser_id=child_id, used_flg=0).first()
+            ticket_holding.used_flg = '1'  ##使用済み
+            print(ticket_holding.used_flg)
+            ticket_holding.save()
+
             history = History(cuser_id=child_id, ticket_id=ticket, kind=3, ticket_holding_id=ticket_holding.id)
             history.ymd = timezone.now()
-
-            ticket_holding.save()
             history.save()
 
         ##返却値を作成

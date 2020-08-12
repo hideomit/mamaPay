@@ -8,16 +8,21 @@
 
 <p>{{ child_data.name }}</p>
 
-<form method="post" action="task_apply_update">
+<form method="post" action="{% url 'task_apply_update' %}">
     {% csrf_token %}
 
+{#  use_ticketをベースにつくりなおす #}
+
     {% for list in object_list %}
-    <input type="radio" name="apply_task" value="{{ list.id }}">{{ list.task_name }}</input><br>
+    <input type="checkbox" name="apply_task_list" value="{{ list.id }}">{{ list.task_name }}</input><br>
     {% endfor %}
 
     <input type="hidden" name="apply_child_id" value="{{ child_data.id }}" />
 
-    <p><input type="submit" value="申請する"></p>
+    {# <p><input type="submit" value="申請する"></p> #}
+    <p><button class="btn btn-outline-primary">申請する</button></p>
 </form>
+
+<a href="{% url 'child_home' child_data.id %}">Homeへ</a>
 
 {% endblock %}
