@@ -59,6 +59,7 @@ class ChildInputView(LoginRequiredMixin, View):
 
         child = form.save(commit=False)
         child.puser = self.request.user  ##request.userはログインユーザー
+        child.id = self.kwargs['pk'] ##saveはidがないとcreateになる。idがあれば更新になる
         child.save()  ##childはmodelではなくForm。これでDB登録してる？
 
         balance = Balance(cuser_id=child.id, balance=0)

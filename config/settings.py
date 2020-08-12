@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'ticket.apps.TicketConfig',
     'task.apps.TaskConfig',
     'batch.apps.BatchConfig',
+    'rest_framework',
+    'rest_framework_swagger'
 ]
 
 MIDDLEWARE = [
@@ -219,3 +221,9 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 #######################
 
 AUTH_USER_MODEL = 'accounts.Parent'
+
+
+
+REST_FRAMEWORK = {
+  'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
+}

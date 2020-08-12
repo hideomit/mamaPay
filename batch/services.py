@@ -52,7 +52,7 @@ class SummaryService:
         month_next_day = timezone.make_aware(datetime.datetime(dt.year, next_month, 1))
 
         q_this_month = Q(history__ymd__range=(month_first_day, month_next_day))
-        monthly_amount = Child.objects.filter(q_this_month).annotate(Count('history'), Sum('history__amount'))  ##annotate
+        monthly_amount = Child.objects.filter(q_this_month).annotate(Count('history'), Sum('history__amount'))  ##annotate=groupbyなどを利用するとき
 
 #        print(monthly_amount[0].id)
 

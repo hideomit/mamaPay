@@ -30,6 +30,7 @@ urlpatterns = [
     path('tasks/', include('task.urls')),
     path('ticket/', include('ticket.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('api_v1/', include('api_v1.urls')),
     path('', HomeListView.as_view(), name='home'),
     path('admin_home/', TemplateView.as_view(template_name='admin_home.html'), name='admin_home'),
     path('status/', ChildStatusListView.as_view(), name='status'),

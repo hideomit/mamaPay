@@ -55,7 +55,7 @@ class ChildStatusDetailView(LoginRequiredMixin, DetailView):
     def get(self, request, *args, **kwargs):
         child = Child.objects.get(id=kwargs['pk']) ##getは1件⇒1レコード、filterは複数⇒query set
         form = ChildModelForm(initial={'name': child.name, 'photo': child.photo})
-        return render(request, self.template_name, {'form': form})
+        return render(request, self.template_name, {'form': form, 'data': child})
 
 
 class HomeListView(LoginRequiredMixin, ListView):
