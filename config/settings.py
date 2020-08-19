@@ -225,5 +225,13 @@ AUTH_USER_MODEL = 'accounts.Parent'
 
 
 REST_FRAMEWORK = {
-  'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
+  'DEFAULT_SCHEMA_CLASS': ('rest_framework.schemas.coreapi.AutoSchema'),
+  'DEFAULT_PARSER_CLASSES': (
+        'rest_framework.parsers.FormParser',
+        'rest_framework.parsers.MultiPartParser',
+        'rest_framework.parsers.JSONParser',),
+}
+
+SWAGGER_SETTINGS = {
+    'JSON_EDITER': True
 }
