@@ -11,10 +11,11 @@
 
 <p>
  {% for data in object_list %}
-
- <input type="checkbox" name="delete_list" value="{{ data.id }}">
-  <a href="{% url 'status_change' data.id %}"> {{ data.name }}</a><br>
-
+ <div class="custom-control custom-switch">
+ <input type="checkbox" class="custom-control-input" id="switch{{ data.id }}" name="delete_list" value="{{ data.id }}">
+ <label class="custom-control-label" for="switch{{ data.id }}">
+ <a href="{% url 'status_change' data.id %}"> {{ data.name }}</a>
+ </label></div>
  {% endfor %}
 </p>
 

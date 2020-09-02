@@ -75,3 +75,7 @@ class ChildSerializer(serializers.ModelSerializer):
         fields = ['id', 'puser', 'name', 'photo']
 
 
+class TaskApproveSerializer(serializers.Serializer):
+
+    request_id_list = serializers.ListField(label='承認IDリスト')
+

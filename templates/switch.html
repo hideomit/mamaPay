@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}グラフ{% endblock %}
+
+{% block content %}
+
+
+  <br/><br/>
+  <div class="container-fluid">
+
+    <!-- フォームの実装｜ここから -->
+	<form class="needs-validation" novalidate>
+	  <div class="form-row">
+	    <div class="col-md-4 mb-3">
+	      <label for="userName">ユーザー名</label>
+	      <input type="text" class="form-control" id="userName" value="ユーザー名" required>
+	      <div class="valid-tooltip">
+	        OK!
+	      </div>
+	    </div>
+	  </div>
+	  <div class="form-row">
+  	    <div class="col-md-4 mb-3">
+      	  <label for="password">パスワード</label>
+          <input type="password" class="form-control" id="password" required>
+	      <div class="valid-tooltip">
+	        OK!
+	      </div>
+	    </div>
+	  </div>
+	  <div class="form-row">
+	    <div class="col-md-4 mb-3">
+	      <!-- レンジ -->
+		  <label for="range">サービスの満足度を教えてね！</label>
+		  <input type="range" class="custom-range" id="range">
+		</div>
+	  </div>
+	  <!-- 切り替えスイッチ -->
+	  <div class="custom-control custom-switch">
+	    <input type="checkbox" class="custom-control-input" id="switch1">
+	    <label class="custom-control-label" for="switch1">お知らせメールを配信1</label>
+	  </div><br/>
+		  <div class="custom-control custom-switch">
+	    <input type="checkbox" class="custom-control-input" id="switch2">
+	    <label class="custom-control-label" for="switch2">お知らせメールを配信2</label>
+	  </div><br/>
+		  <div class="custom-control custom-switch">
+	    <input type="checkbox" class="custom-control-input" id="switch3">
+	    <label class="custom-control-label" for="switch3">お知らせメールを配信3</label>
+	  </div><br/>
+	  <button class="btn btn-primary" type="submit">フォームを送信</button>
+	</form>
+	<!-- フォームの実装｜ここまで -->
+  </div>
+
+
+{% endblock %}

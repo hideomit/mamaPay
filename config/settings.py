@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'task.apps.TaskConfig',
     'batch.apps.BatchConfig',
     'rest_framework',
-    'rest_framework_swagger'
+    'rest_framework_swagger',
+    'django.contrib.humanize'
 ]
 
 MIDDLEWARE = [
@@ -235,3 +236,5 @@ REST_FRAMEWORK = {
 SWAGGER_SETTINGS = {
     'JSON_EDITER': True
 }
+
+NUMBER_GROUPING = 3

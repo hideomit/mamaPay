@@ -5,12 +5,51 @@
 {% block content %}
 
  {{ user.get_username }}ままの管理画面
+<!-- NEWS-->
+<div class="py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                <h3>お知らせ</h3>
+            </div>
+            <div class="col-md-10">
+                <dl class="row">
+                    <dt class="col-md-3">2020年09月01日</dt>
+                    <dd class="col-md-9">mamapayサービス開始しました</dd>
+                    <dt class="col-md-3">2020年09月01日</dt>
+                    <dd class="col-md-9">mamapayサービス開始しました</dd>
+                    <dt class="col-md-3">2020年09月01日</dt>
+                    <dd class="col-md-9">mamapayサービス開始しました</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
 
+<div class="container">
+ <div class="row" >
+   <div class="col-md-3 mb-3">
+    <button type="button" class="btn btn-outline-primary w-100 btn-lg" onclick="location.href='{% url 'tasks' %}'"><i class="fas fa-chalkboard-teacher mr-1"></i>タスクの登録</button>
+   </div>
+   <div class="col-md-3 mb-3">
+    <button type="button" class="btn btn-outline-success w-100 btn-lg" onclick="location.href='{% url 'ticket' %}'"><i class="fas fa-ticket-alt mr-1"></i>チケットの登録</button>
+   </div>
+   <div class="col-md-3 mb-3">
+    <button type="button" class="btn btn-outline-danger w-100 btn-lg" onclick="location.href='{% url 'children' %}'"><i class="fas fa-thumbs-up mr-1"></i>承認する</button>
+   </div>
+   <div class="col-md-3 mb-3">
+    <button type="button" class="btn btn-outline-warning w-100 btn-lg" onclick="location.href='{% url 'status' %}'"><i class="fas fa-user-cog mr-1"></i>ステータス管理</button>
+   </div>
+ </div>
+</div>
+
+<!--
 <p><button><a href="{% url 'tasks' %}">タスクの登録</a></button></p>
 <p><button><a href="{% url 'ticket' %}">チケットの登録</button></p>
 <p><button><a href="{% url 'children' %}">承認する</a></button></p>
 <p><button><a href="{% url 'status' %}">ステータス管理</a></button></p>
 
 <h2><a href="{% url 'home' %}">ホームに戻る</a></h2>
+-->
 
 {% endblock %}

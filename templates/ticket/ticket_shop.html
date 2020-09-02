@@ -5,19 +5,24 @@
 
 {% block content %}
 
-<p>{{ child_data.name }}</p>
-<p>{{ balance_data.balance }}</p>
+<h5>{{ child_data.name }}</h5>
+<p class="pay">¥{{ balance_data.balance }}</p>
 
- <h2>チケット一覧</h2>
+ <h5>チケット一覧</h5>
 
 <form method="post" action="{% url 'selected_ticket_buy' %}">
 {% csrf_token %}
 
 <p>
- {% for data in object_list %}
-  <input type="checkbox" name="buy_list" value="{{ data.id }}">
-   {{ data.ticket_name }} : {{ data.price }}ペイ<br>
- {% endfor %}
+  {% for data in object_list %}
+ <div class="custom-control custom-switch">
+  <input type="checkbox" class="custom-control-input" id="switch{{ data.id }}" name="buy_list" value="{{ data.id }}">
+    <label class="custom-control-label" for="switch{{ data.id }}">
+   {{ data.ticket_name }} : {{ data.price }}ペイ
+    </label><br>
+ </div>
+  {% endfor %}
+
 </p>
   <input type="hidden" name="child_id" value="{{ child_data.id }}" />
 
@@ -25,6 +30,6 @@
 
  </form>
 
-<a href="{% url 'child_home' child_data.id %}">Homeへ</a>
+<a href="{% url 'child_home' child_data.id %}">child_Homeへ</a>
 
 {% endblock %}

@@ -7,6 +7,7 @@ from users.views import ChildListView, ChildInputView, ChildUpdateView, ChildHom
 urlpatterns = [
 
     path('children/', ChildListView.as_view(), name='children'),
+    path('children/regist/', ChildInputView.as_view(), name='children_regist'),
     path('children/regist/<int:pk>', ChildInputView.as_view(), name='children_regist'),
     #    path('children/status/<int:pk>', ChildDetailView.as_view(), name='child_status'),
     path('children/status/<int:pk>', ChildStatusGetView.as_view(), name='child_status'),

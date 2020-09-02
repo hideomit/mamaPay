@@ -4,16 +4,24 @@
 
 {% block content %}
 
-<h2>{{ balance.cuser }}</h2>
-<h2>{{ balance.balance }}ペイ</h2>
 
-<h2>{{ balance.cuser }}の申請</h2>
+<h5>{{ balance.cuser }}</h5>
+
+<div class="pay text-center">¥{{ balance.balance }}</div>
+
+<h5>{{ balance.cuser }}の申請</h5>
+
 
 <form method="post" action="child_approve">
     {% csrf_token %}
 
     {% for list in object_list %}
-    <input type="checkbox" name="approve_task_list" value="{{ list.id }}">{{ list.task }}</input><br>
+    <div class="custom-control custom-switch">
+    <input type="checkbox" class="custom-control-input" id="switch{{ list.id }}" name="approve_task_list" value="{{ list.id }}">
+    <label class="custom-control-label" for="switch{{ list.id }}">
+        {{ list.task }}</input>
+    </label><br>
+    </div>
     {% endfor %}
 
     <p><button class="btn btn-outline-primary">承認する</button></p>

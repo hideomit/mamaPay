@@ -59,11 +59,20 @@ class ChildInputView(LoginRequiredMixin, View):
 
         child = form.save(commit=False)
         child.puser = self.request.user  ##request.userはログインユーザー
-        child.id = self.kwargs['pk'] ##saveはidがないとcreateになる。idがあれば更新になる
-        child.save()  ##childはmodelではなくForm。これでDB登録してる？
 
-        balance = Balance(cuser_id=child.id, balance=0)
-        balance.save()
+        if self.kwargs.get('pk') is not None: #更新動作
+            child.id = self.kwargs.get('pk')
+            child_data = Child.objects.get(pk=child.id)
+            # child.create_datetime = form.cleaned_data['create_datetime']##create_datetimeエラー回避
+            child.create_datetime = child_data.create_datetime
+            #
+           ##saveはidがないとcreateになる。idがあれば更新になる
+
+        child.save()  ##childはmodelではなくForm。これでDB登録してる？<< fome.saveで一度インスタンスに保存している
+
+        if self.kwargs.get('pk') is None: #新規のみ
+            balance = Balance(cuser_id=child.id, balance=0)
+            balance.save()
 
         return redirect(reverse('children'))
 

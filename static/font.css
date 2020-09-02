@@ -1,0 +1,26 @@
+body {
+  font-family: "Helvetica Neue",
+    Arial,
+    "Hiragino Kaku Gothic ProN",
+    "Hiragino Sans",
+    Meiryo,
+    sans-serif;
+}
+
+.pay {
+/*position: static;
+width: 221px;
+height: 54px;
+left: 79px;
+top: 358px; */
+
+font-family: "Hiragino Sans";
+font-style: normal;
+font-weight: 900;
+font-size: 36px;
+line-height: 54px;
+/* identical to box height */
+
+
+color: #222222;
+}

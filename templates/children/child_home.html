@@ -4,20 +4,60 @@
 {% block title %}こどもホーム{% endblock %}
 
 {% block content %}
+<div class="col-xl-4 col-md-6 mb-4">
+    <div class="card border-left-primary shadow h-100 py-2 w-80">
+        <div class="card-body">
+            <div class="row no-gutters align-items-center">
+                <div class="col-auto">
+                    <img class="rounded-circle mr-3" src="/media/{{ child_data.photo }}" alt="" width="70" height="70">
+                </div>
+                <div class="col mr-2 text-center">
+                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ child_data.name }}</div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                          {% if balance_data.balance == None %}
+                            <div class="pay">¥0</div>
+                            {% else %}
+                            <div class="pay">¥{{ balance_data.balance }}</div>
+                            {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<h2>{{ child_data.name }}</h2>
 
-{% if balance_data.balance == None %}
-<h2>0</h2>
-{% else %}
-<h2>{{ balance_data.balance }}</h2>
-{% endif %}
+<p>
+    <ul>
+        <li>{{ child_data.name }}は靴磨きをたくさんやってくれてる</li>
+        <li>{{ child_data.name }}はゲームばっかりやってる</li>
+    </ul>
+</p>
 
 
- <h2><a href="{% url 'apply_task' child_data.id %}">タスクを申請する</a></h2>
+
+<div class="container">
+ <div class="row" >
+   <div class="col-md-3 mb-3">
+    <button type="button" class="btn btn-outline-primary w-100 btn-lg" onclick="location.href='{% url 'apply_task' child_data.id %}'"><i class="fas fa-chalkboard-teacher mr-1"></i>タスクを申請する</button>
+   </div>
+   <div class="col-md-3 mb-3">
+    <button type="button" class="btn btn-outline-success w-100 btn-lg" onclick="location.href='{% url 'use_ticket' child_data.id %}'"><i class="fas fa-ticket-alt mr-1"></i>チケットをつかう</button>
+   </div>
+   <div class="col-md-3 mb-3">
+    <button type="button" class="btn btn-outline-danger w-100 btn-lg" onclick="location.href='{% url 'ticket_shop' child_data.id %}'"><i class="fas fa-shopping-bag mr-1"></i>チケットショップ</button>
+   </div>
+   <div class="col-md-3 mb-3">
+    <button type="button" class="btn btn-outline-warning w-100 btn-lg" onclick="location.href='{% url 'children_history' child_data.id %}'"><i class="fas fa-history mr-1"></i>りれきをみる</button>
+   </div>
+ </div>
+</div>
+
+<!-- <h2><a href="{% url 'apply_task' child_data.id %}">タスクを申請する</a></h2>
  <h2><a href="{% url 'use_ticket' child_data.id %}">チケットを使う</a></h2>
  <h2><a href="{% url 'ticket_shop' child_data.id %}">チケットショップ</a></h2>
  <h2><a href="{% url 'children_history' child_data.id %}">履歴を見る</a></h2>
  <h2><a href="{% url 'home' %}">ホームに戻る</a></h2>
+-->
 
 {% endblock %}

@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+
+{% block title %}グラフ{% endblock %}
+
+{% block content %}
+
+
+<!-- /card -->
+                <!-- Earnings (Monthly) Card Example -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Earnings (Monthly)</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Earnings (Monthly) Card Example -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Earnings (Annual)</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Earnings (Monthly) Card Example -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks</div>
+                      <div class="row no-gutters align-items-center">
+                        <div class="col-auto">
+                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
+                        </div>
+                        <div class="col">
+                          <div class="progress progress-sm mr-2">
+                            <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pending Requests Card Example -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Pending Requests</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-comments fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+<div id="chart"></div>
+
+<div id=“chart-glaph” style=“width: 640px; height: 480px;“></div>
+
+<script>
+var chart = c3.generate({
+    bindto: '#chart',
+    data: {
+        columns: [
+            ['data1', 30, 200, 100, 400, 150, 250],
+            ['data2', 130, 100, 140, 200, 150, 50]
+        ],
+        type: 'pie'
+    }
+});
+
+
+(function ($) {
+    $(function () {
+       // api
+       $.ajax({
+            url: '/api_v1/monthly_child_summary/',
+            type:'GET',
+            async: false, 　//同期
+        })
+        // Ajaxリクエストが成功した時発動
+        .done( (data) => {
+            console.log(data);
+            generate('#chart-glaph', data);
+        })
+        // Ajaxリクエストが失敗した時発動
+        .fail( (data) => {
+            console.log(data);
+        })
+        // Ajaxリクエストが成功・失敗どちらでも発動
+        .always( (data) => {
+            console.log(data);
+        });
+        // glaph generate
+        // generate('#chart-glaph', JSON.parse($('#data-glaph').text() || '[]'));
+        function generate(bindto, data) {
+          c3.generate({
+              bindto: bindto,
+              data: {
+                  columns: [
+                      $.merge(['件数'], $(data).map(function () { return this.count; }).get()),
+                      $.merge(['金額'], $(data).map(function () { return this.price; }).get()),
+                  ],
+                  type: 'bar'
+              },
+              bar: {
+                  width: { ratio: 0.5 }
+              },
+              axis: {
+                  rotated: false,
+                  x: {
+                      type: 'category',
+                      categories: $(data).map(function () { return this.summary_ym; }).get()
+                  }
+              },
+          });
+        }
+    });
+}(jQuery));
+
+</script>
+
+
+{% endblock %}

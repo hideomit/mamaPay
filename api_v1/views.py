@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from accounts.views import ApproveTaskView
 from api_v1.serializers import MonthlySummarySerializer, MonthlyChildSummarySerializer, TaskSerializer, \
     TicketSerializer, RequestSerializer, HistorySerializer, TicketHoldingSerializer, ChildBalanceSerializer, \
-    ChildSerializer
+    ChildSerializer, TaskApproveSerializer
 from batch.models import MonthlySummary, MonthlyChildSummary
 from task.models import Task
 from ticket.models import Ticket
@@ -213,12 +213,17 @@ class ChildCreateApiView(views.APIView):
         return Response(serializer.data, status.HTTP_201_CREATED)
 
 
-#class TaskApproveApiView(views.APIView):
+class TaskApproveApiView(views.APIView):
+    def get_serializer(self):
+        return TaskApproveSerializer()
 
- #   def post(self, request, *args, **kwargs):
-        #配列listを投げたい
+    def post(self, request, *args, **kwargs):
 
-  #      request_id_list = request.POST.getlist('approve_task_list')
-  #      ApproveTaskView.task_data_save(request_id_list)
+        serializer = TaskApproveSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
 
-  #      return Response(status.HTTP_200_OK)
+        request_id_list = [int(s) for s in serializer.validated_data.get('request_id_list')[0].split(',')]
+        at = ApproveTaskView()
+        at.task_data_save(request_id_list)
+
+        return Response(status.HTTP_200_OK)

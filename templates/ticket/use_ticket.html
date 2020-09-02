@@ -15,9 +15,14 @@
 
 <p>
  {% for data in object_list %}
-  <input type="checkbox" name="use_list" value="{{ data.ticket_id }}">
-   {{ data.ticket }} <br>
+ <div class="custom-control custom-switch">
+  <input type="checkbox" class="custom-control-input" id="switch{{ data.id }}" name="use_list" value="{{ data.ticket_id }}">
+  <label class="custom-control-label" for="switch{{ data.id }}">
+   {{ data.ticket }} </input>
+  </label><br>
+  </div>
  {% endfor %}
+
 </p>
   <input type="hidden" name="child_id" value="{{ child_data.id }}" />
 

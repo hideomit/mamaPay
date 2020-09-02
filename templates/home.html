@@ -3,39 +3,63 @@
 {% block title %}ホーム{% endblock %}
 
 {% block content %}
+<style>
+   .jumbotron { background:url(media/top.jpg) center no-repeat; background-size: cover;}
+</style>
+
 
 {% if user.is_authenticated %}
-ままペイにようこそ、 {{ user.get_username }}ままと子供たち
 
-<ul>
+  <div class="jumbotron">
+
+    <div class="container">
+      <h1 class="display-3 text-white" >ままペイにようこそ、 {{ user.get_username }}ままと子供たち!</h1>
+      <p>#</p>
+      <p><a class="btn btn-primary btn-lg" href="#" role="button">詳しくみる &raquo;</a></p>
+    </div>
+  </div>
+
+
+<ul class="list-unstyled">
+
 {% for data in object_list %}
-    <li><a href="{% url 'child_home' data.id %}">{{ data.name }}</a></li>
+    <li class="media mb-4 shadow-sm">
+      <img class="rounded-circle mr-3" src="media/{{ data.photo }}" alt="" width="70" height="70">
+      <div class="media-body">
+        <a href="{% url 'child_home' data.id %}"><h5>{{ data.name }}</h5></a>
+
+      </div>
+    </li>
+
 {% endfor %}
 </ul>
+
+
+
+<!--
 <p><button><a href="{% url 'admin_home' %}">ママ画面</a></button></p>
+-->
+<div class="container">
+ <div class="row" >
+   <div class="col-md-6 mb-3">
+    <button type="button" class="btn btn-outline-primary w-100 btn-lg" onclick="location.href='{% url 'password_change' %}'"><i class="fas fa-chalkboard-teacher mr-1"></i>パスワード変更</button>
+   </div>
 
-<p><a href="{% url 'password_change' %}">パスワード変更</a></p>
-
-
-<p><a href="{% url 'logout' %}">ログアウト</a></p>
+   <div class="col-md-6 mb-3">
+    <button type="button" class="btn btn-outline-success w-100 btn-lg" onclick="location.href='{% url 'logout' %}'"><i class="fas fa-ticket-alt mr-1"></i>ログアウト</button>
+   </div>
 {% else %}
-<p><a href="{% url 'login' %}">ログイン</a></p>
+   <div class="col-md-6 mb-3">
+    <button type="button" class="btn btn-outline-danger w-100 btn-lg" onclick="location.href='{% url 'login' %}'"><i class="fas fa-thumbs-up mr-1"></i>ログイン</button>
+   </div>
 {% endif %}
+ </div>
+</div>
 
-<div id="chart"></div>
-
-<script>
-var chart = c3.generate({
-    bindto: '#chart',
-    data: {
-        columns: [
-            ['data1', 30, 200, 100, 400, 150, 250],
-            ['data2', 130, 100, 140, 200, 150, 50]
-        ],
-        type: 'pie'
-    }
-});
-
-</script>
+<!--
+<p><a href="{% url 'password_change' %}">パスワード変更</a></p>
+<p><a href="{% url 'logout' %}">ログアウト</a></p>
+<p><a href="{% url 'login' %}">ログイン</a></p>
+-->
 
 {% endblock %}

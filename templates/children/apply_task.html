@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 
 {% block title %}タスクの申請{% endblock %}
-
 {% block content %}
+
 
 <h2>登録されているタスク</h2>
 
@@ -14,7 +14,12 @@
 {#  use_ticketをベースにつくりなおす #}
 
     {% for list in object_list %}
-    <input type="checkbox" name="apply_task_list" value="{{ list.id }}">{{ list.task_name }}</input><br>
+    <div class="custom-control custom-switch">
+    <input type="checkbox" class="custom-control-input" id="switch{{ list.id }}" name="apply_task_list" value="{{ list.id }}">
+    <label class="custom-control-label" for="switch{{ list.id }}">
+        {{ list.task_name }}
+    </label><br>
+    </div>
     {% endfor %}
 
     <input type="hidden" name="apply_child_id" value="{{ child_data.id }}" />

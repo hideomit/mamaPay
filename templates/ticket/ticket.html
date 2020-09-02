@@ -12,13 +12,29 @@
 
 <p>
  {% for data in object_list %}
-  <input type="checkbox" name="delete_list" value="{{ data.id }}">
+ <div class="custom-control custom-switch">
+  <input type="checkbox" class="custom-control-input" id="switch{{ data.id }}" name="delete_list" value="{{ data.id }}">
+  <label class="custom-control-label" for="switch{{ data.id }}">
    <a href="{% url 'ticket_detail' data.id %}">{{ data.ticket_name }} : {{ data.price }}ペイ</a><br>
+    </label><br>
+  </div>
  {% endfor %}
 </p>
 
-<p><button class="btn btn-outline-primary"><a href="{% url 'ticket_regist' %}">新しいチケットを登録する</a></button></p>
-<p><button class="btn btn-outline-primary">チケットを削除する</button></p>
+<div class="container">
+ <div class="row" >
+   <div class="col-md-6 mb-3">
+    <button type="button" class="btn btn-outline-primary w-100 btn-lg" onclick="location.href='{% url 'ticket_regist' %}'"><i class="fas fa-chalkboard-teacher mr-1"></i>新しいチケットを登録する</button>
+   <button class="btn btn-outline-primary"><a href="{% url 'ticket_regist' %}">新しいチケットを登録する</a></button>
+   </div>
+
+   <div class="col-md-6 mb-3">
+    <button type="button" class="btn btn-outline-success w-100 btn-lg" onclick="location.href='{% url 'logout' %}'"><i class="fas fa-ticket-alt mr-1"></i>チケットを削除する</button>
+    <button class="btn btn-outline-primary">チケットを削除する</button>
+   </div>
+
+ </div>
+</div>
 
  </form>
 

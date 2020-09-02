@@ -5,7 +5,7 @@ from rest_framework_swagger.views import get_swagger_view
 from api_v1.views import MonthlySummaryApiView, MonthlyChildSummaryApiView, TaskCreateApiView, TaskDeleteApiView, \
     TaskUpdateApiView, TaskDetailApiView, TicketCreateApiView, TicketUpdateApiView, TicketDetailApiView, \
     TicketDeleteApiView, RequestGetApiView, HistoryGetApiView, TicketHoldingGetApiView, ChildBalanceGetApiView, \
-    ChildCreateApiView
+    ChildCreateApiView, TaskApproveApiView
 
 schema_view = get_swagger_view(title='api_list')
 
@@ -18,6 +18,7 @@ urlpatterns = [
     path('task_delete/<int:pk>/', TaskDeleteApiView.as_view()),
     path('task_update/<int:pk>/', TaskUpdateApiView.as_view()),
     path('task_detail/<int:pk>/', TaskDetailApiView.as_view()),
+    path('task_approve/', TaskApproveApiView.as_view()),
     path('ticket/', TicketCreateApiView.as_view()),
     path('ticket_update/<int:pk>/', TicketUpdateApiView.as_view()),
     path('ticket_detail/<int:pk>/', TicketDetailApiView.as_view()),

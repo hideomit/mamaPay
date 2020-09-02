@@ -33,6 +33,8 @@ urlpatterns = [
     path('api_v1/', include('api_v1.urls')),
     path('', HomeListView.as_view(), name='home'),
     path('admin_home/', TemplateView.as_view(template_name='admin_home.html'), name='admin_home'),
+    path('graphs/', TemplateView.as_view(template_name='graphs.html'), name='graphs'),
+    path('switch/', TemplateView.as_view(template_name='switch.html'), name='switch'),
     path('status/', ChildStatusListView.as_view(), name='status'),
     path('status/change/<int:pk>/', ChildStatusDetailView.as_view(), name='status_change'),
     path('status/delete/', ChildDeleteView.as_view(), name='selected_child_delete'),

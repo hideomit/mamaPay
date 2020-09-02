@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+
+{% block title %}こどもホーム{% endblock %}
+
+{% block content %}
+
+<div class="card w-75 shadow-sm mx-auto">
+    <div class="container">
+    <div class="row no-gutters">
+        <div class="col-md-4">
+            <svg class="bd-placeholder-img" width="100%" height="250" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Image">
+                <title>Placeholder</title><rect fill="#868e96" width="100%" height="100%"/>
+                <text fill="#dee2e6" dy=".3em" x="50%" y="50%">Image</text>
+            </svg>
+        </div>
+        <div class="col-md-8">
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs" >
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#info" data-toggle="tab">Info</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#ticket" data-toggle="tab">Ticket</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#data" data-toggle="tab">Data</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-body tab-content">
+                <div class="tab-pane active" id="info">
+                    <h6 class="card-title">{{ child_data.name }}</h6>
+
+                    {% if balance_data.balance == None %}
+                   <h4 class="card-subtitle">0 mamapay</h4>
+                    {% else %}
+                    <h4 class="card-subtitle">{{ balance_data.balance }} mamapay</h4>
+                    {% endif %}
+
+                    <p class="card-text">
+                        <ul>
+                            <li>{{ child_data.name }}は靴磨きをたくさんやってくれてる</li>
+                            <li>{{ child_data.name }}はゲームばっかりやってる</li>
+                        </ul>
+                    </p>
+
+                    <!--アイコン-->
+                    <div class="container">
+                        <div class="row" >
+                            <div class="col-md-3 mb-3">
+                                <button type="button" class="btn btn-outline-primary w-100" onclick="location.href='{% url 'apply_task' child_data.id %}'"><i class="fas fa-chalkboard-teacher mr-1"></i></button>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <button type="button" class="btn btn-outline-success w-100" onclick="location.href='{% url 'use_ticket' child_data.id %}'"><i class="fas fa-ticket-alt mr-1"></i></button>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <button type="button" class="btn btn-outline-danger w-100 " onclick="location.href='{% url 'ticket_shop' child_data.id %}'"><i class="fas fa-shopping-bag mr-1"></i></button>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <button type="button" class="btn btn-outline-warning w-100" onclick="location.href='{% url 'children_history' child_data.id %}'"><i class="fas fa-history mr-1"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /アイコン-->
+                </div>
+                <div class="tab-pane" id="ticket">
+                    持ってるチケット
+                </div>
+                <div class="tab-pane" id="data">
+                    データがはいる
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<div class="container">
+ <div class="row" >
+   <div class="col-md-3 mb-3">
+    <button type="button" class="btn btn-outline-primary w-100 btn-lg" onclick="location.href='{% url 'apply_task' child_data.id %}'"><i class="fas fa-chalkboard-teacher mr-1"></i>タスクを申請する</button>
+   </div>
+   <div class="col-md-3 mb-3">
+    <button type="button" class="btn btn-outline-success w-100 btn-lg" onclick="location.href='{% url 'use_ticket' child_data.id %}'"><i class="fas fa-ticket-alt mr-1"></i>チケットをつかう</button>
+   </div>
+   <div class="col-md-3 mb-3">
+    <button type="button" class="btn btn-outline-danger w-100 btn-lg" onclick="location.href='{% url 'ticket_shop' child_data.id %}'"><i class="fas fa-shopping-bag mr-1"></i>チケットショップ</button>
+   </div>
+   <div class="col-md-3 mb-3">
+    <button type="button" class="btn btn-outline-warning w-100 btn-lg" onclick="location.href='{% url 'children_history' child_data.id %}'"><i class="fas fa-history mr-1"></i>りれきをみる</button>
+   </div>
+ </div>
+</div>
+
+<!-- <h2><a href="{% url 'apply_task' child_data.id %}">タスクを申請する</a></h2>
+ <h2><a href="{% url 'use_ticket' child_data.id %}">チケットを使う</a></h2>
+ <h2><a href="{% url 'ticket_shop' child_data.id %}">チケットショップ</a></h2>
+ <h2><a href="{% url 'children_history' child_data.id %}">履歴を見る</a></h2>
+ <h2><a href="{% url 'home' %}">ホームに戻る</a></h2>
+-->
+
+{% endblock %}
