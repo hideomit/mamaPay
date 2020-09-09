@@ -28,7 +28,7 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['18.183.255.255']
 
 # Application definition
 
@@ -130,7 +130,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT = '/var/www/{}/static'.format(PROJECT_NAME)
 
 MEDIA_URL = '/media/'
@@ -187,12 +187,12 @@ LOGGING = {
             'propagate': False,
         },
         'django': {
-            'handlers': ['file', 'console'],
+            'handlers': ['file', 'console', 'file_batch'],
             'level': 'INFO',
             'propagate': False,
         },
         'django.db.backends': {
-            'handlers': ['file', 'console'],
+            'handlers': ['file', 'console', 'file_batch'],
             'level': 'DEBUG',
             'propagate': False,
         },
