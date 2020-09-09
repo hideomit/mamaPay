@@ -96,5 +96,5 @@ dmypy.json
 dbdata/
 .dbdata/
 /tmp
-/media
 .DS_Store
+#/media
