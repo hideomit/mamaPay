@@ -2,11 +2,15 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
+from users.models import Parent, Child
 
-class Parent(AbstractUser):
-    """親モデル"""
+
+class LoginUsers(AbstractUser):
+    """認証用モデル"""
     class Meta(AbstractUser.Meta):
         #テーブル名を定義
-        db_table = 'puser'
+        db_table = 'login_users'
     #テーブルのカラムに対応するフィールドを定義
-    photo = models.ImageField(verbose_name='写真', null=True, max_length=255, upload_to='parent/')
+    puser = models.OneToOneField(Parent, verbose_name='親ユーザーID', on_delete=models.CASCADE, null=True)
+    cuser = models.OneToOneField(Child, verbose_name='子ユーザーID', on_delete=models.CASCADE, null=True)
+

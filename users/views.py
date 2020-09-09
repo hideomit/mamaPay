@@ -8,15 +8,18 @@ from django.urls import reverse_lazy, reverse
 from django.views import View
 from django.views.generic import ListView, CreateView, DetailView, UpdateView
 
+from accounts.forms import SignupChildForm
 from task.models import Task
 from users.forms import ChildModelForm
 from users.models import Child, History, Balance, Request
 
 
 class ChildListView(LoginRequiredMixin, ListView):
-    model = Child
+    model = Balance
     template_name = 'children/children.html'
-    pagenate_by = 10
+
+    def get_queryset(self):
+       return self.model.objects.filter(cuser__puser=self.request.user.puser)
 
 
 ##3宿題
@@ -47,18 +50,26 @@ class ChildUpdateView(LoginRequiredMixin, UpdateView):
 class ChildInputView(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
-        context = {'form': ChildModelForm()}
+        context = {'c_form': ChildModelForm(), 's_form': SignupChildForm()}
         return render(request, 'children/children_regist.html', context)
 
     ##postだけだと405エラーがでてしまった。必ずgetとpostは両方かかなければならない制約でもある？
 
     def post(self, request, *args, **kwargs):
-        form = ChildModelForm(request.POST, request.FILES)
-        if not form.is_valid():  ##is_validはフォームに入った値にエラーがないかバリデートするメソッド。バリデートがエラーになった場合にエラーを返す
-            return render(request, 'children/children_regist.html', {'form': form})
+        c_form = ChildModelForm(request.POST, request.FILES)
+        s_form = SignupChildForm(request.POST)
 
-        child = form.save(commit=False)
-        child.puser = self.request.user  ##request.userはログインユーザー
+        if self.kwargs.get('pk') is not None:  # 更新動作
+            if not c_form.is_valid():  ##is_validはフォームに入った値にエラーがないかバリデートするメソッド。バリデートがエラーになった場合にエラーを返す
+                context = {'c_form': c_form}
+                return render(request, 'children/children_regist.html', context)
+        else:
+            if not c_form.is_valid() or not s_form.is_valid():  ##is_validはフォームに入った値にエラーがないかバリデートするメソッド。バリデートがエラーになった場合にエラーを返す
+                context = {'c_form': c_form, 's_form': s_form}
+                return render(request, 'children/children_regist.html', context)
+
+        child = c_form.save(commit=False)
+        child.puser = self.request.user.puser  ##request.userはログインユーザー
 
         if self.kwargs.get('pk') is not None: #更新動作
             child.id = self.kwargs.get('pk')
@@ -74,7 +85,13 @@ class ChildInputView(LoginRequiredMixin, View):
             balance = Balance(cuser_id=child.id, balance=0)
             balance.save()
 
+            login_user = s_form.save(commit=False)
+            login_user.cuser = child
+            login_user.save()
+
         return redirect(reverse('children'))
+
+
 
 
 class ChildDetailView(LoginRequiredMixin, DetailView):
@@ -89,7 +106,7 @@ class ChildHistoryView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         child_id = self.kwargs['pk']
-        return self.model.objects.filter(cuser_id=child_id)
+        return self.model.objects.filter(cuser_id=child_id).order_by('-ymd')
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -121,7 +138,9 @@ class ChildApplyView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 #        pprint(self.kwargs)
-        context['child_data'] = Child.objects.get(id=self.kwargs['pk'])
+        child_id = self.kwargs['pk']
+        context['child_data'] = Child.objects.get(id=child_id)
+        context['balance_data'] = Balance.objects.select_related('cuser').get(cuser_id=child_id)
         return context
 
 
@@ -133,15 +152,16 @@ class TaskApplyView(LoginRequiredMixin, View):
 
         for apply_task in apply_task_list:
             ##申請リストの更新
-            childRequest = Request(cuser_id=apply_child_id, task_id=apply_task, status=1)
-            childRequest.puser = self.request.user
+            puser_id = Child.objects.get(id=apply_child_id).puser_id
+            childRequest = Request(cuser_id=apply_child_id, task_id=apply_task, status=1, puser_id=puser_id)
             childRequest.save()
 
         request_list = Request.objects.select_related('task').filter(cuser_id=apply_child_id, status=1)
         child_data = Child.objects.get(id=apply_child_id)
+        balance_data = Balance.objects.select_related('cuser').get(cuser_id=apply_child_id)
 
         return render(request, 'children/apply_complete.html',
-                      {'child_data': child_data, 'request_list': request_list})
+                      {'child_data': child_data, 'request_list': request_list, 'balance_data': balance_data})
 
 
 class TaskApplyCompView(LoginRequiredMixin, View):

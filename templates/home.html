@@ -13,27 +13,45 @@
   <div class="jumbotron">
 
     <div class="container">
-      <h1 class="display-3 text-white" >ままペイにようこそ、 {{ user.get_username }}ままと子供たち!</h1>
+      <h1 class="display-3 text-white" >
+          ままペイにようこそ、 {{ user.get_username }}ままと子供たち!</h1>
       <p>#</p>
       <p><a class="btn btn-primary btn-lg" href="#" role="button">詳しくみる &raquo;</a></p>
     </div>
   </div>
 
-
-<ul class="list-unstyled">
+<p>
 
 {% for data in object_list %}
-    <li class="media mb-4 shadow-sm">
-      <img class="rounded-circle mr-3" src="media/{{ data.photo }}" alt="" width="70" height="70">
-      <div class="media-body">
-        <a href="{% url 'child_home' data.id %}"><h5>{{ data.name }}</h5></a>
 
-      </div>
-    </li>
+<div class="col-xl-4 col-md-6 mb-4">
+    <div class="card border-left-primary shadow h-100 py-2 w-80">
+        <div class="card-body">
+            <div class="row no-gutters align-items-center">
+                <div class="col-auto">
+                    <img class="rounded-circle mr-3" src="/media/{{ data.cuser.photo }}" alt="" width="90" height="90">
+                </div>
+                <div class="col mr-2 text-center">
+                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"><a href="{% url 'child_home' data.id %}">{{ data.cuser }}</a></div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                          {% if data.balance == None %}
+                            <div class="pay">¥0</div>
+                            {% else %}
+                            <div class="pay">¥{{ data.balance }}</div>
+                            {% endif %}
+                    </div>
+            <div class="row no-gutters align-items-center">
+                    <a href= "{% url 'child_home' data.id %}" class="btn btn-secondary">くわしくみる &raquo;</a>
+            </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endfor %}
-</ul>
 
+</p>
 
 
 <!--

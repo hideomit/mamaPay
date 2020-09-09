@@ -11,19 +11,48 @@
 
 <p>
  {% for data in object_list %}
- <div class="custom-control custom-switch">
- <input type="checkbox" class="custom-control-input" id="switch{{ data.id }}" name="delete_list" value="{{ data.id }}">
- <label class="custom-control-label" for="switch{{ data.id }}">
- <a href="{% url 'status_change' data.id %}"> {{ data.name }}</a>
- </label></div>
+
+ <div class="col-xl-4 col-md-6 mb-4">
+    <div class="card border-left-primary shadow h-100 py-2 w-80">
+        <div class="card-body">
+            <div class="row no-gutters align-items-center">
+                <div class="col-auto">
+                    <img class="rounded-circle mr-3" src="/media/{{ data.photo }}" alt="" width="70" height="70">
+                </div>
+                <div class="col mr-2 text-center">
+                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"><a href="{% url 'status_change' data.id %}">{{ data.name }}</a></div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
+
+            <div class="row no-gutters align-items-center">
+                <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="switch{{ data.id }}" name="delete_list" value="{{ data.id }}">
+                <label class="custom-control-label" for="switch{{ data.id }}"></label></div>
+            </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
  {% endfor %}
 </p>
 
-<p><button class="btn btn-primary">こどもを削除する</button></p>
+
+    　<div class="container">
+      <div class="row" >
+          <div class="col-md-6 mb-3">
+                <button type="button" class="btn btn-outline-primary w-100 btn-lg" onclick="location.href='{% url 'children_regist' %}'"><i class="fas fa-chalkboard-teacher mr-1"></i>こどもを登録する</button>
+          </div>
+            <div class="col-md-6 mb-3">
+                <button class="btn btn-outline-success w-100 btn-lg" ><i class="fas fa-chalkboard-teacher mr-1"></i>こどもの管理を外す</button>
+            </div>
+        </div>
+    </div>
+
+
 </form>
 
-<p><a href="">{{ user.get_username }}ママ</a></p>
-
-<h2><a href="{% url 'admin_home' %}">ホームに戻る</a></h2>
+<h5><a href="{% url 'admin_home' %}">戻る</a></h5>
 
 {% endblock %}

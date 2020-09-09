@@ -13,7 +13,8 @@
  {# csrf_token はpostメソッドを使うときは必ず入れる #}
  {# {% bootstrap_form form %} #}
 
-{{ form.as_p }}
+{{ c_form.as_p }}
+{{ s_form.as_p }}
 
  <button class="btn btn-primary" type="submit">登録する</button>
 </form>

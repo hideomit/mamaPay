@@ -5,10 +5,33 @@
 
 {% block content %}
 
-<h5>{{ child_data.name }}</h5>
-<p class="pay">¥{{ balance_data.balance }}</p>
+<p>
+ <h2>どのチケットをかう？</h2>
+</p>
 
- <h5>チケット一覧</h5>
+<p>
+<div class="col-xl-4 col-md-6 mb-4">
+    <div class="card border-left-primary shadow h-100 py-2 w-80">
+        <div class="card-body">
+            <div class="row no-gutters align-items-center">
+                <div class="col-auto">
+                    <img class="rounded-circle mr-3" src="/media/{{ child_data.photo }}" alt="" width="70" height="70">
+                </div>
+                <div class="col mr-2 text-center">
+                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ child_data.name }}</div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                          {% if balance_data.balance == None %}
+                            <div class="pay">¥0</div>
+                            {% else %}
+                            <div class="pay">¥{{ balance_data.balance }}</div>
+                            {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</p>
 
 <form method="post" action="{% url 'selected_ticket_buy' %}">
 {% csrf_token %}
@@ -26,10 +49,19 @@
 </p>
   <input type="hidden" name="child_id" value="{{ child_data.id }}" />
 
-<p><button class="btn btn-outline-primary">チケットを買う</button></p>
+
+<div class="container">
+    <div class="row" >
+        <div class="col-md-6 mb-3">
+            <button class="btn btn-outline-primary w-100 btn-lg" ><i class="fas fa-chalkboard-teacher mr-1"></i>チケットをかう</button</div>
+        </div>
+    </div>
+</div>
 
  </form>
 
-<a href="{% url 'child_home' child_data.id %}">child_Homeへ</a>
+<p>
+<a href="{% url 'child_home' child_data.id %}">こどもがめんにもどる</a>
+</p>
 
 {% endblock %}

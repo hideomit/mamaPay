@@ -36,6 +36,10 @@
       </tbody>
     </table>
 
-<a href="{% url 'child_home' child_data.id %}">Homeへ</a>
+{% include 'general/pagination.html' %}
+
+<p>
+<a href="{% url 'child_home' child_data.id %}">こどもがめんにもどる</a>
+</p>
 
 {% endblock %}

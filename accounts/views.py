@@ -1,4 +1,4 @@
-
+from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import transaction
 from django.shortcuts import render, redirect
@@ -9,17 +9,30 @@ from django.views.generic import CreateView, ListView, UpdateView, DetailView
 
 from task.models import Task
 from users.forms import ChildModelForm
-from users.models import Child, Balance, Request, History
-from .forms import SignupForm, ChildStatusModelForm
+from users.models import Child, Balance, Request, History, Parent
+from .forms import SignupParentForm, ChildStatusModelForm
 
 
 # Create your views here.
 
 
-class SignupView(CreateView):
-    form_class = SignupForm
+class SignupParentView(CreateView):
+    form_class = SignupParentForm
     success_url = reverse_lazy('login')
     template_name = 'registration/signup.html'
+
+    ##同時に親アカウントをつくる
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            login_user = form.save(commit=False)
+            puser = Parent.objects.create()
+            login_user.puser = puser
+            login_user.save()
+            login(self.request, login_user)
+            return redirect(reverse_lazy('home'))
+        else:
+            return redirect(reverse_lazy('home'))
 
 
 class ChildStatusListView(LoginRequiredMixin, ListView):
@@ -59,10 +72,15 @@ class ChildStatusDetailView(LoginRequiredMixin, DetailView):
 
 
 class HomeListView(LoginRequiredMixin, ListView):
-    model = Child
+    model = Balance
     template_name = 'home.html'
-    pagenate_by = 10
 
+    def get_queryset(self):
+
+        if self.request.user.puser:
+            return self.model.objects.filter(cuser__puser=self.request.user.puser)
+        else:
+            return self.model.objects.filter(cuser=self.request.user.cuser)
 
 class ApproveTaskView(LoginRequiredMixin, View):
 

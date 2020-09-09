@@ -35,9 +35,15 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'home' %}">Home<span class="sr-only">(current)</span></a>
                 </li>
+             {% if user.cuser_id %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'child_home' user.cuser_id %}">Child</a>
+                </li>
+             {% else %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'admin_home' %}">Mama</a>
                 </li>
+             {% endif %}
                 <li class="nav-item">
                     <a class="nav-link" href="#">logout</a>
                 </li>
@@ -63,7 +69,7 @@
                     <a class="nav-link" href="{% url 'home' %}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Mama</a>
+                    <a class="nav-link" href="{% url 'admin_home' %}">Mama</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">logout</a>

@@ -143,6 +143,7 @@ class ChildHoldingTicketView(LoginRequiredMixin, ListView):
         child_id = self.kwargs['pk']
         pprint(child_id)
         context['child_data'] = Child.objects.get(id=child_id)
+        context['balance_data'] = Balance.objects.select_related('cuser').get(cuser_id=child_id)
 
         return context
 

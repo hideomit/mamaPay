@@ -1,13 +1,19 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
+from accounts.models import LoginUsers
 from users.models import Child
-from .models import Parent
 
 
-class SignupForm(UserCreationForm):
+class SignupParentForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
-        model = Parent
+        model = LoginUsers
+        fields = ('username', 'email')
+
+
+class SignupChildForm(UserCreationForm):
+    class Meta(UserCreationForm.Meta):
+        model = LoginUsers
         fields = ('username', 'email')
 
 
