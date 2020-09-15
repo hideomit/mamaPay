@@ -51,7 +51,7 @@ class ChildStatusGetView(LoginRequiredMixin, View):
             balance = None
         object_list = Request.objects.filter(cuser_id=kwargs['pk'], status='1')
 
-        return render(request, 'children\child_status.html', {'balance': balance, 'object_list': object_list})
+        return render(request, 'children/child_status.html', {'balance': balance, 'object_list': object_list})
 
 
 class ChildStatusUpdateView(LoginRequiredMixin, UpdateView):
@@ -61,7 +61,7 @@ class ChildStatusUpdateView(LoginRequiredMixin, UpdateView):
 
 
 class ChildStatusDetailView(LoginRequiredMixin, DetailView):
-    template_name = 'children\children_change.html'
+    template_name = 'children/children_change.html'
   #  form_class = ChildModelForm
     model = Child
 
