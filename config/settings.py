@@ -51,7 +51,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_swagger',
     'django.contrib.humanize',
-    'imagekit'
+#    'imagekit'
 ]
 
 MIDDLEWARE = [

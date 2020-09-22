@@ -31,7 +31,7 @@ class Parent(CommonColumnModel):
         db_table = 'puser'
     #テーブルのカラムに対応するフィールドを定義
     photo = models.ImageField(verbose_name='写真', null=True, max_length=255, upload_to='parent/')
-    thumbnail = ImageSpecField(source='photo', processors=[ResizeToFill(200, 100)], format='JPEG', options={'quality': 80})
+#    thumbnail = ImageSpecField(source='photo', processors=[ResizeToFill(200, 100)], format='JPEG', options={'quality': 80})
 
     def __str__(self):
         return str(self.pk)
@@ -47,7 +47,7 @@ class Child(CommonColumnModel):
     puser = models.ForeignKey(Parent, verbose_name='親ユーザーID', on_delete=models.CASCADE)
     name = models.CharField(verbose_name='名前', max_length=255)
     photo = models.ImageField(verbose_name='写真', null=True, max_length=255, upload_to='Child/')
-    thumbnail = ImageSpecField(source='photo', processors=[ResizeToFill(200, 100)], format='JPEG', options={'quality': 80})
+ #   thumbnail = ImageSpecField(source='photo', processors=[ResizeToFill(200, 100)], format='JPEG', options={'quality': 80})
 
     def __str__(self):
         return str(self.name)
