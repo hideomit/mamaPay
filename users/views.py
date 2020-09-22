@@ -1,6 +1,7 @@
 from pprint import pprint
 
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Count
 from django.shortcuts import render, redirect
 
 # Create your views here.
@@ -127,7 +128,15 @@ class ChildHomeView(LoginRequiredMixin, View):
         else:
             balance_data = None
 
-        return render(request, 'children/child_home.html', {'child_data': child_data, 'balance_data': balance_data})
+        top_task = History.objects.filter(cuser_id=kwargs['pk'], kind=1).values('task_id', 'cuser_id',
+                                                                        'task__task_name').annotate(
+            count=Count('task_id')).order_by('-count').first()
+
+        top_ticket = History.objects.filter(cuser_id=kwargs['pk'], kind=3).values('ticket_id', 'cuser_id',
+                                                                        'ticket__ticket_name').annotate(
+            count=Count('ticket_id')).order_by('-count').first()
+
+        return render(request, 'children/child_home.html', {'child_data': child_data, 'balance_data': balance_data, 'top_task': top_task, 'top_ticket': top_ticket})
 
 
 class ChildApplyView(LoginRequiredMixin, ListView):

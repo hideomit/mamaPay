@@ -20,7 +20,7 @@ class SummaryService:
 
         dt = timezone.make_aware(datetime.datetime.now())  ##現在の日本時間を取得
         summary_ym = str(dt.year) + str(dt.month).zfill(2)   ##zfillは0埋め。月の表示を01のように2桁で埋める
-        last_day = calendar.monthrange(dt.year, dt.month)[1]    ##カレンダーライブラリ。その月の日数が帰ってくる。月初の曜日と日数
+
         next_month = (datetime.date(dt.year, dt.month, last_day) + datetime.timedelta(days=1)).month
 
         month_first_day = timezone.make_aware(datetime.datetime(dt.year, dt.month, 1))

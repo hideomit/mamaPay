@@ -31,8 +31,17 @@
 
 <p>
     <ul>
-        <li>{{ child_data.name }}は靴磨きをたくさんやってくれてる</li>
-        <li>{{ child_data.name }}はゲームばっかりやってる</li>
+    {% if top_task.task__task_name == None %}
+        <li>なにもやってないよ！</li>>
+    {% else %}
+        <li>{{ child_data.name }}は{{ top_task.task__task_name }}をたくさんやってくれてる</li>
+    {% endif %}
+
+    {% if top_ticket.ticket__ticket_name == None %}
+        <li>なにもやってないよ！</li>
+    {% else %}
+        <li>{{ child_data.name }}は{{ top_ticket.ticket__ticket_name }}ばっかりやってる</li>
+    {% endif %}
     </ul>
 </p>
 
@@ -41,7 +50,7 @@
 <div class="container">
  <div class="row" >
    <div class="col-md-3 mb-3">
-    <button type="button" class="btn btn-outline-primary w-100 btn-lg" onclick="location.href='{% url 'apply_task' child_data.id %}'"><i class="fas fa-chalkboard-teacher mr-1"></i>タスクを申請する</button>
+    <button type="button" class="btn btn-outline-primary w-100 btn-lg" onclick="location.href='{% url 'apply_task' child_data.id %}'"><i class="fas fa-chalkboard-teacher mr-1"></i>おてつだいをいう</button>
    </div>
    <div class="col-md-3 mb-3">
     <button type="button" class="btn btn-outline-success w-100 btn-lg" onclick="location.href='{% url 'use_ticket' child_data.id %}'"><i class="fas fa-ticket-alt mr-1"></i>チケットをつかう</button>

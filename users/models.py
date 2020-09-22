@@ -4,6 +4,8 @@ from django.db import models
 
 # Create your models here.
 # 共通カラムを定義（appを超えるのは不可？）
+from imagekit.models import ImageSpecField
+from pilkit.processors import ResizeToFill
 
 from task.models import Task
 from ticket.models import Ticket
@@ -29,6 +31,7 @@ class Parent(CommonColumnModel):
         db_table = 'puser'
     #テーブルのカラムに対応するフィールドを定義
     photo = models.ImageField(verbose_name='写真', null=True, max_length=255, upload_to='parent/')
+    thumbnail = ImageSpecField(source='photo', processors=[ResizeToFill(200, 100)], format='JPEG', options={'quality': 80})
 
     def __str__(self):
         return str(self.pk)
@@ -44,6 +47,7 @@ class Child(CommonColumnModel):
     puser = models.ForeignKey(Parent, verbose_name='親ユーザーID', on_delete=models.CASCADE)
     name = models.CharField(verbose_name='名前', max_length=255)
     photo = models.ImageField(verbose_name='写真', null=True, max_length=255, upload_to='Child/')
+    thumbnail = ImageSpecField(source='photo', processors=[ResizeToFill(200, 100)], format='JPEG', options={'quality': 80})
 
     def __str__(self):
         return str(self.name)
@@ -99,6 +103,7 @@ class History(CommonColumnModel):
     amount = models.IntegerField(verbose_name='金額', null=True, blank=True)
     ticket_holding = models.ForeignKey(Ticket_holding, verbose_name='保有チケットID', on_delete=models.CASCADE, null=True, blank=True)
     kind = models.IntegerField(verbose_name='取引種類')
+    # 1:獲得（タスクの承認） 2:購入 3:利用
 
     def __str__(self):
         return str(self.ymd)

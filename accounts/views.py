@@ -1,6 +1,7 @@
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import transaction
+from django.db.models import Count
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.utils import timezone
@@ -36,10 +37,17 @@ class SignupParentView(CreateView):
 
 
 class ChildStatusListView(LoginRequiredMixin, ListView):
-    model = Child
+    model = Balance
     template_name = 'status.html'
     pagenate_by = 10
 #2つつくらなきゃダメなんだろうか？
+
+    def get_queryset(self):
+
+        if self.request.user.puser:
+            return self.model.objects.filter(cuser__puser=self.request.user.puser)
+        else:
+            return self.model.objects.filter(cuser=self.request.user.cuser)
 
 
 class ChildStatusGetView(LoginRequiredMixin, View):
@@ -81,6 +89,7 @@ class HomeListView(LoginRequiredMixin, ListView):
             return self.model.objects.filter(cuser__puser=self.request.user.puser)
         else:
             return self.model.objects.filter(cuser=self.request.user.cuser)
+
 
 class ApproveTaskView(LoginRequiredMixin, View):
 

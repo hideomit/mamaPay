@@ -50,7 +50,8 @@ INSTALLED_APPS = [
     'batch.apps.BatchConfig',
     'rest_framework',
     'rest_framework_swagger',
-    'django.contrib.humanize'
+    'django.contrib.humanize',
+    'imagekit'
 ]
 
 MIDDLEWARE = [

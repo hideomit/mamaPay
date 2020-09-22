@@ -45,7 +45,7 @@
                 </li>
              {% endif %}
                 <li class="nav-item">
-                    <a class="nav-link" href="#">logout</a>
+                    <a class="nav-link" href="logout">logout</a>
                 </li>
             </ul>
             <ul class="navbar-nav">
@@ -68,11 +68,17 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'home' %}">Home</a>
                 </li>
+             {% if user.cuser_id %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'child_home' user.cuser_id %}">Child</a>
+                </li>
+             {% else %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'admin_home' %}">Mama</a>
                 </li>
+             {% endif %}
                 <li class="nav-item">
-                    <a class="nav-link" href="#">logout</a>
+                    <a class="nav-link" href="logout">logout</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="contact.html">Contact</a>
