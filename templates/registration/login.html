@@ -9,7 +9,8 @@
     {{ form.as_p }}
     <button type="submit">ログイン</button>
     <p><a href="{% url 'password_reset' %}">パスワード再設定</a></p>
-
-
 </form>
+
+    <p><a href="{% url 'new_user' %}">新規ユーザー登録</a></p>
+
 {% endblock %}

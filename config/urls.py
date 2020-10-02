@@ -40,6 +40,7 @@ urlpatterns = [
     path('status/delete/', ChildDeleteView.as_view(), name='selected_child_delete'),
     path('status/update/<int:pk>/', ChildStatusUpdateView.as_view(), name='status_update'),
     path('accounts/login/', views.LoginView.as_view(), name='login'),
+    path('accounts/signup/', TemplateView.as_view(template_name='signup.html'), name='new_user'),
     path('accounts/password_change/', views.PasswordChangeView.as_view(), name="password_change"),
     path('accounts/password_change/done/', views.PasswordChangeDoneView.as_view(), name='password_change_done'),
     path('accounts/password_reset/', views.PasswordResetCompleteView.as_view(), name='password_reset'),
