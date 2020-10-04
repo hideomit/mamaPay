@@ -1,7 +1,7 @@
 from django.views.generic import TemplateView
 from django.urls import path
 
-from accounts.views import ChildStatusGetView, ApproveTaskView
+from accounts.views import ChildStatusGetView, ApproveTaskView, ApproveTaskDeleteView
 from users.views import ChildListView, ChildInputView, ChildUpdateView, ChildHomeView, ChildApplyView, TaskApplyView, TaskApplyCompView, ChildHistoryView, ChildDeleteView
 
 urlpatterns = [
@@ -12,6 +12,7 @@ urlpatterns = [
     #    path('children/status/<int:pk>', ChildDetailView.as_view(), name='child_status'),
     path('children/status/<int:pk>', ChildStatusGetView.as_view(), name='child_status'),
     path('children/status/child_approve', ApproveTaskView.as_view(), name='child_approve'),
+    path('children/status/child_approve_delete', ApproveTaskDeleteView.as_view(), name='child_approve_delete'),
     path('children/update/<int:pk>', ChildUpdateView.as_view(), name='child_update'),
     path('children/history/<int:pk>', ChildHistoryView.as_view(), name='children_history'),
     path('child/home/<int:pk>', ChildHomeView.as_view(), name='child_home'),

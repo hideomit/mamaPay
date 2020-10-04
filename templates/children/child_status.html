@@ -46,11 +46,15 @@
     </div>
         {% endfor %}
 
+    <input type="hidden" name="approve_child_id" value="{{ balance.cuser_id }}" />
 
    　<div class="container">
       <div class="row" >
             <div class="col-md-6 mb-3">
                 <button class="btn btn-outline-primary w-100 btn-lg" ><i class="fas fa-chalkboard-teacher mr-1"></i>承認する</button>
+            </div>
+            <div class="col-md-6 mb-3">
+                <button class="btn btn-outline-success w-100 btn-lg" type="submit" formaction="child_approve_delete"><i class="fas fa-chalkboard-teacher mr-1"></i>却下する</button>
             </div>
         </div>
     </div>

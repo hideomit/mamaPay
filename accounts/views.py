@@ -126,3 +126,16 @@ class ApproveTaskView(LoginRequiredMixin, View):
         self.task_data_save(request_id_list)
 
         return redirect(reverse('children'))
+
+
+class ApproveTaskDeleteView(LoginRequiredMixin, View):
+
+    def post(self, request, *args, **kwargs):
+        delete_list = request.POST.getlist('approve_task_list') #単品はrequest.POST.get 複数はrequest.POST.getlist
+        Request.objects.filter(id__in=delete_list).delete() #複数の場合は__in=
+
+        approve_child_id = request.POST.get('approve_child_id', None)
+        print(approve_child_id)
+
+        return redirect(reverse_lazy('child_status', args=approve_child_id)) #reverseに動的なパラメータを渡す
+

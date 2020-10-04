@@ -187,4 +187,5 @@ class ChildDeleteView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         delete_list = request.POST.getlist('delete_list')
         Child.objects.filter(id__in=delete_list).delete()
+
         return redirect(reverse_lazy('status'))
