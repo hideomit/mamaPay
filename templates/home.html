@@ -4,19 +4,22 @@
 
 {% block content %}
 <style>
-   .jumbotron { background:url(static/top.jpg) center no-repeat; background-size: cover;}
+    .jumbotron { position: relative;  background: url(static/Yepay1.jpg) center center;  background-size: cover;}
+    .jumbotron::before {  content:"";  display: block;  padding-top: 45%; /*.jumbotronのwidthに対して高さ75%に保つ*/}
 </style>
-
-
 {% if user.is_authenticated %}
 
   <div class="jumbotron">
 
     <div class="container">
-      <h1 class="display-3 text-white" >
-          ままペイにようこそ、 {{ user.get_username }}ままと子供たち!</h1>
-      <p>#2</p>
+                      <!--
+      <h1 class="display-3 text-blue" >
+
+                      .jumbotron { background:url(static/Yepay1.jpg) center no-repeat; background-size: cover;}
+          いえペイにようこそ、 {{ user.get_username }}ままと子供たち!</h1>
+                 -->
       <p><a class="btn btn-primary btn-lg" href="#" role="button">詳しくみる &raquo;</a></p>
+
     </div>
   </div>
 
