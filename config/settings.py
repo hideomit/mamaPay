@@ -29,11 +29,12 @@ SECRET_KEY = env('SECRET_KEY')
 DEBUG = env.bool('DEBUG', default=False)
 
 #ALLOWED_HOSTS = [env('ALLOWED_HOSTS')]
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 
 # ALLOWED_HOSTS = ['35.72.116.203']
 
 # ALLOWED_HOSTS = ['18.183.255.255']
-ALLOWED_HOSTS = ['yiepay.net', 'www.yiepay.net', '35.72.116.203']
+#ALLOWED_HOSTS = ['yiepay.net', 'www.yiepay.net', '35.72.116.203']
 
 # Application definition
 
@@ -130,7 +131,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
