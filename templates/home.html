@@ -32,8 +32,8 @@
             </div>
             <div class="col-md-10">
                 <dl class="row">
-                    <dt class="col-md-3">2020年09月01日</dt>
-                    <dd class="col-md-9">mamapayサービス開始しました</dd>
+                    <dt class="col-md-3">2026年04月29日</dt>
+                    <dd class="col-md-9">mamapayサービス開始してません</dd>
                     <dt class="col-md-3">2020年09月01日</dt>
                     <dd class="col-md-9">mamapayサービス開始しました</dd>
                 </dl>
@@ -54,7 +54,7 @@
                     <img class="rounded-circle mr-3" src="/media/{{ data.cuser.photo }}" alt="" width="90" height="90">
                 </div>
                 <div class="col mr-2 text-center">
-                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"><a href="{% url 'child_home' data.id %}">{{ data.cuser }}</a></div>
+                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"><a href="{% url 'child_home' data.cuser.id %}">{{ data.cuser }}</a></div>
                     <div class="h5 mb-0 font-weight-bold text-gray-800">
                           {% if data.balance == None %}
                             <div class="pay">¥0</div>
@@ -63,7 +63,7 @@
                             {% endif %}
                     </div>
             <div class="row no-gutters align-items-center">
-                    <a href= "{% url 'child_home' data.id %}" class="btn btn-secondary">くわしくみる &raquo;</a>
+                    <a href= "{% url 'child_home' data.cuser.id %}" class="btn btn-secondary">くわしくみる &raquo;</a>
             </div>
                 </div>
             </div>

@@ -20,13 +20,13 @@
                     <img class="rounded-circle mr-3" src="/media/{{ data.cuser.photo }}" alt="" width="70" height="70">
                 </div>
                 <div class="col mr-2 text-center">
-                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"><a href="{% url 'status_change' data.id %}">{{ data.cuser.name }}</a></div>
+                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"><a href="{% url 'status_change' data.cuser.id %}">{{ data.cuser.name }}</a></div>
                     <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
 
             <div class="row no-gutters align-items-center">
                 <div class="custom-control custom-switch">
-                <input type="checkbox" class="custom-control-input" id="switch{{ data.id }}" name="delete_list" value="{{ data.id }}">
-                <label class="custom-control-label" for="switch{{ data.id }}"></label></div>
+                <input type="checkbox" class="custom-control-input" id="switch{{ data.cuser.id }}" name="delete_list" value="{{ data.cuser.id }}">
+                <label class="custom-control-label" for="switch{{ data.cuser.id }}"></label></div>
             </div>
 
                 </div>

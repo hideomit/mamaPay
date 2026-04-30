@@ -26,12 +26,14 @@ env.read_env(os.path.join(BASE_DIR, '.env'))
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env('DEBUG')
+DEBUG = env.bool('DEBUG', default=False)
 
-ALLOWED_HOSTS = [env('ALLOWED_HOSTS')]
+#ALLOWED_HOSTS = [env('ALLOWED_HOSTS')]
 
-#ALLOWED_HOSTS = ['18.183.255.255']
-#ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = ['35.72.116.203']
+
+# ALLOWED_HOSTS = ['18.183.255.255']
+ALLOWED_HOSTS = ['yiepay.net', 'www.yiepay.net', '35.72.116.203']
 
 # Application definition
 
@@ -242,3 +244,6 @@ SWAGGER_SETTINGS = {
 }
 
 NUMBER_GROUPING = 3
+
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True

@@ -1,0 +1,507 @@
+2026-04-27 06:33:04,425, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'fx-ws.gateio.ws'. You may need to add 'fx-ws.gateio.ws' to ALLOWED_HOSTS.
+2026-04-27 06:33:04,427, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /v4/ws/usdt
+2026-04-27 06:48:17,875, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'api.kucoin.com'. You may need to add 'api.kucoin.com' to ALLOWED_HOSTS.
+2026-04-27 06:48:17,876, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /api/v1/market/orderbook/level1
+2026-04-27 06:54:18,918, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'api-futures.kucoin.com'. You may need to add 'api-futures.kucoin.com' to ALLOWED_HOSTS.
+2026-04-27 06:54:18,919, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /api/v1/ticker
+2026-04-27 07:01:43,612, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'api.binance.com'. You may need to add 'api.binance.com' to ALLOWED_HOSTS.
+2026-04-27 07:01:43,613, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /sapi/wss
+2026-04-27 07:04:55,591, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/favicon/apple-touch-icon.png
+2026-04-27 07:04:56,217, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/favicon/favicon-32x32.png
+2026-04-27 07:04:56,805, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/favicon/favicon-16x16.png
+2026-04-27 07:04:57,428, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /favicon.ico
+2026-04-27 07:05:08,377, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /login
+2026-04-27 07:10:46,980, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/favicon/apple-touch-icon.png
+2026-04-27 07:10:48,958, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/favicon/favicon-32x32.png
+2026-04-27 07:10:49,581, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/favicon/favicon-16x16.png
+2026-04-27 07:10:50,335, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /favicon.ico
+2026-04-27 07:11:01,737, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /login
+2026-04-27 07:13:34,109, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'ws.bitget.com'. You may need to add 'ws.bitget.com' to ALLOWED_HOSTS.
+2026-04-27 07:13:34,109, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /v2/ws/public
+2026-04-27 07:54:15,966, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'ws-fapi.binance.com'. You may need to add 'ws-fapi.binance.com' to ALLOWED_HOSTS.
+2026-04-27 07:54:15,967, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /ws-fapi/v1
+2026-04-27 09:37:35,529, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /robots.txt
+2026-04-27 09:42:33,066, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /.env
+2026-04-27 09:42:34,405, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Forbidden (CSRF cookie not set.): /
+2026-04-27 10:00:04,362, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'ws-dapi.binance.com'. You may need to add 'ws-dapi.binance.com' to ALLOWED_HOSTS.
+2026-04-27 10:00:04,363, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /ws-dapi/v1
+2026-04-27 10:51:56,775, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /ws/btcusdt@bestBidAsk
+2026-04-27 10:56:31,416, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /.env
+2026-04-27 10:56:32,684, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Forbidden (CSRF cookie not set.): /
+2026-04-27 11:03:07,294, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/favicon/favicon-32x32.png
+2026-04-27 11:03:07,340, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/favicon/apple-touch-icon.png
+2026-04-27 11:03:07,964, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /favicon.ico
+2026-04-27 11:03:08,584, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/favicon/favicon-32x32.png
+2026-04-27 11:03:08,679, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/favicon/apple-touch-icon.png
+2026-04-27 11:03:09,307, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /favicon.ico
+2026-04-27 11:25:47,032, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Forbidden (CSRF cookie not set.): /
+2026-04-27 12:14:52,867, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /ws/btcusdt@bookTicker
+2026-04-27 12:16:53,049, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /favicon.ico
+2026-04-27 12:16:55,509, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/favicon/favicon-32x32.png
+2026-04-27 12:22:45,116, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /accounts/login/contact.html
+2026-04-27 12:23:02,087, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /accounts/password_reset/contact.html
+2026-04-27 13:17:10,088, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'api-futures.kucoin.com'. You may need to add 'api-futures.kucoin.com' to ALLOWED_HOSTS.
+2026-04-27 13:17:10,088, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /api/v1/orders
+2026-04-27 13:26:02,927, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /hello.world
+2026-04-27 13:26:03,520, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Forbidden (CSRF cookie not set.): /
+2026-04-27 13:26:03,954, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 13:26:04,476, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /vendor/phpunit/phpunit/Util/PHP/eval-stdin.php
+2026-04-27 13:26:04,902, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /vendor/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 13:26:05,522, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /vendor/phpunit/Util/PHP/eval-stdin.php
+2026-04-27 13:26:06,089, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /vendor/phpunit/phpunit/LICENSE/eval-stdin.php
+2026-04-27 13:26:06,492, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /vendor/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 13:26:07,092, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 13:26:07,797, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /phpunit/phpunit/Util/PHP/eval-stdin.php
+2026-04-27 13:26:08,365, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 13:26:08,924, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /phpunit/Util/PHP/eval-stdin.php
+2026-04-27 13:26:09,372, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /lib/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 13:26:09,836, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /lib/phpunit/phpunit/Util/PHP/eval-stdin.php
+2026-04-27 13:26:10,268, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /lib/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 13:26:10,734, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /lib/phpunit/Util/PHP/eval-stdin.php
+2026-04-27 13:26:11,099, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /lib/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 13:26:11,575, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /laravel/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 13:26:12,078, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /www/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 13:26:12,493, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /ws/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 13:26:12,977, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /yii/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 13:26:13,530, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /zend/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 13:26:13,868, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /ws/ec/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 13:26:14,227, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /V2/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 13:26:14,633, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /tests/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 13:26:14,953, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /test/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 13:26:15,321, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /testing/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 13:26:15,726, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /api/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 13:26:16,185, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /demo/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 13:26:16,611, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /cms/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 13:26:16,956, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /crm/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 13:26:17,234, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /admin/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 13:26:17,527, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /backup/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 13:26:17,834, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /blog/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 13:26:18,175, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /workspace/drupal/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 13:26:18,498, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /panel/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 13:26:18,903, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /public/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 13:26:19,166, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /apps/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 13:26:19,415, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /app/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 13:26:19,709, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /index.php
+2026-04-27 13:26:20,084, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /public/index.php
+2026-04-27 13:26:20,400, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /index.php
+2026-04-27 13:26:20,696, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /index.php
+2026-04-27 13:26:20,934, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /containers/json
+2026-04-27 13:49:09,313, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/favicon/apple-touch-icon.png
+2026-04-27 13:49:09,328, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/favicon/favicon-16x16.png
+2026-04-27 13:49:14,819, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/favicon/apple-touch-icon.png
+2026-04-27 14:01:04,413, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /owa/auth/logon.aspx
+2026-04-27 15:56:44,640, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/favicon/favicon-32x32.png
+2026-04-27 15:57:04,836, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /ws/btcusdt@bestBidAsk
+2026-04-27 16:02:39,267, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /SDK/webLanguage
+2026-04-27 16:07:11,273, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'api.kucoin.com'. You may need to add 'api.kucoin.com' to ALLOWED_HOSTS.
+2026-04-27 16:07:11,273, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /api/v1/hf/orders
+2026-04-27 16:39:19,516, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /.env
+2026-04-27 16:40:00,469, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /hello.world
+2026-04-27 16:40:01,166, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Forbidden (CSRF cookie not set.): /
+2026-04-27 16:40:02,030, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 16:40:02,763, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /vendor/phpunit/phpunit/Util/PHP/eval-stdin.php
+2026-04-27 16:40:03,412, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /vendor/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 16:40:03,801, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /vendor/phpunit/Util/PHP/eval-stdin.php
+2026-04-27 16:40:04,314, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /vendor/phpunit/phpunit/LICENSE/eval-stdin.php
+2026-04-27 16:40:04,785, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /vendor/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 16:40:05,130, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 16:40:05,691, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /phpunit/phpunit/Util/PHP/eval-stdin.php
+2026-04-27 16:40:06,360, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 16:40:06,932, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /phpunit/Util/PHP/eval-stdin.php
+2026-04-27 16:40:07,464, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /lib/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 16:40:08,206, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /lib/phpunit/phpunit/Util/PHP/eval-stdin.php
+2026-04-27 16:40:09,014, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /lib/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 16:40:09,664, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /lib/phpunit/Util/PHP/eval-stdin.php
+2026-04-27 16:40:10,269, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /lib/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 16:40:11,103, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /laravel/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 16:40:11,938, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /www/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 16:40:12,590, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /ws/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 16:40:13,256, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /yii/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 16:40:14,329, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /zend/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 16:40:15,034, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /ws/ec/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 16:40:15,644, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /V2/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 16:40:16,412, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /tests/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 16:40:17,225, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /test/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 16:40:17,978, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /testing/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 16:40:18,851, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /api/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 16:40:19,679, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /demo/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 16:40:20,256, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /cms/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 16:40:20,858, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /crm/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 16:40:21,363, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /admin/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 16:40:21,818, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /backup/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 16:40:22,390, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /blog/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 16:40:22,979, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /workspace/drupal/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 16:40:23,610, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /panel/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 16:40:24,291, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /public/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 16:40:24,702, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /apps/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 16:40:25,143, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /app/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+2026-04-27 16:40:25,636, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /index.php
+2026-04-27 16:40:26,249, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /public/index.php
+2026-04-27 16:40:26,853, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /index.php
+2026-04-27 16:40:27,379, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /index.php
+2026-04-27 16:40:27,973, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /containers/json
+2026-04-27 16:58:54,589, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/favicon/favicon-32x32.png
+2026-04-27 17:16:06,653, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /admin.php
+2026-04-27 17:16:06,744, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /inputs.php
+2026-04-27 17:16:06,848, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /file.php
+2026-04-27 17:16:06,919, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /goods.php
+2026-04-27 17:16:06,993, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /ms-edit.php
+2026-04-27 17:16:07,065, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /simple.php
+2026-04-27 17:16:07,136, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /bgymj.php
+2026-04-27 17:16:07,207, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /wp-content/plugins/twenty/login.php
+2026-04-27 17:16:07,278, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /404.php
+2026-04-27 17:16:07,349, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /file3.php
+2026-04-27 17:16:07,420, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /wp-mail.php
+2026-04-27 17:16:07,531, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /about.php
+2026-04-27 17:16:07,602, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /wp.php
+2026-04-27 17:16:07,710, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /.dj/index.php
+2026-04-27 17:16:07,781, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /adminfuns.php
+2026-04-27 17:16:07,873, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /php8.php
+2026-04-27 17:16:07,944, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /classwithtostring.php
+2026-04-27 17:16:08,014, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /info.php
+2026-04-27 17:16:08,085, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /ioxi-o.php
+2026-04-27 17:16:08,156, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /011i.php
+2026-04-27 17:16:08,228, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /edit.php
+2026-04-27 17:16:08,357, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /sid3.php
+2026-04-27 17:16:08,469, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /load.php
+2026-04-27 17:16:08,572, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /166.php
+2026-04-27 17:16:08,643, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /wp-mail.php
+2026-04-27 17:16:08,713, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /leaf.php
+2026-04-27 17:16:08,818, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /grsiuk.php
+2026-04-27 17:16:08,914, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /8.php
+2026-04-27 17:16:09,010, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /fs.php
+2026-04-27 17:16:09,107, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /ws38.php
+2026-04-27 17:16:09,215, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /a7.php
+2026-04-27 17:16:09,330, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /classsmtps.php
+2026-04-27 17:16:09,438, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /amax.php
+2026-04-27 17:16:09,509, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /CDX1.php
+2026-04-27 17:16:09,581, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /rip.php
+2026-04-27 17:16:09,681, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /1.php
+2026-04-27 17:16:09,754, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /chosen.php
+2026-04-27 17:16:09,825, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /css.php
+2026-04-27 17:16:09,895, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /php.php
+2026-04-27 17:16:09,966, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /wp-Blogs.php
+2026-04-27 17:16:10,036, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /wp-content/index.php
+2026-04-27 17:16:10,107, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /wp-content/plugins/beteng88/ws83.php
+2026-04-27 17:16:10,178, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /ws83.php
+2026-04-27 17:16:10,249, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /file61.php
+2026-04-27 17:16:10,320, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /sadcut1.php
+2026-04-27 17:16:10,390, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /y.php
+2026-04-27 17:16:10,461, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /akcc.php
+2026-04-27 17:16:10,532, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /wp-admin/user/12.php
+2026-04-27 17:16:10,603, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /index/function.php
+2026-04-27 17:16:10,674, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /term.php
+2026-04-27 17:16:10,746, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /666.php
+2026-04-27 17:16:10,817, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /7.php
+2026-04-27 17:16:10,946, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /wp-config-sample.php
+2026-04-27 17:16:11,017, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /log.php
+2026-04-27 17:16:11,089, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /a5.php
+2026-04-27 17:16:11,195, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /aa.php
+2026-04-27 17:16:11,266, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /bolt.php
+2026-04-27 17:16:11,353, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /x.php
+2026-04-27 17:16:11,452, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /jga.php
+2026-04-27 17:16:11,523, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /k.php
+2026-04-27 17:16:11,595, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /vx.php
+2026-04-27 17:16:11,666, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /ws77.php
+2026-04-27 17:16:11,772, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /2.php
+2026-04-27 17:16:11,845, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /abcd.php
+2026-04-27 17:16:11,916, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /wp-content/plugins/admin.php
+2026-04-27 17:16:12,013, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /asd.php
+2026-04-27 17:16:12,085, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /default.php
+2026-04-27 17:16:12,211, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /gettest.php
+2026-04-27 17:16:12,313, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /install.php
+2026-04-27 17:16:12,414, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /tfm.php
+2026-04-27 17:16:12,485, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /ws81.php
+2026-04-27 17:16:12,556, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /222.php
+2026-04-27 17:16:12,656, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /t.php
+2026-04-27 17:16:12,728, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /wp-admin/maint/index.php
+2026-04-27 17:16:12,847, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /6xBAm3vODE05BSzkJZRAws.php
+2026-04-27 17:16:12,918, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /a.php
+2026-04-27 17:16:12,989, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /a1.php
+2026-04-27 17:16:13,060, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /onclickfuns.php
+2026-04-27 17:16:13,131, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /w.php
+2026-04-27 17:16:13,202, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /wp-admin/maint/about.php
+2026-04-27 17:16:13,273, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /wp-content/plugins/index.php
+2026-04-27 17:16:13,343, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /wp-good.php
+2026-04-27 17:16:13,442, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /.info.php
+2026-04-27 17:16:13,514, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /config.php
+2026-04-27 17:16:13,585, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /item.php
+2026-04-27 17:16:13,656, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /m.php
+2026-04-27 17:16:13,728, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /rh.php
+2026-04-27 17:31:24,595, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: //wp-includes/wlwmanifest.xml
+2026-04-27 17:31:24,842, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: //xmlrpc.php
+2026-04-27 17:31:25,327, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: //blog/wp-includes/wlwmanifest.xml
+2026-04-27 17:31:25,571, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: //web/wp-includes/wlwmanifest.xml
+2026-04-27 17:31:25,812, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: //wordpress/wp-includes/wlwmanifest.xml
+2026-04-27 17:31:26,053, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: //website/wp-includes/wlwmanifest.xml
+2026-04-27 17:31:26,294, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: //wp/wp-includes/wlwmanifest.xml
+2026-04-27 17:31:26,568, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: //news/wp-includes/wlwmanifest.xml
+2026-04-27 17:31:26,809, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: //2018/wp-includes/wlwmanifest.xml
+2026-04-27 17:31:27,049, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: //2019/wp-includes/wlwmanifest.xml
+2026-04-27 17:31:27,304, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: //shop/wp-includes/wlwmanifest.xml
+2026-04-27 17:31:27,547, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: //wp1/wp-includes/wlwmanifest.xml
+2026-04-27 17:31:27,794, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: //test/wp-includes/wlwmanifest.xml
+2026-04-27 17:31:28,037, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: //media/wp-includes/wlwmanifest.xml
+2026-04-27 17:31:28,280, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: //wp2/wp-includes/wlwmanifest.xml
+2026-04-27 17:31:28,550, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: //site/wp-includes/wlwmanifest.xml
+2026-04-27 17:31:28,794, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: //cms/wp-includes/wlwmanifest.xml
+2026-04-27 17:31:29,038, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: //sito/wp-includes/wlwmanifest.xml
+2026-04-27 17:40:36,129, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /.env
+2026-04-27 17:40:37,341, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Forbidden (CSRF cookie not set.): /
+2026-04-27 17:42:47,267, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'api.hbdm.com'. You may need to add 'api.hbdm.com' to ALLOWED_HOSTS.
+2026-04-27 17:42:47,268, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /linear-swap-ex/market/depth
+2026-04-27 17:45:45,476, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /status_404
+2026-04-27 17:51:49,111, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'ec2-35-72-116-203.ap-northeast-1.compute.amazonaws.com'. You may need to add 'ec2-35-72-116-203.ap-northeast-1.compute.amazonaws.com' to ALLOWED_HOSTS.
+2026-04-27 17:51:49,111, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /
+2026-04-27 17:51:49,289, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'ec2-35-72-116-203.ap-northeast-1.compute.amazonaws.com'. You may need to add 'ec2-35-72-116-203.ap-northeast-1.compute.amazonaws.com' to ALLOWED_HOSTS.
+2026-04-27 17:51:49,290, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /pub/static/version
+2026-04-27 17:51:49,451, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'ec2-35-72-116-203.ap-northeast-1.compute.amazonaws.com'. You may need to add 'ec2-35-72-116-203.ap-northeast-1.compute.amazonaws.com' to ALLOWED_HOSTS.
+2026-04-27 17:51:49,452, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /static/version
+2026-04-27 17:51:49,612, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'ec2-35-72-116-203.ap-northeast-1.compute.amazonaws.com'. You may need to add 'ec2-35-72-116-203.ap-northeast-1.compute.amazonaws.com' to ALLOWED_HOSTS.
+2026-04-27 17:51:49,612, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /pub/media/customer_address/
+2026-04-27 17:51:49,777, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'ec2-35-72-116-203.ap-northeast-1.compute.amazonaws.com'. You may need to add 'ec2-35-72-116-203.ap-northeast-1.compute.amazonaws.com' to ALLOWED_HOSTS.
+2026-04-27 17:51:49,778, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /media/catalog/product/
+2026-04-27 17:51:49,973, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'ec2-35-72-116-203.ap-northeast-1.compute.amazonaws.com'. You may need to add 'ec2-35-72-116-203.ap-northeast-1.compute.amazonaws.com' to ALLOWED_HOSTS.
+2026-04-27 17:51:49,974, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /checkout/cart/
+2026-04-27 17:51:50,127, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'ec2-35-72-116-203.ap-northeast-1.compute.amazonaws.com'. You may need to add 'ec2-35-72-116-203.ap-northeast-1.compute.amazonaws.com' to ALLOWED_HOSTS.
+2026-04-27 17:51:50,128, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /customer/account/login/
+2026-04-27 17:51:50,301, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'ec2-35-72-116-203.ap-northeast-1.compute.amazonaws.com'. You may need to add 'ec2-35-72-116-203.ap-northeast-1.compute.amazonaws.com' to ALLOWED_HOSTS.
+2026-04-27 17:51:50,302, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /
+2026-04-27 17:51:50,458, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'ec2-35-72-116-203.ap-northeast-1.compute.amazonaws.com'. You may need to add 'ec2-35-72-116-203.ap-northeast-1.compute.amazonaws.com' to ALLOWED_HOSTS.
+2026-04-27 17:51:50,460, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /robots.txt
+2026-04-27 18:05:27,070, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'fapi.binance.com'. You may need to add 'fapi.binance.com' to ALLOWED_HOSTS.
+2026-04-27 18:05:27,070, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /fapi/v1/order
+2026-04-27 18:20:40,755, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /robots.txt
+2026-04-27 18:20:40,757, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /favicon.ico
+2026-04-27 18:20:43,755, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /security.txt
+2026-04-27 18:23:22,299, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/favicon/favicon-32x32.png
+2026-04-27 18:26:07,111, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'api.gateio.ws'. You may need to add 'api.gateio.ws' to ALLOWED_HOSTS.
+2026-04-27 18:26:07,112, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /ws/v4/
+2026-04-27 18:32:16,497, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /favicon.ico
+2026-04-27 18:34:24,226, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/favicon/apple-touch-icon.png
+2026-04-27 18:46:36,494, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'fx-ws.gateio.ws'. You may need to add 'fx-ws.gateio.ws' to ALLOWED_HOSTS.
+2026-04-27 18:46:36,494, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /v4/ws/usdt
+2026-04-27 18:53:39,368, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'api.kucoin.com'. You may need to add 'api.kucoin.com' to ALLOWED_HOSTS.
+2026-04-27 18:53:39,368, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /api/v1/market/orderbook/level1
+2026-04-27 18:57:10,674, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'api.bitget.com'. You may need to add 'api.bitget.com' to ALLOWED_HOSTS.
+2026-04-27 18:57:10,675, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /api/mix/v1/order/placeOrder
+2026-04-27 18:59:53,296, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'api-futures.kucoin.com'. You may need to add 'api-futures.kucoin.com' to ALLOWED_HOSTS.
+2026-04-27 18:59:53,297, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /api/v1/ticker
+2026-04-27 19:02:29,208, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /.env
+2026-04-27 19:02:30,616, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Forbidden (CSRF cookie not set.): /
+2026-04-27 19:10:06,695, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'api.binance.com'. You may need to add 'api.binance.com' to ALLOWED_HOSTS.
+2026-04-27 19:10:06,696, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /sapi/wss
+2026-04-27 19:14:43,621, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'api.hbdm.com'. You may need to add 'api.hbdm.com' to ALLOWED_HOSTS.
+2026-04-27 19:14:43,622, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /linear-swap-ws
+2026-04-27 19:26:18,372, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'ws.bitget.com'. You may need to add 'ws.bitget.com' to ALLOWED_HOSTS.
+2026-04-27 19:26:18,372, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /v2/ws/public
+2026-04-27 20:23:36,809, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /developmentserver/metadatauploader
+2026-04-27 21:02:16,217, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /ws/btcusdt@bestBidAsk
+2026-04-27 22:20:08,202, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/favicon/favicon-32x32.png
+2026-04-27 22:20:08,214, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/favicon/favicon-32x32.png
+2026-04-27 22:20:09,143, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/favicon/favicon-16x16.png
+2026-04-27 22:20:09,156, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/favicon/favicon-16x16.png
+2026-04-27 22:20:10,094, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/favicon/apple-touch-icon.png
+2026-04-27 22:20:10,105, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/favicon/apple-touch-icon.png
+2026-04-27 22:38:57,119, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /robots.txt
+2026-04-27 22:39:00,934, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /accounts/login/contact.html
+2026-04-27 22:39:03,260, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /admin_home/contact.html
+2026-04-27 22:57:15,758, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'ws.bitget.com'. You may need to add 'ws.bitget.com' to ALLOWED_HOSTS.
+2026-04-27 22:57:15,758, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /mix/v1/stream
+2026-04-27 23:02:54,920, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/favicon/favicon-32x32.png
+2026-04-27 23:02:55,950, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /favicon.ico
+2026-04-27 23:02:56,915, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /robots.txt
+2026-04-27 23:02:58,826, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /.well-known/security.txt
+2026-04-27 23:10:07,649, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'fstream.binance.com'. You may need to add 'fstream.binance.com' to ALLOWED_HOSTS.
+2026-04-27 23:10:07,650, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /public/stream
+2026-04-27 23:10:11,084, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /.env
+2026-04-27 23:10:13,545, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Forbidden (CSRF cookie not set.): /
+2026-04-27 23:12:27,747, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/c3.min.js
+2026-04-27 23:12:27,979, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/favicon/site.webmanifest
+2026-04-27 23:12:28,206, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /js/lkk_ch.js
+2026-04-27 23:12:28,435, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/c3.min.css
+2026-04-27 23:12:28,663, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/style/sys_files/index.js
+2026-04-27 23:12:28,891, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /bot-connect.js
+2026-04-27 23:12:29,119, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /robots.txt
+2026-04-27 23:12:29,352, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/favicon/apple-touch-icon.png
+2026-04-27 23:12:29,585, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/favicon/favicon-16x16.png
+2026-04-27 23:12:29,814, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /assets/js/auth.js
+2026-04-27 23:12:30,042, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /assets/js/qr_modal.js
+2026-04-27 23:12:30,274, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/style/protect/index.js
+2026-04-27 23:12:30,505, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/iepay2.jpg
+2026-04-27 23:12:30,737, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /assets/js/message.js
+2026-04-27 23:12:30,972, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/favicon/favicon-32x32.png
+2026-04-27 23:12:39,677, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /js/twint_ch.js
+2026-04-27 23:12:39,907, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/favicon/safari-pinned-tab.svg
+2026-04-27 23:12:40,141, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/font.css
+2026-04-27 23:12:40,372, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /css/support_parent.css
+2026-04-27 23:15:15,282, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: '0.0.0.0'. You may need to add '0.0.0.0' to ALLOWED_HOSTS.
+2026-04-27 23:15:15,282, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /
+2026-04-27 23:19:58,885, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/font.css
+2026-04-27 23:19:58,908, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/c3.min.css
+2026-04-27 23:19:58,910, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/d3.min.js
+2026-04-27 23:19:58,911, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/c3.min.js
+2026-04-27 23:19:58,920, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/iepay2.jpg
+2026-04-27 23:19:59,140, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/favicon/site.webmanifest
+2026-04-27 23:19:59,152, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/iepay2.jpg
+2026-04-27 23:20:04,017, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/font.css
+2026-04-27 23:20:04,019, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/favicon/site.webmanifest
+2026-04-27 23:20:04,021, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/c3.min.css
+2026-04-27 23:20:04,023, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/d3.min.js
+2026-04-27 23:20:04,033, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/iepay2.jpg
+2026-04-27 23:20:04,038, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/c3.min.js
+2026-04-27 23:20:04,042, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /media/Child/IMG_0542.jpg
+2026-04-27 23:20:04,048, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /media/Child/IMG_1425_71KaMDj.JPG
+2026-04-27 23:20:04,052, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/iepay2.jpg
+2026-04-27 23:20:04,058, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/Yepay1.jpg
+2026-04-27 23:21:44,842, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/iepay2.jpg
+2026-04-27 23:21:45,074, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /assets/js/qr_modal.js
+2026-04-27 23:21:45,302, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /robots.txt
+2026-04-27 23:21:45,534, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/style/sys_files/index.js
+2026-04-27 23:21:45,763, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /bot-connect.js
+2026-04-27 23:21:45,992, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /assets/js/auth.js
+2026-04-27 23:21:46,222, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/d3.min.js
+2026-04-27 23:21:46,449, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /js/lkk_ch.js
+2026-04-27 23:21:46,678, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/favicon/favicon-16x16.png
+2026-04-27 23:21:46,907, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/font.css
+2026-04-27 23:21:47,136, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /css/support_parent.css
+2026-04-27 23:21:47,365, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/favicon/site.webmanifest
+2026-04-27 23:21:47,594, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/favicon/safari-pinned-tab.svg
+2026-04-27 23:21:47,823, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/c3.min.js
+2026-04-27 23:21:48,051, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/favicon/apple-touch-icon.png
+2026-04-27 23:21:48,280, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/c3.min.css
+2026-04-27 23:21:48,511, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/favicon/favicon-32x32.png
+2026-04-27 23:21:48,740, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /js/twint_ch.js
+2026-04-27 23:21:48,969, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /assets/js/message.js
+2026-04-27 23:21:49,199, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /static/style/protect/index.js
+2026-04-27 23:38:26,201, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /robots.txt
+2026-04-28 00:23:12,852, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /.git/config
+2026-04-28 00:37:41,101, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /favicon.ico
+2026-04-28 00:45:30,559, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'stream.binance.com'. You may need to add 'stream.binance.com' to ALLOWED_HOSTS.
+2026-04-28 00:45:30,559, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /stream
+2026-04-28 00:49:27,476, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /.env
+2026-04-28 00:49:28,177, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /"/static/c3.min.js"
+2026-04-28 00:49:28,243, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /"/static/d3.min.js"
+2026-04-28 00:49:28,252, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /.env.bak
+2026-04-28 00:49:28,502, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /.env.save
+2026-04-28 00:49:28,751, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /.env.backup
+2026-04-28 00:49:28,999, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /backend/.env
+2026-04-28 00:49:29,248, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /admin/.env
+2026-04-28 00:49:29,497, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /.git/config
+2026-04-28 00:49:29,746, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /wp-config.php
+2026-04-28 00:49:29,995, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /config.js
+2026-04-28 00:49:30,244, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /aws-config.js
+2026-04-28 00:49:30,493, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /aws.config.js
+2026-04-28 00:49:30,741, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /_debugbar/
+2026-04-28 00:49:30,990, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /debugbar/
+2026-04-28 00:49:31,239, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /debug/
+2026-04-28 00:49:31,488, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /phpinfo.php
+2026-04-28 00:49:31,736, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /info.php
+2026-04-28 00:49:31,985, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /test.php
+2026-04-28 00:49:32,234, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /.aws/credentials
+2026-04-28 00:49:32,483, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /.aws/config
+2026-04-28 00:49:32,732, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /aws-credentials
+2026-04-28 00:49:32,981, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /aws.json
+2026-04-28 00:49:33,229, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /.s3cfg
+2026-04-28 01:23:28,582, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Internal Server Error: /users/child/home/1
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/contrib/auth/mixins.py", line 52, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/views/generic/base.py", line 97, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/var/www/mamaPay/users/views.py", line 121, in get
+    child_data = Child.objects.get(id=self.kwargs['pk'])
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/db/models/query.py", line 408, in get
+    self.model._meta.object_name
+users.models.Child.DoesNotExist: Child matching query does not exist.
+2026-04-28 01:23:34,449, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Internal Server Error: /users/child/home/1
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/contrib/auth/mixins.py", line 52, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/views/generic/base.py", line 97, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/var/www/mamaPay/users/views.py", line 121, in get
+    child_data = Child.objects.get(id=self.kwargs['pk'])
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/db/models/query.py", line 408, in get
+    self.model._meta.object_name
+users.models.Child.DoesNotExist: Child matching query does not exist.
+2026-04-28 01:54:07,489, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /.env
+2026-04-28 01:54:07,723, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /"/static/c3.min.js"
+2026-04-28 01:54:08,192, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /"/static/d3.min.js"
+2026-04-28 01:54:08,730, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /.env.bak
+2026-04-28 01:54:08,962, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /.env.save
+2026-04-28 01:54:09,194, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /.env.backup
+2026-04-28 01:54:09,426, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /backend/.env
+2026-04-28 01:54:09,658, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /admin/.env
+2026-04-28 01:54:09,889, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /.git/config
+2026-04-28 01:54:10,122, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /wp-config.php
+2026-04-28 01:54:10,354, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /config.js
+2026-04-28 01:54:10,586, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /aws-config.js
+2026-04-28 01:54:10,818, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /aws.config.js
+2026-04-28 01:54:11,049, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /_debugbar/
+2026-04-28 01:54:11,283, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /debugbar/
+2026-04-28 01:54:11,514, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /debug/
+2026-04-28 01:54:11,748, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /phpinfo.php
+2026-04-28 01:54:11,980, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /info.php
+2026-04-28 01:54:12,212, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /test.php
+2026-04-28 01:54:12,444, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /.aws/credentials
+2026-04-28 01:54:12,676, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /.aws/config
+2026-04-28 01:54:12,908, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /aws-credentials
+2026-04-28 01:54:13,140, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /aws.json
+2026-04-28 01:54:13,371, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /.s3cfg
+2026-04-28 01:55:13,060, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /SDK/webLanguage
+2026-04-28 02:07:53,834, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /ws/btcusdt@bestBidAsk
+2026-04-28 02:26:20,480, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /.env
+2026-04-28 02:26:21,889, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Forbidden (CSRF cookie not set.): /
+2026-04-28 02:28:48,549, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /info.php
+2026-04-28 02:28:50,126, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /.git/config
+2026-04-28 02:28:51,596, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /server-status
+2026-04-28 02:28:52,984, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /config.json
+2026-04-28 02:28:54,315, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /.env
+2026-04-28 02:28:55,932, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /telescope/requests
+2026-04-28 02:38:07,216, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'ws-fapi.binance.com'. You may need to add 'ws-fapi.binance.com' to ALLOWED_HOSTS.
+2026-04-28 02:38:07,216, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /ws-fapi/v1
+2026-04-28 03:00:48,053, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /ws/btcusdt@bookTicker
+2026-04-28 04:24:40,947, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'fstream.binance.com'. You may need to add 'fstream.binance.com' to ALLOWED_HOSTS.
+2026-04-28 04:24:40,948, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /public/stream
+2026-04-28 04:40:10,897, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /robots.txt
+2026-04-28 04:53:34,022, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /robots.txt
+2026-04-28 05:15:43,146, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /wordpress/
+2026-04-28 05:15:44,319, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /blog/
+2026-04-28 05:15:44,786, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /old/
+2026-04-28 05:15:45,254, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /wp/
+2026-04-28 05:15:45,721, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /backup/
+2026-04-28 05:15:46,189, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /new/
+2026-04-28 05:30:42,389, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /Ti5j
+2026-04-28 05:30:42,609, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /9TyW
+2026-04-28 05:34:34,456, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /status_404
+2026-04-28 05:42:25,221, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /robots.txt
+2026-04-28 05:54:34,360, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /.git/config
+2026-04-28 05:55:13,584, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'fapi.binance.com'. You may need to add 'fapi.binance.com' to ALLOWED_HOSTS.
+2026-04-28 05:55:13,585, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /fapi/v1/order
+2026-04-28 06:03:18,237, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /owa/auth/x.js
+2026-04-28 06:04:30,565, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /xmlrpc.php
+2026-04-28 06:14:55,559, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'api.gateio.ws'. You may need to add 'api.gateio.ws' to ALLOWED_HOSTS.
+2026-04-28 06:14:55,559, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /ws/v4/
+2026-04-28 06:18:06,520, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'ws-dapi.binance.com'. You may need to add 'ws-dapi.binance.com' to ALLOWED_HOSTS.
+2026-04-28 06:18:06,520, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /ws-dapi/v1

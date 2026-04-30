@@ -1,0 +1,268 @@
+2026-04-29 06:30:15,804, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'fx-ws.gateio.ws'. You may need to add 'fx-ws.gateio.ws' to ALLOWED_HOSTS.
+2026-04-29 06:30:15,805, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /v4/ws/usdt
+2026-04-29 06:46:33,369, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'api.kucoin.com'. You may need to add 'api.kucoin.com' to ALLOWED_HOSTS.
+2026-04-29 06:46:33,369, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /api/v1/market/orderbook/level1
+2026-04-29 06:52:39,047, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'api-futures.kucoin.com'. You may need to add 'api-futures.kucoin.com' to ALLOWED_HOSTS.
+2026-04-29 06:52:39,047, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /api/v1/ticker
+2026-04-29 06:59:32,393, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'api.binance.com'. You may need to add 'api.binance.com' to ALLOWED_HOSTS.
+2026-04-29 06:59:32,393, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /sapi/wss
+2026-04-29 07:11:51,876, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'ws.bitget.com'. You may need to add 'ws.bitget.com' to ALLOWED_HOSTS.
+2026-04-29 07:11:51,876, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /v2/ws/public
+2026-04-29 07:56:26,425, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /cgi-bin/authLogin.cgi
+2026-04-29 07:57:02,341, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /accounts/login/contact.html
+2026-04-29 07:57:06,143, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /accounts/password_reset/contact.html
+2026-04-29 08:33:27,687, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /ws/btcusdt@bookTicker
+2026-04-29 08:33:39,687, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /accounts/login/contact.html
+2026-04-29 08:34:25,254, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /accounts/password_reset/contact.html
+2026-04-29 08:34:30,289, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /accounts/password_reset/done/contact.html
+2026-04-29 08:34:34,137, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /accounts/signup/contact.html
+2026-04-29 08:34:40,186, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /contact.html
+2026-04-29 08:34:49,256, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /admin_home/contact.html
+2026-04-29 08:40:03,147, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /ws/btcusdt@bestBidAsk
+2026-04-29 09:27:49,523, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /.env
+2026-04-29 09:27:50,697, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Forbidden (CSRF cookie not set.): /
+2026-04-29 09:43:29,170, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'api-futures.kucoin.com'. You may need to add 'api-futures.kucoin.com' to ALLOWED_HOSTS.
+2026-04-29 09:43:29,170, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /api/v1/orders
+2026-04-29 09:57:00,434, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /dns-query
+2026-04-29 09:57:00,442, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /dns-query
+2026-04-29 09:57:00,448, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /dns-query
+2026-04-29 09:57:00,455, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /dns-query
+2026-04-29 09:57:00,462, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /dns-query
+2026-04-29 09:57:00,469, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /dns-query
+2026-04-29 09:57:00,476, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /query
+2026-04-29 09:57:00,482, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /query
+2026-04-29 09:57:00,489, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /query
+2026-04-29 09:57:00,496, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /query
+2026-04-29 09:57:00,502, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /query
+2026-04-29 09:57:00,510, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /query
+2026-04-29 09:57:00,516, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /resolve
+2026-04-29 09:57:00,523, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /resolve
+2026-04-29 09:57:00,530, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /resolve
+2026-04-29 09:57:00,536, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /resolve
+2026-04-29 09:57:00,543, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /resolve
+2026-04-29 09:57:00,550, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /resolve
+2026-04-29 09:57:00,563, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Forbidden (CSRF cookie not set.): /
+2026-04-29 09:57:00,583, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Forbidden (CSRF cookie not set.): /
+2026-04-29 10:08:26,585, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: '0.0.0.0'. You may need to add '0.0.0.0' to ALLOWED_HOSTS.
+2026-04-29 10:08:26,585, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /admin/config.php
+2026-04-29 10:10:10,428, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /ReportServer
+2026-04-29 11:58:48,591, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /.env
+2026-04-29 11:58:50,305, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Forbidden (CSRF cookie not set.): /
+2026-04-29 12:05:17,884, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /robots.txt
+2026-04-29 12:05:18,226, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /robots.txt
+2026-04-29 12:33:37,207, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'api.kucoin.com'. You may need to add 'api.kucoin.com' to ALLOWED_HOSTS.
+2026-04-29 12:33:37,208, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /api/v1/hf/orders
+2026-04-29 13:27:54,085, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /apple-touch-icon-precomposed.png
+2026-04-29 13:27:54,204, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /apple-touch-icon.png
+2026-04-29 13:27:54,211, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /favicon.ico
+2026-04-29 13:28:01,990, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /android-chrome-192x192.png
+2026-04-29 13:28:27,838, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Internal Server Error: /users/child/home/1
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/contrib/auth/mixins.py", line 52, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/views/generic/base.py", line 97, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/var/www/mamaPay/users/views.py", line 121, in get
+    child_data = Child.objects.get(id=self.kwargs['pk'])
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/db/models/query.py", line 408, in get
+    self.model._meta.object_name
+users.models.Child.DoesNotExist: Child matching query does not exist.
+2026-04-29 13:28:40,845, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Internal Server Error: /users/child/home/1
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/contrib/auth/mixins.py", line 52, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/views/generic/base.py", line 97, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/var/www/mamaPay/users/views.py", line 121, in get
+    child_data = Child.objects.get(id=self.kwargs['pk'])
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/db/models/query.py", line 408, in get
+    self.model._meta.object_name
+users.models.Child.DoesNotExist: Child matching query does not exist.
+2026-04-29 13:33:46,700, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Internal Server Error: /users/child/home/1
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/contrib/auth/mixins.py", line 52, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/views/generic/base.py", line 97, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/var/www/mamaPay/users/views.py", line 121, in get
+    child_data = Child.objects.get(id=self.kwargs['pk'])
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/db/models/query.py", line 408, in get
+    self.model._meta.object_name
+users.models.Child.DoesNotExist: Child matching query does not exist.
+2026-04-29 13:34:02,333, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Internal Server Error: /users/child/home/1
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/contrib/auth/mixins.py", line 52, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/views/generic/base.py", line 97, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/var/www/mamaPay/users/views.py", line 121, in get
+    child_data = Child.objects.get(id=self.kwargs['pk'])
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/db/models/query.py", line 408, in get
+    self.model._meta.object_name
+users.models.Child.DoesNotExist: Child matching query does not exist.
+2026-04-29 13:35:18,921, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Internal Server Error: /users/child/home/2
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/contrib/auth/mixins.py", line 52, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/views/generic/base.py", line 97, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/var/www/mamaPay/users/views.py", line 121, in get
+    child_data = Child.objects.get(id=self.kwargs['pk'])
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/db/models/query.py", line 408, in get
+    self.model._meta.object_name
+users.models.Child.DoesNotExist: Child matching query does not exist.
+2026-04-29 13:36:33,111, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Internal Server Error: /users/child/home/2
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/contrib/auth/mixins.py", line 52, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/views/generic/base.py", line 97, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/var/www/mamaPay/users/views.py", line 121, in get
+    child_data = Child.objects.get(id=self.kwargs['pk'])
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/ubuntu/.local/lib/python3.7/site-packages/django/db/models/query.py", line 408, in get
+    self.model._meta.object_name
+users.models.Child.DoesNotExist: Child matching query does not exist.
+2026-04-29 13:45:18,062, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /ws/btcusdt@bestBidAsk
+2026-04-29 13:47:29,728, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /contact.html
+2026-04-29 13:49:57,944, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /.git/config
+2026-04-29 14:13:54,245, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /owa/auth/logon.aspx
+2026-04-29 15:23:45,773, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'api.bitget.com'. You may need to add 'api.bitget.com' to ALLOWED_HOSTS.
+2026-04-29 15:23:45,773, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /api/mix/v1/order/placeOrder
+2026-04-29 17:31:22,908, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /status_404
+2026-04-29 17:52:35,753, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'fapi.binance.com'. You may need to add 'fapi.binance.com' to ALLOWED_HOSTS.
+2026-04-29 17:52:35,753, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /fapi/v1/order
+2026-04-29 18:13:02,498, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'api.gateio.ws'. You may need to add 'api.gateio.ws' to ALLOWED_HOSTS.
+2026-04-29 18:13:02,498, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /ws/v4/
+2026-04-29 18:23:19,535, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /robots.txt
+2026-04-29 18:32:17,542, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'fx-ws.gateio.ws'. You may need to add 'fx-ws.gateio.ws' to ALLOWED_HOSTS.
+2026-04-29 18:32:17,543, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /v4/ws/usdt
+2026-04-29 18:39:57,570, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /xmlrpc.php
+2026-04-29 18:47:23,719, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'api.kucoin.com'. You may need to add 'api.kucoin.com' to ALLOWED_HOSTS.
+2026-04-29 18:47:23,720, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /api/v1/market/orderbook/level1
+2026-04-29 18:50:35,766, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /ws/btcusdt@bestBidAsk
+2026-04-29 18:53:24,546, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'api-futures.kucoin.com'. You may need to add 'api-futures.kucoin.com' to ALLOWED_HOSTS.
+2026-04-29 18:53:24,547, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /api/v1/ticker
+2026-04-29 18:54:25,961, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /SDK/webLanguage
+2026-04-29 19:00:39,166, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'api.binance.com'. You may need to add 'api.binance.com' to ALLOWED_HOSTS.
+2026-04-29 19:00:39,166, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /sapi/wss
+2026-04-29 19:12:49,902, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'ws.bitget.com'. You may need to add 'ws.bitget.com' to ALLOWED_HOSTS.
+2026-04-29 19:12:49,903, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /v2/ws/public
+2026-04-29 19:23:52,654, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'ws.bitget.com'. You may need to add 'ws.bitget.com' to ALLOWED_HOSTS.
+2026-04-29 19:23:52,655, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /mix/v1/stream
+2026-04-29 20:13:16,581, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /robots.txt
+2026-04-29 20:13:17,508, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /sitemap.xml
+2026-04-29 20:13:25,377, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /config.json
+2026-04-29 20:58:15,114, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /.env
+2026-04-29 20:58:16,337, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Forbidden (CSRF cookie not set.): /
+2026-04-29 21:44:19,517, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /robots.txt
+2026-04-29 23:19:17,062, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /ws/btcusdt@bookTicker
+2026-04-29 23:28:46,491, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /.git/config
+2026-04-29 23:29:40,896, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /robots.txt
+2026-04-29 23:43:40,909, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /.env
+2026-04-29 23:43:42,161, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Forbidden (CSRF cookie not set.): /
+2026-04-29 23:56:03,511, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /ws/btcusdt@bestBidAsk
+2026-04-30 00:16:22,408, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /robots.txt
+2026-04-30 00:45:26,775, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'fstream.binance.com'. You may need to add 'fstream.binance.com' to ALLOWED_HOSTS.
+2026-04-30 00:45:26,776, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /public/stream
+2026-04-30 00:46:49,309, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /favicon.ico
+2026-04-30 00:48:28,467, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /login
+2026-04-30 00:57:37,469, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: //wp-includes/wlwmanifest.xml
+2026-04-30 00:57:37,618, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: //xmlrpc.php
+2026-04-30 00:57:37,917, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: //blog/wp-includes/wlwmanifest.xml
+2026-04-30 00:57:38,066, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: //web/wp-includes/wlwmanifest.xml
+2026-04-30 00:57:38,236, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: //wordpress/wp-includes/wlwmanifest.xml
+2026-04-30 00:57:38,385, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: //website/wp-includes/wlwmanifest.xml
+2026-04-30 00:57:38,534, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: //wp/wp-includes/wlwmanifest.xml
+2026-04-30 00:57:38,684, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: //news/wp-includes/wlwmanifest.xml
+2026-04-30 00:57:38,855, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: //2018/wp-includes/wlwmanifest.xml
+2026-04-30 00:57:39,004, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: //2019/wp-includes/wlwmanifest.xml
+2026-04-30 00:57:39,153, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: //shop/wp-includes/wlwmanifest.xml
+2026-04-30 00:57:39,302, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: //wp1/wp-includes/wlwmanifest.xml
+2026-04-30 00:57:39,452, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: //test/wp-includes/wlwmanifest.xml
+2026-04-30 00:57:39,762, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: //wp2/wp-includes/wlwmanifest.xml
+2026-04-30 00:57:39,916, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: //site/wp-includes/wlwmanifest.xml
+2026-04-30 00:57:40,065, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: //cms/wp-includes/wlwmanifest.xml
+2026-04-30 00:57:40,217, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: //sito/wp-includes/wlwmanifest.xml
+2026-04-30 02:20:26,622, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'stream.binance.com'. You may need to add 'stream.binance.com' to ALLOWED_HOSTS.
+2026-04-30 02:20:26,622, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /stream
+2026-04-30 02:57:14,601, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /.env
+2026-04-30 02:57:15,983, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Forbidden (CSRF cookie not set.): /
+2026-04-30 03:07:51,284, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /robots.txt
+2026-04-30 03:07:55,103, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /accounts/login/contact.html
+2026-04-30 03:07:57,434, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /admin_home/contact.html
+2026-04-30 03:48:52,736, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /accounts/login/contact.html
+2026-04-30 03:48:57,371, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /accounts/password_reset/contact.html
+2026-04-30 04:43:08,625, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'ws-fapi.binance.com'. You may need to add 'ws-fapi.binance.com' to ALLOWED_HOSTS.
+2026-04-30 04:43:08,625, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /ws-fapi/v1
+2026-04-30 05:01:46,151, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /ws/btcusdt@bestBidAsk
+2026-04-30 05:02:57,629, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /wp/
+2026-04-30 05:02:57,951, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /new/
+2026-04-30 05:02:58,757, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /backup/
+2026-04-30 05:02:59,079, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /blog/
+2026-04-30 05:02:59,400, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /old/
+2026-04-30 05:02:59,721, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /wordpress/
+2026-04-30 05:38:56,607, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Not Found: /status_404
+2026-04-30 05:58:26,618, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'fapi.binance.com'. You may need to add 'fapi.binance.com' to ALLOWED_HOSTS.
+2026-04-30 05:58:26,618, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /fapi/v1/order
+2026-04-30 06:17:34,192, [ERROR] /home/ubuntu/.local/lib/python3.7/site-packages/django/core/handlers/exception.py:77 Invalid HTTP_HOST header: 'api.gateio.ws'. You may need to add 'api.gateio.ws' to ALLOWED_HOSTS.
+2026-04-30 06:17:34,193, [WARNING] /home/ubuntu/.local/lib/python3.7/site-packages/django/utils/log.py:228 Bad Request: /ws/v4/
