@@ -4,100 +4,240 @@
 
 {% block content %}
 <style>
-    .jumbotron { position: relative;  background: url(static/Yiepay2.png) center center;  background-size: cover;}
-    .jumbotron::before {  content:"";  display: block;  padding-top: 45%; /*.jumbotronのwidthに対して高さ75%に保つ*/}
+.home-page {
+    min-height: 100vh;
+    background:
+        linear-gradient(180deg, rgba(255,255,255,0.88), rgba(255,255,255,0.72)),
+        url('/static/Yiepay2.png') center top / cover no-repeat;
+    padding: 28px 0 48px;
+}
+
+.home-hero {
+    background: rgba(255,255,255,0.76);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.45);
+    border-radius: 26px;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.10);
+    padding: 26px;
+    margin-bottom: 22px;
+}
+
+.home-logo {
+    width: 100%;
+    max-width: 380px;
+    height: auto;
+    filter: drop-shadow(0 6px 18px rgba(0,0,0,0.10));
+}
+
+.home-message {
+    color: #6c757d;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-top: 12px;
+    margin-bottom: 0;
+}
+
+.notice-card {
+    background: rgba(255,255,255,0.72);
+    backdrop-filter: blur(8px);
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.45);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    padding: 18px 22px;
+    margin-bottom: 22px;
+}
+
+.notice-title {
+    font-weight: 800;
+    color: #222;
+    margin-bottom: 8px;
+}
+
+.notice-date {
+    font-weight: 700;
+    color: #0d6efd;
+    margin-right: 12px;
+}
+
+.child-card {
+    background: rgba(255,255,255,0.82);
+    backdrop-filter: blur(10px);
+    border-radius: 24px;
+    border: 1px solid rgba(255,255,255,0.50);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.10);
+    padding: 22px;
+    margin-bottom: 22px;
+    transition: all 0.2s ease;
+}
+
+.child-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 36px rgba(0,0,0,0.14);
+}
+
+.child-photo {
+    width: 86px;
+    height: 86px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.14);
+    background: #fff;
+}
+
+.child-name {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #0d6efd;
+    text-decoration: none;
+}
+
+.child-name:hover {
+    text-decoration: none;
+    color: #0a58ca;
+}
+
+.balance-label {
+    color: #6c757d;
+    font-size: 0.78rem;
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+
+.pay {
+    font-size: 2.4rem;
+    font-weight: 900;
+    line-height: 1.1;
+    color: #222;
+}
+
+.detail-btn {
+    border-radius: 999px;
+    padding: 10px 22px;
+    font-weight: 700;
+    box-shadow: 0 6px 16px rgba(13,110,253,0.22);
+}
+
+.action-btn {
+    border-radius: 18px;
+    padding: 14px;
+    font-weight: 700;
+    background: rgba(255,255,255,0.72);
+}
+
+@media (max-width: 768px) {
+    .home-page {
+        padding-top: 14px;
+    }
+
+    .home-hero {
+        padding: 18px;
+        border-radius: 22px;
+    }
+
+    .home-logo {
+        max-width: 300px;
+    }
+
+    .notice-card {
+        padding: 16px;
+    }
+
+    .child-card {
+        padding: 18px;
+        border-radius: 22px;
+    }
+
+    .child-photo {
+        width: 76px;
+        height: 76px;
+    }
+
+    .pay {
+        font-size: 2rem;
+    }
+}
 </style>
+
 {% if user.is_authenticated %}
-
-  <div class="jumbotron">
-
+<div class="home-page">
     <div class="container">
-                      <!--
-      <h1 class="display-3 text-blue" >
 
-                      .jumbotron { background:url(static/Yepay1.jpg) center no-repeat; background-size: cover;}
-          いえペイにようこそ、 {{ user.get_username }}ままと子供たち!</h1>
-                 -->
-      <p><a class="btn btn-primary btn-lg" href="#" role="button">詳しくみる &raquo;</a></p>
+        <section class="home-hero">
+            <img src="/static/yiepay_logo.png" class="home-logo" alt="いえぺい">
+            <p class="home-message">
+                お手伝いを「ままコイン」に。家族で楽しくためて、使えるアプリです。
+            </p>
+        </section>
 
-    </div>
-  </div>
+        <section class="notice-card">
+            <div class="notice-title">お知らせ</div>
+            <div>
+                <span class="notice-date">2026年04月29日</span>
+                <span>いえぺいサービスβテスト中（予告なく消すことがあります）</span>
+            </div>
+        </section>
 
-    <!-- NEWS-->
-<div class="py-4">
-    <div class="container">
         <div class="row">
-            <div class="col-md-2">
-                <h3>お知らせ</h3>
-            </div>
-            <div class="col-md-10">
-                <dl class="row">
-                    <dt class="col-md-3">2026年04月29日</dt>
-                    <dd class="col-md-9">いえぺいサービスβテスト中（予告なく消すことがあります）</dd>
-                </dl>
-            </div>
-        </div>
-    </div>
-</div>
+            {% for data in object_list %}
+            <div class="col-xl-4 col-md-6 mb-4">
+                <div class="child-card h-100">
+                    <div class="d-flex align-items-center">
+                        <div class="mr-3">
+                            <img class="child-photo" src="/media/{{ data.cuser.photo }}" alt="">
+                        </div>
 
-<p>
+                        <div class="flex-grow-1 text-center">
+                            <a class="child-name" href="{% url 'child_home' data.cuser.id %}">
+                                {{ data.cuser }}
+                            </a>
 
-{% for data in object_list %}
+                            <div class="mt-3">
+                                <div class="balance-label">ままコイン残高</div>
+                                {% if data.balance == None %}
+                                    <div class="pay">¥0</div>
+                                {% else %}
+                                    <div class="pay">¥{{ data.balance }}</div>
+                                {% endif %}
+                            </div>
 
-<div class="col-xl-4 col-md-6 mb-4">
-    <div class="card border-left-primary shadow h-100 py-2 w-80">
-        <div class="card-body">
-            <div class="row no-gutters align-items-center">
-                <div class="col-auto">
-                    <img class="rounded-circle mr-3" src="/media/{{ data.cuser.photo }}" alt="" width="90" height="90">
-                </div>
-                <div class="col mr-2 text-center">
-                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"><a href="{% url 'child_home' data.cuser.id %}">{{ data.cuser }}</a></div>
-                    <div class="h5 mb-0 font-weight-bold text-gray-800">
-                          {% if data.balance == None %}
-                            <div class="pay">¥0</div>
-                            {% else %}
-                            <div class="pay">¥{{ data.balance }}</div>
-                            {% endif %}
+                            <div class="mt-3">
+                                <a href="{% url 'child_home' data.cuser.id %}" class="btn btn-primary detail-btn">
+                                    くわしくみる &raquo;
+                                </a>
+                            </div>
+                        </div>
                     </div>
-            <div class="row no-gutters align-items-center">
-                    <a href= "{% url 'child_home' data.cuser.id %}" class="btn btn-secondary">くわしくみる &raquo;</a>
-            </div>
                 </div>
             </div>
+            {% endfor %}
         </div>
+
+        <div class="row mt-2">
+            <div class="col-md-6 mb-3">
+                <button type="button" class="btn btn-outline-primary w-100 btn-lg action-btn"
+                        onclick="location.href='{% url 'password_change' %}'">
+                    <i class="fas fa-chalkboard-teacher mr-1"></i>パスワード変更
+                </button>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <button type="button" class="btn btn-outline-success w-100 btn-lg action-btn"
+                        onclick="location.href='{% url 'logout' %}'">
+                    <i class="fas fa-ticket-alt mr-1"></i>ログアウト
+                </button>
+            </div>
+        </div>
+
     </div>
 </div>
-
-{% endfor %}
-
-</p>
-
-
-<!--
-<p><button><a href="{% url 'admin_home' %}">ママ画面</a></button></p>
--->
-<div class="container">
- <div class="row" >
-   <div class="col-md-6 mb-3">
-    <button type="button" class="btn btn-outline-primary w-100 btn-lg" onclick="location.href='{% url 'password_change' %}'"><i class="fas fa-chalkboard-teacher mr-1"></i>パスワード変更</button>
-   </div>
-
-   <div class="col-md-6 mb-3">
-    <button type="button" class="btn btn-outline-success w-100 btn-lg" onclick="location.href='{% url 'logout' %}'"><i class="fas fa-ticket-alt mr-1"></i>ログアウト</button>
-   </div>
 {% else %}
-   <div class="col-md-6 mb-3">
-    <button type="button" class="btn btn-outline-danger w-100 btn-lg" onclick="location.href='{% url 'login' %}'"><i class="fas fa-thumbs-up mr-1"></i>ログイン</button>
-   </div>
-{% endif %}
- </div>
+<div class="container mt-4">
+    <button type="button" class="btn btn-outline-danger w-100 btn-lg"
+            onclick="location.href='{% url 'login' %}'">
+        <i class="fas fa-thumbs-up mr-1"></i>ログイン
+    </button>
 </div>
-
-<!--
-<p><a href="{% url 'password_change' %}">パスワード変更</a></p>
-<p><a href="{% url 'logout' %}">ログアウト</a></p>
-<p><a href="{% url 'login' %}">ログイン</a></p>
--->
+{% endif %}
 
 {% endblock %}
