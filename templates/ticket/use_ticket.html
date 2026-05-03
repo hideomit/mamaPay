@@ -1,67 +1,336 @@
 {% extends "base.html" %}
-{% load bootstrap4 %}
 
 {% block title %}チケットをつかう{% endblock %}
 
 {% block content %}
-<p>
-<h2>どのチケットをつかう？</h2>
-</p>
-<div class="col-xl-4 col-md-6 mb-4">
-    <div class="card border-left-primary shadow h-100 py-2 w-80">
-        <div class="card-body">
-            <div class="row no-gutters align-items-center">
-                <div class="col-auto">
-                    <img class="rounded-circle mr-3" src="/media/{{ child_data.photo }}" alt="" width="70" height="70">
-                </div>
-                <div class="col mr-2 text-center">
-                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ child_data.name }}</div>
-                    <div class="h5 mb-0 font-weight-bold text-gray-800">
-                          {% if balance_data.balance == None %}
-                            <div class="pay">¥0</div>
-                            {% else %}
-                            <div class="pay">¥{{ balance_data.balance }}</div>
-                            {% endif %}
-                    </div>
+<style>
+.use-ticket-page {
+    min-height: 100vh;
+    background:
+        linear-gradient(180deg, rgba(255,255,255,0.88), rgba(255,255,255,0.72)),
+        url('/static/Yiepay2.png') center top / cover no-repeat;
+    padding: 28px 0 48px;
+}
+
+.use-ticket-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+.use-ticket-header {
+    background: rgba(255,255,255,0.82);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 24px;
+    border: 1px solid rgba(255,255,255,0.50);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.10);
+    padding: 26px;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.use-ticket-child-photo {
+    width: 86px;
+    height: 86px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #fff;
+    box-shadow: 0 8px 22px rgba(0,0,0,0.12);
+    flex-shrink: 0;
+}
+
+.use-ticket-child-info {
+    flex-grow: 1;
+    text-align: center;
+}
+
+.use-ticket-child-name {
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: #0d6efd;
+    margin-bottom: 6px;
+}
+
+.use-ticket-balance-label {
+    color: #6c757d;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+}
+
+.use-ticket-balance {
+    font-size: 2rem;
+    font-weight: 900;
+    color: #222;
+    line-height: 1.1;
+}
+
+.use-ticket-title {
+    font-weight: 900;
+    color: #222;
+    font-size: 1.8rem;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.use-ticket-title::before {
+    content: '🎫';
+    font-size: 2rem;
+}
+
+.ticket-form {
+    background: rgba(255,255,255,0.82);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 24px;
+    border: 1px solid rgba(255,255,255,0.50);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.10);
+    padding: 28px;
+    margin-bottom: 22px;
+}
+
+.ticket-item {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    background: rgba(255,255,255,0.65);
+    border-radius: 16px;
+    margin-bottom: 14px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    border: 2px solid transparent;
+    position: relative;
+}
+
+.ticket-item:hover {
+    background: rgba(255,255,255,0.85);
+    border-color: rgba(13,110,253,0.20);
+    transform: translateX(4px);
+}
+
+.ticket-item input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    margin: 0;
+}
+
+.ticket-checkbox-custom {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border: 2px solid #d0d8e0;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.80);
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+    position: relative;
+}
+
+.ticket-item input[type="checkbox"]:checked ~ .ticket-checkbox-custom {
+    background: linear-gradient(135deg, #1f8fff, #0d6efd);
+    border-color: #0d6efd;
+    box-shadow: 0 4px 12px rgba(13,110,253,0.25);
+}
+
+.ticket-checkbox-custom::after {
+    content: '✓';
+    color: white;
+    font-weight: 900;
+    font-size: 0.75rem;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.ticket-item input[type="checkbox"]:checked ~ .ticket-checkbox-custom::after {
+    opacity: 1;
+}
+
+.ticket-label {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    cursor: pointer;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+    gap: 12px;
+    margin-left: 8px;
+}
+
+.ticket-item input[type="checkbox"]:checked ~ .ticket-label {
+    color: #0d6efd;
+}
+
+.ticket-name {
+    font-weight: 700;
+    color: #333;
+}
+
+.no-tickets {
+    text-align: center;
+    padding: 40px 20px;
+    color: #6c757d;
+}
+
+.no-tickets-icon {
+    font-size: 3rem;
+    margin-bottom: 12px;
+}
+
+.submit-container {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.submit-btn {
+    flex-grow: 1;
+    border-radius: 18px;
+    padding: 16px;
+    font-weight: 800;
+    font-size: 1.05rem;
+    background: linear-gradient(135deg, #1f8fff, #0d6efd);
+    color: white;
+    border: none;
+    box-shadow: 0 8px 20px rgba(13,110,253,0.28);
+    transition: all 0.2s ease;
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(13,110,253,0.35);
+}
+
+.submit-btn:active {
+    transform: translateY(0);
+}
+
+.back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.82);
+    backdrop-filter: blur(10px);
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.50);
+    padding: 12px 20px;
+    color: #0d6efd;
+    text-decoration: none;
+    font-weight: 700;
+    transition: all 0.2s ease;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.back-button:hover {
+    background: rgba(255,255,255,0.95);
+    color: #1f8fff;
+    transform: translateY(-1px);
+    box-shadow: 0 10px 24px rgba(13,110,253,0.15);
+    text-decoration: none;
+}
+
+@media (max-width: 768px) {
+    .use-ticket-page {
+        padding-top: 14px;
+    }
+
+    .use-ticket-header {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .use-ticket-title {
+        font-size: 1.4rem;
+    }
+
+    .ticket-form {
+        padding: 20px;
+    }
+
+    .ticket-item {
+        padding: 14px;
+        margin-bottom: 12px;
+    }
+
+    .submit-btn {
+        padding: 14px;
+        font-size: 1rem;
+    }
+}
+</style>
+
+<div class="use-ticket-page">
+    <div class="use-ticket-container">
+        <!-- ヘッダー -->
+        <section class="use-ticket-header">
+            <img class="use-ticket-child-photo" src="/media/{{ child_data.photo }}" alt="">
+            <div class="use-ticket-child-info">
+                <div class="use-ticket-child-name">{{ child_data.name }}</div>
+                <div class="use-ticket-balance-label">ままコイン残高</div>
+                <div class="use-ticket-balance">
+                    {% if balance_data.balance == None %}
+                        ¥0
+                    {% else %}
+                        ¥{{ balance_data.balance }}
+                    {% endif %}
                 </div>
             </div>
-        </div>
+        </section>
+
+        <!-- タイトル -->
+        <h1 class="use-ticket-title">どのチケットをつかう？</h1>
+
+        <!-- チケット選択フォーム -->
+        {% if not object_list %}
+            <div class="ticket-form">
+                <div class="no-tickets">
+                    <div class="no-tickets-icon">📭</div>
+                    <p>チケットをもってないよ！</p>
+                </div>
+            </div>
+        {% else %}
+            <form method="post" action="{% url 'selected_ticket_use' %}" class="ticket-form">
+                {% csrf_token %}
+
+                {% for data in object_list %}
+                    <label class="ticket-item" for="ticket_{{ data.id }}">
+                        <input type="checkbox" id="ticket_{{ data.id }}" name="use_list" value="{{ data.ticket_id }}">
+                        <span class="ticket-checkbox-custom"></span>
+                        <span class="ticket-label">
+                            <span class="ticket-name">{{ data.ticket }}</span>
+                        </span>
+                    </label>
+                {% endfor %}
+
+                <input type="hidden" name="child_id" value="{{ child_data.id }}" />
+
+                <div class="submit-container">
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-ticket-alt mr-2"></i>チケットをつかう
+                    </button>
+                </div>
+            </form>
+        {% endif %}
+
+        <!-- 戻るボタン -->
+        <a href="{% url 'child_home' child_data.id %}" class="back-button">
+            <span>←</span> こどもがめんにもどる
+        </a>
     </div>
 </div>
-
-<form method="post" action="{% url 'selected_ticket_use' %}">
-{% csrf_token %}
-
-<p>
-    {% if not object_list %}
-    チケットをもってないよ！
-    {% else %}
-
- {% for data in object_list %}
- <div class="custom-control custom-switch">
-  <input type="checkbox" class="custom-control-input" id="switch{{ data.id }}" name="use_list" value="{{ data.ticket_id }}">
-  <label class="custom-control-label" for="switch{{ data.id }}">
-   {{ data.ticket }} </input>
-  </label><br>
-  </div>
- {% endfor %}
-
-
-</p>
-  <input type="hidden" name="child_id" value="{{ child_data.id }}" />
-
-{# <p><button class="btn btn-outline-primary">チケットを使う</button></p> #}
-
- <div class="container">
-      <div class="row" >
-            <div class="col-md-6 mb-3">
-                <button class="btn btn-outline-primary w-100 btn-lg" ><i class="fas fa-chalkboard-teacher mr-1"></i>チケットをつかう</button>
-            </div>
-        </div>
-    </div>
-    {% endif %}
- </form>
-
-<a href="{% url 'child_home' child_data.id %}">こどもがめんにもどる</a>
 
 {% endblock %}
