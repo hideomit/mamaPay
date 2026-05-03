@@ -17,7 +17,7 @@
                     <img class="rounded-circle mr-3" src="/media/{{ data.cuser.photo }}" alt="" width="70" height="70">
                 </div>
                 <div class="col mr-2 text-center">
-                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"><a href="{% url 'child_status' data.id %}">{{ data.cuser }}</a></div>
+                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"><a href="{% url 'child_status' data.cuser.id %}">{{ data.cuser }}</a></div>
                     <div class="h5 mb-0 font-weight-bold text-gray-800">
                           {% if data.balance == None %}
                             <div class="pay">¥0</div>
