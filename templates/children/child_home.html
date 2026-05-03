@@ -4,71 +4,250 @@
 {% block title %}こどもホーム{% endblock %}
 
 {% block content %}
+<style>
+.child-page {
+    min-height: 100vh;
+    background:
+        linear-gradient(180deg, rgba(255,255,255,0.88), rgba(255,255,255,0.72)),
+        url('/static/Yiepay2.png') center top / cover no-repeat;
+    padding: 28px 0 48px;
+}
 
-<p>
-<div class="col-xl-4 col-md-6 mb-4">
-    <div class="card border-left-primary shadow h-100 py-2 w-80">
-        <div class="card-body">
-            <div class="row no-gutters align-items-center">
-                <div class="col-auto">
-                    <img class="rounded-circle mr-3" src="/media/{{ child_data.photo }}" alt="" width="70" height="70">
+.child-main-card {
+    background: rgba(255,255,255,0.78);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 26px;
+    border: 1px solid rgba(255,255,255,0.45);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.10);
+    padding: 28px;
+    margin-bottom: 22px;
+}
+
+.child-photo {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #fff;
+    box-shadow: 0 8px 22px rgba(0,0,0,0.16);
+}
+
+.child-name {
+    font-size: 1.7rem;
+    font-weight: 900;
+    color: #0d6efd;
+    margin-bottom: 8px;
+}
+
+.balance-label {
+    color: #6c757d;
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.pay {
+    font-size: 3rem;
+    font-weight: 900;
+    line-height: 1.1;
+    color: #222;
+}
+
+.summary-card {
+    background: rgba(255,255,255,0.74);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 22px;
+    border: 1px solid rgba(255,255,255,0.45);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    padding: 22px;
+    margin-bottom: 22px;
+}
+
+.summary-title {
+    font-weight: 900;
+    color: #222;
+    margin-bottom: 14px;
+}
+
+.summary-item {
+    display: flex;
+    align-items: flex-start;
+    background: rgba(255,255,255,0.62);
+    border-radius: 16px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    color: #495057;
+    font-weight: 600;
+}
+
+.summary-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(13,110,253,0.12);
+    color: #0d6efd;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+    flex-shrink: 0;
+}
+
+.action-card {
+    background: rgba(255,255,255,0.76);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 22px;
+    border: 1px solid rgba(255,255,255,0.45);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    padding: 20px;
+}
+
+.action-btn {
+    border-radius: 18px;
+    padding: 16px 10px;
+    font-weight: 800;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 18px;
+    color: #6c757d;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.back-link:hover {
+    color: #0d6efd;
+    text-decoration: none;
+}
+
+@media (max-width: 768px) {
+    .child-page {
+        padding-top: 14px;
+    }
+
+    .child-main-card {
+        padding: 22px;
+        border-radius: 22px;
+    }
+
+    .child-photo {
+        width: 82px;
+        height: 82px;
+    }
+
+    .child-name {
+        font-size: 1.45rem;
+    }
+
+    .pay {
+        font-size: 2.4rem;
+    }
+
+    .summary-card,
+    .action-card {
+        padding: 18px;
+        border-radius: 20px;
+    }
+
+    .action-btn {
+        padding: 14px 8px;
+    }
+}
+</style>
+
+<div class="child-page">
+    <div class="container">
+
+        <section class="child-main-card">
+            <div class="d-flex align-items-center">
+                <div class="mr-4">
+                    <img class="child-photo" src="/media/{{ child_data.photo }}" alt="">
                 </div>
-                <div class="col mr-2 text-center">
-                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ child_data.name }}</div>
-                    <div class="h5 mb-0 font-weight-bold text-gray-800">
-                          {% if balance_data.balance == None %}
-                            <div class="pay">¥0</div>
-                            {% else %}
-                            <div class="pay">¥{{ balance_data.balance }}</div>
-                            {% endif %}
-                    </div>
+
+                <div class="flex-grow-1 text-center">
+                    <div class="child-name">{{ child_data.name }}</div>
+
+                    <div class="balance-label">ままコイン残高</div>
+
+                    {% if balance_data.balance == None %}
+                        <div class="pay">¥0</div>
+                    {% else %}
+                        <div class="pay">¥{{ balance_data.balance }}</div>
+                    {% endif %}
                 </div>
             </div>
-        </div>
+        </section>
+
+        <section class="summary-card">
+            <div class="summary-title">最近のようす</div>
+
+            <div class="summary-item">
+                <span class="summary-icon"><i class="fas fa-hands-helping"></i></span>
+                <span>
+                    {% if top_task.task__task_name == None %}
+                        なにもやってないよ！
+                    {% else %}
+                        {{ child_data.name }}は「{{ top_task.task__task_name }}」ばっかりやっている
+                    {% endif %}
+                </span>
+            </div>
+
+            <div class="summary-item">
+                <span class="summary-icon"><i class="fas fa-ticket-alt"></i></span>
+                <span>
+                    {% if top_ticket.ticket__ticket_name == None %}
+                        なにもやってないよ！
+                    {% else %}
+                        {{ child_data.name }}は「{{ top_ticket.ticket__ticket_name }}」ばっかりやっている
+                    {% endif %}
+                </span>
+            </div>
+        </section>
+
+        <section class="action-card">
+            <div class="row">
+                <div class="col-md-3 mb-3">
+                    <button type="button" class="btn btn-outline-primary w-100 btn-lg action-btn"
+                            onclick="location.href='{% url 'apply_task' child_data.id %}'">
+                        <i class="fas fa-chalkboard-teacher mr-1"></i><br>
+                        おてつだいをいう
+                    </button>
+                </div>
+
+                <div class="col-md-3 mb-3">
+                    <button type="button" class="btn btn-outline-success w-100 btn-lg action-btn"
+                            onclick="location.href='{% url 'use_ticket' child_data.id %}'">
+                        <i class="fas fa-ticket-alt mr-1"></i><br>
+                        チケットをつかう
+                    </button>
+                </div>
+
+                <div class="col-md-3 mb-3">
+                    <button type="button" class="btn btn-outline-danger w-100 btn-lg action-btn"
+                            onclick="location.href='{% url 'ticket_shop' child_data.id %}'">
+                        <i class="fas fa-shopping-bag mr-1"></i><br>
+                        チケットショップ
+                    </button>
+                </div>
+
+                <div class="col-md-3 mb-3">
+                    <button type="button" class="btn btn-outline-warning w-100 btn-lg action-btn"
+                            onclick="location.href='{% url 'children_history' child_data.id %}'">
+                        <i class="fas fa-history mr-1"></i><br>
+                        りれきをみる
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <a class="back-link" href="{% url 'home' %}">← ホームにもどる</a>
+
     </div>
 </div>
-</p>
-
-<p>
-    <ul>
-    {% if top_task.task__task_name == None %}
-        <li>なにもやってないよ！</li>
-    {% else %}
-        <li>{{ child_data.name }}は{{ top_task.task__task_name }}をたくさんやってくれてる</li>
-    {% endif %}
-
-    {% if top_ticket.ticket__ticket_name == None %}
-        <li>なにもやってないよ！</li>
-    {% else %}
-        <li>{{ child_data.name }}は{{ top_ticket.ticket__ticket_name }}ばっかりやってる</li>
-    {% endif %}
-    </ul>
-</p>
-
-
-
-<div class="container">
- <div class="row" >
-   <div class="col-md-3 mb-3">
-    <button type="button" class="btn btn-outline-primary w-100 btn-lg" onclick="location.href='{% url 'apply_task' child_data.id %}'"><i class="fas fa-chalkboard-teacher mr-1"></i>おてつだいをいう</button>
-   </div>
-   <div class="col-md-3 mb-3">
-    <button type="button" class="btn btn-outline-success w-100 btn-lg" onclick="location.href='{% url 'use_ticket' child_data.id %}'"><i class="fas fa-ticket-alt mr-1"></i>チケットをつかう</button>
-   </div>
-   <div class="col-md-3 mb-3">
-    <button type="button" class="btn btn-outline-danger w-100 btn-lg" onclick="location.href='{% url 'ticket_shop' child_data.id %}'"><i class="fas fa-shopping-bag mr-1"></i>チケットショップ</button>
-   </div>
-   <div class="col-md-3 mb-3">
-    <button type="button" class="btn btn-outline-warning w-100 btn-lg" onclick="location.href='{% url 'children_history' child_data.id %}'"><i class="fas fa-history mr-1"></i>りれきをみる</button>
-   </div>
- </div>
-</div>
-
-<!-- <h2><a href="{% url 'apply_task' child_data.id %}">タスクを申請する</a></h2>
- <h2><a href="{% url 'use_ticket' child_data.id %}">チケットを使う</a></h2>
- <h2><a href="{% url 'ticket_shop' child_data.id %}">チケットショップ</a></h2>
- <h2><a href="{% url 'children_history' child_data.id %}">履歴を見る</a></h2>
- <h2><a href="{% url 'home' %}">ホームに戻る</a></h2>
--->
 
 {% endblock %}
