@@ -3,53 +3,321 @@
 {% block title %}管理画面ホーム{% endblock %}
 
 {% block content %}
+<style>
+.admin-home-page {
+    min-height: 100vh;
+    background:
+        linear-gradient(180deg, rgba(255,255,255,0.88), rgba(255,255,255,0.72)),
+        url('/static/Yiepay2.png') center top / cover no-repeat;
+    padding: 28px 0 48px;
+}
 
- {{ user.get_username }}ままの管理画面
-<!-- NEWS-->
-<div class="py-4">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-2">
-                <h3>お知らせ</h3>
+.admin-home-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+.admin-welcome {
+    background: rgba(255,255,255,0.82);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 24px;
+    border: 1px solid rgba(255,255,255,0.50);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.10);
+    padding: 26px;
+    margin-bottom: 28px;
+    text-align: center;
+}
+
+.admin-welcome-title {
+    font-weight: 900;
+    color: #222;
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.admin-welcome-title::before {
+    content: '👑';
+    font-size: 2rem;
+}
+
+.admin-welcome-subtitle {
+    color: #6c757d;
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+.news-section {
+    background: rgba(255,255,255,0.82);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 24px;
+    border: 1px solid rgba(255,255,255,0.50);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.10);
+    padding: 28px;
+    margin-bottom: 28px;
+}
+
+.news-header {
+    font-weight: 900;
+    color: #222;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.news-header::before {
+    content: '📢';
+    font-size: 1.6rem;
+}
+
+.news-item {
+    display: flex;
+    align-items: flex-start;
+    padding: 16px;
+    background: rgba(255,255,255,0.65);
+    border-radius: 16px;
+    margin-bottom: 12px;
+    border-left: 4px solid #0d6efd;
+    transition: all 0.2s ease;
+}
+
+.news-item:hover {
+    background: rgba(255,255,255,0.85);
+    transform: translateX(4px);
+    box-shadow: 0 4px 12px rgba(13,110,253, 0.15);
+}
+
+.news-item:last-child {
+    margin-bottom: 0;
+}
+
+.news-date {
+    font-weight: 700;
+    color: #0d6efd;
+    font-size: 0.9rem;
+    margin-right: 16px;
+    flex-shrink: 0;
+    min-width: 120px;
+}
+
+.news-content {
+    color: #333;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+.action-section {
+    background: rgba(255,255,255,0.82);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 24px;
+    border: 1px solid rgba(255,255,255,0.50);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.10);
+    padding: 28px;
+    margin-bottom: 22px;
+}
+
+.action-title {
+    font-weight: 900;
+    color: #222;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.action-title::before {
+    content: '⚙️';
+    font-size: 1.6rem;
+}
+
+.action-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+}
+
+.action-card {
+    background: rgba(255,255,255,0.65);
+    border-radius: 18px;
+    padding: 20px;
+    text-align: center;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    border: 2px solid transparent;
+    text-decoration: none;
+    color: inherit;
+}
+
+.action-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    border-color: rgba(13,110,253, 0.20);
+}
+
+.action-icon {
+    font-size: 2.5rem;
+    margin-bottom: 12px;
+    display: block;
+}
+
+.action-card:nth-child(1) .action-icon { color: #0d6efd; }
+.action-card:nth-child(2) .action-icon { color: #16a34a; }
+.action-card:nth-child(3) .action-icon { color: #dc2626; }
+.action-card:nth-child(4) .action-icon { color: #f59e0b; }
+
+.action-name {
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: #222;
+    margin-bottom: 4px;
+}
+
+.action-desc {
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin: 0;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.82);
+    backdrop-filter: blur(10px);
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.50);
+    padding: 12px 20px;
+    color: #0d6efd;
+    text-decoration: none;
+    font-weight: 700;
+    transition: all 0.2s ease;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.back-link:hover {
+    background: rgba(255,255,255,0.95);
+    color: #1f8fff;
+    transform: translateY(-1px);
+    box-shadow: 0 10px 24px rgba(13,110,253,0.15);
+    text-decoration: none;
+}
+
+@media (max-width: 768px) {
+    .admin-home-page {
+        padding-top: 14px;
+    }
+
+    .admin-welcome {
+        padding: 20px;
+    }
+
+    .admin-welcome-title {
+        font-size: 1.4rem;
+    }
+
+    .news-section,
+    .action-section {
+        padding: 20px;
+    }
+
+    .news-header,
+    .action-title {
+        font-size: 1.2rem;
+    }
+
+    .action-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .action-card {
+        padding: 16px;
+    }
+
+    .action-icon {
+        font-size: 2rem;
+        margin-bottom: 8px;
+    }
+
+    .news-item {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 14px;
+    }
+
+    .news-date {
+        margin-right: 0;
+        margin-bottom: 8px;
+        min-width: auto;
+    }
+}
+</style>
+
+<div class="admin-home-page">
+    <div class="admin-home-container">
+        <!-- ウェルカムメッセージ -->
+        <div class="admin-welcome">
+            <h1 class="admin-welcome-title">{{ user.get_username }}ままの管理画面</h1>
+            <p class="admin-welcome-subtitle">いえぺいの管理をお願いします</p>
+        </div>
+
+        <!-- お知らせセクション -->
+        <div class="news-section">
+            <h2 class="news-header">お知らせ</h2>
+            <div class="news-item">
+                <span class="news-date">2026年04月29日</span>
+                <span class="news-content">いえぺいサービスβテスト中（予告なく消すことがあります）</span>
             </div>
-            <div class="col-md-10">
-                <dl class="row">
-                    <dt class="col-md-3">2020年09月01日</dt>
-                    <dd class="col-md-9">mamapayサービス開始しました</dd>
-                    <dt class="col-md-3">2020年09月01日</dt>
-                    <dd class="col-md-9">mamapayサービス開始しました</dd>
-                    <dt class="col-md-3">2020年09月01日</dt>
-                    <dd class="col-md-9">mamapayサービス開始しました</dd>
-                </dl>
+            <div class="news-item">
+                <span class="news-date">2026年04月10日</span>
+                <span class="news-content">チケットショップ機能を追加しました</span>
             </div>
+        </div>
+
+        <!-- アクションセクション -->
+        <div class="action-section">
+            <h2 class="action-title">管理メニュー</h2>
+            <div class="action-grid">
+                <a href="{% url 'tasks' %}" class="action-card">
+                    <span class="action-icon"><i class="fas fa-chalkboard-teacher"></i></span>
+                    <div class="action-name">タスクの登録</div>
+                    <div class="action-desc">おてつだいのタスクを管理</div>
+                </a>
+                <a href="{% url 'ticket' %}" class="action-card">
+                    <span class="action-icon"><i class="fas fa-ticket-alt"></i></span>
+                    <div class="action-name">チケットの登録</div>
+                    <div class="action-desc">交換できるチケットを管理</div>
+                </a>
+                <a href="{% url 'children' %}" class="action-card">
+                    <span class="action-icon"><i class="fas fa-thumbs-up"></i></span>
+                    <div class="action-name">承認する</div>
+                    <div class="action-desc">おてつだいの申請を承認</div>
+                </a>
+                <a href="{% url 'status' %}" class="action-card">
+                    <span class="action-icon"><i class="fas fa-user-cog"></i></span>
+                    <div class="action-name">ステータス管理</div>
+                    <div class="action-desc">こどもの情報を管理</div>
+                </a>
+            </div>
+        </div>
+
+        <!-- 戻るリンク -->
+        <div style="text-align: center;">
+            <a href="{% url 'home' %}" class="back-link">
+                <span>🏠</span> ホームに戻る
+            </a>
         </div>
     </div>
 </div>
-
-<div class="container">
- <div class="row" >
-   <div class="col-md-3 mb-3">
-    <button type="button" class="btn btn-outline-primary w-100 btn-lg" onclick="location.href='{% url 'tasks' %}'"><i class="fas fa-chalkboard-teacher mr-1"></i>タスクの登録</button>
-   </div>
-   <div class="col-md-3 mb-3">
-    <button type="button" class="btn btn-outline-success w-100 btn-lg" onclick="location.href='{% url 'ticket' %}'"><i class="fas fa-ticket-alt mr-1"></i>チケットの登録</button>
-   </div>
-   <div class="col-md-3 mb-3">
-    <button type="button" class="btn btn-outline-danger w-100 btn-lg" onclick="location.href='{% url 'children' %}'"><i class="fas fa-thumbs-up mr-1"></i>承認する</button>
-   </div>
-   <div class="col-md-3 mb-3">
-    <button type="button" class="btn btn-outline-warning w-100 btn-lg" onclick="location.href='{% url 'status' %}'"><i class="fas fa-user-cog mr-1"></i>ステータス管理</button>
-   </div>
- </div>
-</div>
-
-<!--
-<p><button><a href="{% url 'tasks' %}">タスクの登録</a></button></p>
-<p><button><a href="{% url 'ticket' %}">チケットの登録</button></p>
-<p><button><a href="{% url 'children' %}">承認する</a></button></p>
-<p><button><a href="{% url 'status' %}">ステータス管理</a></button></p>
-
-<h2><a href="{% url 'home' %}">ホームに戻る</a></h2>
--->
 
 {% endblock %}
