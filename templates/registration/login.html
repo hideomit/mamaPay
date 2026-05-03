@@ -1,16 +1,234 @@
 {% extends "base.html" %}
 
-{% block title %}いえぺい{% endblock %}
+{% block title %}いえぺい ログイン{% endblock %}
 
 {% block content %}
-<h2>ログイン</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">ログイン</button>
-    <p><a href="{% url 'password_reset' %}">パスワード再設定</a></p>
-</form>
+<style>
+.login-hero {
+    min-height: 78vh;
+    background:
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,0.90),
+            rgba(255,255,255,0.55)
+        ),
+        url('/static/Yiepay2.png') center center / cover no-repeat;
 
-    <p><a href="{% url 'new_user' %}">新規ユーザー登録</a></p>
+    display: flex;
+    align-items: center;
+    padding: 48px 0;
+}
+
+/* ログインカード */
+.login-card {
+    background: rgba(255,255,255,0.78);
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    border-radius: 24px;
+
+    border: 1px solid rgba(255,255,255,0.45);
+
+    box-shadow:
+        0 12px 32px rgba(0,0,0,0.12),
+        0 2px 8px rgba(255,255,255,0.35) inset;
+
+    padding: 34px;
+    max-width: 430px;
+}
+
+/* ブランドエリア */
+.brand-area {
+    margin-bottom: 12px;
+}
+
+/* ロゴ */
+.login-logo {
+    width: 100%;
+    max-width: 360px;
+    height: auto;
+
+    margin-bottom: 12px;
+
+    filter:
+        drop-shadow(0 6px 18px rgba(0,0,0,0.10));
+}
+
+/* サブコピー */
+.login-subtitle {
+    color: #6c757d;
+
+    font-size: 1rem;
+    line-height: 1.8;
+
+    margin-bottom: 28px;
+
+    font-weight: 500;
+}
+
+/* 入力欄 */
+.login-card input {
+    width: 100%;
+
+    border-radius: 14px;
+
+    border: 1px solid rgba(0,0,0,0.08);
+
+    background: rgba(255,255,255,0.72);
+
+    padding: 12px 14px;
+
+    margin-bottom: 14px;
+
+    transition: all 0.2s ease;
+}
+
+.login-card input:focus {
+    outline: none;
+
+    border-color: #86b7fe;
+
+    background: rgba(255,255,255,0.95);
+
+    box-shadow:
+        0 0 0 4px rgba(13,110,253,0.12);
+}
+
+/* ラベル */
+.login-card label {
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+/* ボタン */
+.login-card button {
+    width: 100%;
+
+    border: none;
+
+    border-radius: 999px;
+
+    padding: 13px;
+
+    font-weight: 700;
+    font-size: 1.05rem;
+
+    background: linear-gradient(
+        135deg,
+        #1f8fff,
+        #0d6efd
+    );
+
+    color: white;
+
+    box-shadow:
+        0 8px 20px rgba(13,110,253,0.28);
+
+    transition: all 0.2s ease;
+}
+
+.login-card button:hover {
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 10px 24px rgba(13,110,253,0.35);
+}
+
+/* 下リンク */
+.login-links {
+    margin-top: 20px;
+    font-size: 0.92rem;
+}
+
+.login-links a {
+    color: #6c757d;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.login-links a:hover {
+    color: #0d6efd;
+}
+
+/* スマホ */
+@media (max-width: 768px) {
+
+       .login-hero {
+        min-height: 100vh;
+
+        align-items: flex-start;
+
+        padding-top: 10px;
+        padding-left: 12px;
+        padding-right: 12px;
+
+        background-position: center top;
+    }
+
+
+    .login-card {
+        max-width: 100%;
+
+        padding: 22px;
+
+        border-radius: 22px;
+
+
+
+        background: rgba(255,255,255,0.72);
+
+        backdrop-filter: blur(12px);
+
+    .login-logo {
+        max-width: 290px;
+        margin-bottom: 10px;
+    }
+
+    .login-subtitle {
+        font-size: 0.88rem;
+        line-height: 1.7;
+
+        margin-bottom: 20px;
+    }
+
+    .login-card input {
+        padding: 10px 12px;
+    }
+
+    .login-card button {
+        padding: 12px;
+    }
+}
+</style>
+
+<div class="login-hero">
+    <div class="container">
+        <div class="login-card">
+            <div class="brand-area">
+
+    <img src="/static/yiepay_logo.png"
+         class="login-logo"
+         alt="いえぺい">
+
+    <p class="login-subtitle">
+        家族で楽しくためて、使えるアプリです。
+    </p>
+
+</div>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">ログイン</button>
+            </form>
+
+            <div class="login-links">
+                <p class="mb-1"><a href="{% url 'password_reset' %}">パスワードを忘れた方</a></p>
+                <p class="mb-0"><a href="{% url 'new_user' %}">新規ユーザー登録</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 {% endblock %}
