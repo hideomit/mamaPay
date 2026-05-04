@@ -254,11 +254,11 @@
                         </div>
                         <div class="history-task">
                             <div class="history-task-label">タスク</div>
-                            <div>{% if data.task == None %}<span style="color: #9ca3af;">なし</span>{% else %}{{ data.task }}{% endif %}</div>
+                            <div>{% if data.task_name == None %}<span style="color: #9ca3af;">なし</span>{% else %}{{ data.task_name }}{% endif %}</div>
                         </div>
                         <div class="history-ticket">
                             <div class="history-ticket-label">チケット</div>
-                            <div>{% if data.ticket == None %}<span style="color: #9ca3af;">なし</span>{% else %}{{ data.ticket }}{% endif %}</div>
+                            <div>{% if data.ticket_name == None %}<span style="color: #9ca3af;">なし</span>{% else %}{{ data.ticket_name }}{% endif %}</div>
                         </div>
                         <div class="history-amount">
                             {% if data.amount == None %}<span style="color: #9ca3af;">-</span>{% else %}{{ data.amount }}円{% endif %}

@@ -117,7 +117,7 @@ class ApproveTaskView(LoginRequiredMixin, View):
                 child_balance = Balance(cuser_id=request_child_id, balance=request_task.price)
             child_balance.save()
 
-            createHistory = History(cuser_id=request_child_id, task_id=request_task_id, amount=request_task.price, kind=1)
+            createHistory = History(cuser_id=request_child_id, task_id=request_task_id, task_name=request_task.task_name, amount=request_task.price, kind=1)
             createHistory.ymd = timezone.now()
             createHistory.save()
 
