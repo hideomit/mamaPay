@@ -3,10 +3,142 @@
 {% block title %}ユーザー登録{% endblock %}
 
 {% block content %}
-<h2>ユーザー登録</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">ユーザー登録</button>
-</form>
+<style>
+.signup-hero {
+    min-height: 78vh;
+    background:
+        linear-gradient(90deg, rgba(255,255,255,0.90), rgba(255,255,255,0.55)),
+        url('/static/Yiepay2.png') center center / cover no-repeat;
+    display: flex;
+    align-items: center;
+    padding: 48px 0;
+}
+
+.signup-card {
+    background: rgba(255,255,255,0.78);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 24px;
+    border: 1px solid rgba(255,255,255,0.45);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(255,255,255,0.35) inset;
+    padding: 34px;
+    max-width: 480px;
+    margin: 0 auto;
+}
+
+.signup-card h1 {
+    font-size: 1.9rem;
+    font-weight: 800;
+    margin-bottom: 12px;
+    color: #222;
+}
+
+.signup-subtitle {
+    color: #6c757d;
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-bottom: 26px;
+    font-weight: 500;
+}
+
+.signup-card input,
+.signup-card select,
+.signup-card textarea {
+    width: 100%;
+    border-radius: 14px;
+    border: 1px solid rgba(0,0,0,0.08);
+    background: rgba(255,255,255,0.72);
+    padding: 12px 14px;
+    margin-bottom: 14px;
+    transition: all 0.2s ease;
+}
+
+.signup-card input:focus,
+.signup-card select:focus,
+.signup-card textarea:focus {
+    outline: none;
+    border-color: #86b7fe;
+    background: rgba(255,255,255,0.95);
+    box-shadow: 0 0 0 4px rgba(13,110,253,0.12);
+}
+
+.signup-card label {
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.signup-card button {
+    width: 100%;
+    border: none;
+    border-radius: 999px;
+    padding: 13px;
+    font-weight: 700;
+    font-size: 1.05rem;
+    background: linear-gradient(135deg, #1f8fff, #0d6efd);
+    color: white;
+    box-shadow: 0 8px 20px rgba(13,110,253,0.28);
+    transition: all 0.2s ease;
+}
+
+.signup-card button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 24px rgba(13,110,253,0.35);
+}
+
+.signup-links {
+    margin-top: 20px;
+    font-size: 0.92rem;
+    color: #6c757d;
+}
+
+.signup-links a {
+    color: #6c757d;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.signup-links a:hover {
+    color: #0d6efd;
+}
+
+@media (max-width: 768px) {
+    .signup-hero {
+        min-height: 100vh;
+        align-items: flex-start;
+        padding-top: 10px;
+        padding-left: 12px;
+        padding-right: 12px;
+        background-position: center top;
+    }
+
+    .signup-card {
+        max-width: 100%;
+        padding: 22px;
+        border-radius: 22px;
+        background: rgba(255,255,255,0.72);
+        backdrop-filter: blur(12px);
+    }
+
+    .signup-card button {
+        padding: 12px;
+    }
+}
+</style>
+
+<div class="signup-hero">
+    <div class="container">
+        <div class="signup-card">
+            <h1>ままの新規登録</h1>
+            <p class="signup-subtitle">最初のユーザー登録画面です。メールアドレスとパスワードを入力し、安心して家族の管理を始めましょう。</p>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">ユーザー登録</button>
+            </form>
+            <div class="signup-links">
+                <p class="mb-1"><a href="{% url 'login' %}">すでに登録済みの方はこちら</a></p>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
