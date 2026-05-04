@@ -85,6 +85,17 @@
     height: 24px;
     accent-color: #0d6efd;
     cursor: pointer;
+    flex-shrink: 0;
+}
+
+.status-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid rgba(13,110,253,0.12);
+    flex-shrink: 0;
+    object-fit: cover;
 }
 
 .status-info {
@@ -219,6 +230,7 @@
                     {% for data in object_list %}
                         <div class="status-item">
                             <input type="checkbox" class="status-checkbox" id="switch{{ data.cuser.id }}" name="delete_list" value="{{ data.cuser.id }}">
+                            <img src="/media/{{ data.cuser.photo }}" alt="{{ data.cuser.name }} の写真" class="status-avatar">
                             <div class="status-info">
                                 <a href="{% url 'status_change' data.cuser.id %}" class="status-link status-name">{{ data.cuser.name }}</a>
                             </div>
