@@ -3,56 +3,247 @@
 {% block title %}ステータス管理{% endblock %}
 
 {% block content %}
+<style>
+.status-page {
+    min-height: 100vh;
+    background:
+        linear-gradient(180deg, rgba(255,255,255,0.88), rgba(255,255,255,0.72)),
+        url('/static/Yiepay2.png') center top / cover no-repeat;
+    padding: 28px 0 48px;
+}
 
-<h2>ステータス管理</h2>
+.status-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
 
-<form method="post" action="{% url 'selected_child_delete' %}">
-{% csrf_token %}
+.status-header {
+    background: rgba(255,255,255,0.86);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 24px;
+    border: 1px solid rgba(255,255,255,0.50);
+    box-shadow: 0 14px 32px rgba(0,0,0,0.10);
+    padding: 28px;
+    margin-bottom: 28px;
+}
 
-<p>
- {% for data in object_list %}
+.status-title {
+    font-weight: 800;
+    color: #222;
+    font-size: 1.6rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
 
- <div class="col-xl-4 col-md-6 mb-4">
-    <div class="card border-left-primary shadow h-100 py-2 w-80">
-        <div class="card-body">
-            <div class="row no-gutters align-items-center">
-                <div class="col-auto">
-                    <img class="rounded-circle mr-3" src="/media/{{ data.cuser.photo }}" alt="" width="70" height="70">
-                </div>
-                <div class="col mr-2 text-center">
-                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"><a href="{% url 'status_change' data.cuser.id %}">{{ data.cuser.name }}</a></div>
-                    <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
+.status-title::before {
+    content: '🛡️';
+    font-size: 1.8rem;
+}
 
-            <div class="row no-gutters align-items-center">
-                <div class="custom-control custom-switch">
-                <input type="checkbox" class="custom-control-input" id="switch{{ data.cuser.id }}" name="delete_list" value="{{ data.cuser.id }}">
-                <label class="custom-control-label" for="switch{{ data.cuser.id }}"></label></div>
-            </div>
+.status-subtitle {
+    margin-top: 12px;
+    color: #5f6368;
+    font-size: 0.98rem;
+}
 
-                </div>
-            </div>
+.status-card {
+    background: rgba(255,255,255,0.86);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.50);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+    padding: 0;
+    margin-bottom: 24px;
+    overflow: hidden;
+}
+
+.status-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 22px;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.status-item:last-child {
+    border-bottom: none;
+}
+
+.status-item:hover {
+    background: rgba(255,255,255,0.95);
+    transform: translateX(2px);
+}
+
+.status-checkbox {
+    width: 24px;
+    height: 24px;
+    accent-color: #0d6efd;
+    cursor: pointer;
+}
+
+.status-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.status-name {
+    font-weight: 700;
+    color: #222;
+    font-size: 1rem;
+    word-break: break-word;
+}
+
+.status-link {
+    color: #0d6efd;
+    text-decoration: none;
+}
+
+.status-link:hover {
+    text-decoration: underline;
+}
+
+.status-empty {
+    background: rgba(255,255,255,0.86);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.50);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.10);
+    padding: 60px 40px;
+    text-align: center;
+    color: #6c757d;
+    margin-bottom: 24px;
+}
+
+.status-empty-icon {
+    font-size: 3.5rem;
+    margin-bottom: 16px;
+}
+
+.action-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    margin-bottom: 28px;
+}
+
+.btn-modern {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 16px 24px;
+    border: none;
+    border-radius: 14px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    text-decoration: none;
+}
+
+.btn-modern-primary {
+    background: linear-gradient(135deg, #1f8fff, #0d6efd);
+    color: white;
+    box-shadow: 0 8px 20px rgba(13,110,253,0.25);
+}
+
+.btn-modern-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(13,110,253,0.35);
+}
+
+.btn-modern-success {
+    background: linear-gradient(135deg, #51cf66, #2b8a3e);
+    color: white;
+    box-shadow: 0 8px 20px rgba(43,138,62,0.25);
+}
+
+.btn-modern-success:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(43,138,62,0.35);
+}
+
+.back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.86);
+    backdrop-filter: blur(10px);
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.50);
+    padding: 12px 20px;
+    color: #0d6efd;
+    text-decoration: none;
+    font-weight: 700;
+    transition: all 0.2s ease;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.back-button:hover {
+    background: rgba(255,255,255,0.95);
+    color: #1f8fff;
+    transform: translateY(-1px);
+    box-shadow: 0 10px 24px rgba(13,110,253,0.15);
+}
+
+@media (max-width: 768px) {
+    .action-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+
+<div class="status-page">
+    <div class="status-container">
+        <div class="status-header">
+            <h1 class="status-title">ステータス管理</h1>
+            <p class="status-subtitle">登録済みの子どもを管理し、必要な場合は管理解除できます。</p>
         </div>
+
+        <form method="post" action="{% url 'selected_child_delete' %}">
+            {% csrf_token %}
+
+            {% if object_list %}
+                <div class="status-card">
+                    {% for data in object_list %}
+                        <div class="status-item">
+                            <input type="checkbox" class="status-checkbox" id="switch{{ data.cuser.id }}" name="delete_list" value="{{ data.cuser.id }}">
+                            <div class="status-info">
+                                <a href="{% url 'status_change' data.cuser.id %}" class="status-link status-name">{{ data.cuser.name }}</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div class="action-grid">
+                    <button type="button" class="btn-modern btn-modern-primary" onclick="location.href='{% url 'children_regist' %}'">こどもを登録する</button>
+                    <button type="submit" class="btn-modern btn-modern-success">こどもの管理を外す</button>
+                </div>
+            {% else %}
+                <div class="status-empty">
+                    <div class="status-empty-icon">👶</div>
+                    <p>現在管理中のこどもがいません。まずは子どもを登録してください。</p>
+                </div>
+
+                <div class="action-grid">
+                    <button type="button" class="btn-modern btn-modern-primary" onclick="location.href='{% url 'children_regist' %}'">こどもを登録する</button>
+                </div>
+            {% endif %}
+        </form>
+
+        <a href="{% url 'admin_home' %}" class="back-button">← 管理画面に戻る</a>
     </div>
 </div>
-
- {% endfor %}
-</p>
-
-
-    　<div class="container">
-      <div class="row" >
-          <div class="col-md-6 mb-3">
-                <button type="button" class="btn btn-outline-primary w-100 btn-lg" onclick="location.href='{% url 'children_regist' %}'"><i class="fas fa-chalkboard-teacher mr-1"></i>こどもを登録する</button>
-          </div>
-            <div class="col-md-6 mb-3">
-                <button class="btn btn-outline-success w-100 btn-lg" ><i class="fas fa-chalkboard-teacher mr-1"></i>こどもの管理を外す</button>
-            </div>
-        </div>
-    </div>
-
-
-</form>
-
-<h5><a href="{% url 'admin_home' %}">戻る</a></h5>
 
 {% endblock %}
