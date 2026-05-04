@@ -20,7 +20,10 @@ class TaskListView(LoginRequiredMixin, ListView):
 #    paginate_by = 10
 
     def get_queryset(self):
-        return Task.objects.all()
+        queryset = Task.objects.all()
+        if hasattr(self.request.user, 'puser') and self.request.user.puser:
+            queryset = queryset.filter(puser=self.request.user.puser)
+        return queryset
 
 """
 class TaskInputView(LoginRequiredMixin, TemplateView):
@@ -48,12 +51,16 @@ class TaskRegistView(LoginRequiredMixin, CreateView):
     form_class = Task2Form
     success_url = reverse_lazy('tasks') ##reverse_lazy　name=に逆びきする。アプリ名左側
 
+    def form_valid(self, form):
+        form.instance.puser = self.request.user.puser
+        return super().form_valid(form)
+
 
 class TaskDeleteView(LoginRequiredMixin, View):##deleteviewはtemplatenameいらない
 
     def post(self, request, *args, **kwargs):
         delete_list = request.POST.getlist('delete_list') #単品はrequest.POST.get 複数はrequest.POST.getlist
-        Task.objects.filter(id__in=delete_list).delete() #複数の場合は__in=
+        Task.objects.filter(id__in=delete_list, puser=self.request.user.puser).delete() #複数の場合は__in=
         return redirect(reverse_lazy('tasks'))
 
 
@@ -62,7 +69,13 @@ class TaskUpdateView(LoginRequiredMixin, UpdateView):
     form_class = Task2Form
     success_url = reverse_lazy('tasks') ##reverse_lazy 逆引き用の関数
 
+    def get_queryset(self):
+        return Task.objects.filter(puser=self.request.user.puser)
+
 
 class TaskDetailView(LoginRequiredMixin, DetailView):
     template_name = 'task/task_change.html'
     model = Task
+
+    def get_queryset(self):
+        return Task.objects.filter(puser=self.request.user.puser)

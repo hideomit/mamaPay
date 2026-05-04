@@ -2,7 +2,6 @@ from django.db import models
 
 # Create your models here.
 
-
 class CommonColumnModel(models.Model):
     """共通カラム"""
 
@@ -22,6 +21,7 @@ class Task(CommonColumnModel):
         #テーブル名を定義
         db_table = 'task'
 
+    puser = models.ForeignKey('users.Parent', verbose_name='親ユーザーID', on_delete=models.CASCADE, null=True, blank=True)
     #テーブルのカラムに対応するフィールドを定義 appを超えたFKははれない？
     task_name = models.CharField(verbose_name='タスク名', max_length=255)
     price = models.IntegerField(verbose_name='価格', default=0)

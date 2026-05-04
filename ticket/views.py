@@ -19,7 +19,10 @@ class TicketListView(LoginRequiredMixin, ListView):
     pagenate_by = 10
 
     def get_queryset(self):
-        return Ticket.objects.all()
+        queryset = Ticket.objects.all()
+        if hasattr(self.request.user, 'puser') and self.request.user.puser:
+            queryset = queryset.filter(puser=self.request.user.puser)
+        return queryset
 
 
 class TicketRegistView(LoginRequiredMixin, CreateView):
@@ -29,29 +32,45 @@ class TicketRegistView(LoginRequiredMixin, CreateView):
     form_class = TicketModelForm
     success_url = reverse_lazy('ticket')
 
+    def form_valid(self, form):
+        form.instance.puser = self.request.user.puser
+        return super().form_valid(form)
+
 
 class TicketUpdateView(LoginRequiredMixin, UpdateView):
     model = Ticket
     form_class = TicketModelForm
     success_url = reverse_lazy('ticket')
 
+    def get_queryset(self):
+        return Ticket.objects.filter(puser=self.request.user.puser)
+
 
 class TicketDetailView(LoginRequiredMixin, DetailView):
     template_name = 'ticket/ticket_change.html'
     model = Ticket
+
+    def get_queryset(self):
+        return Ticket.objects.filter(puser=self.request.user.puser)
 
 
 class TicketDeleteView(LoginRequiredMixin, View):
 
     def post(self, request, *args, **kwargs):
         delete_list = request.POST.getlist('delete_list')
-        Ticket.objects.filter(id__in=delete_list).delete()
+        Ticket.objects.filter(id__in=delete_list, puser=self.request.user.puser).delete()
         return redirect(reverse_lazy('ticket'))
 
 
 class ChildTicketShopView(LoginRequiredMixin, ListView):
     model = Ticket
     template_name = 'ticket/ticket_shop.html'
+
+    def get_queryset(self):
+        queryset = Ticket.objects.all()
+        if hasattr(self.request.user, 'puser') and self.request.user.puser:
+            queryset = queryset.filter(puser=self.request.user.puser)
+        return queryset
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -97,12 +116,12 @@ class TicketBuyView(LoginRequiredMixin, View):
 
         totalAmount = 0
         for buy_ticket in buy_list:
-            totalAmount = totalAmount + Ticket.objects.get(id=buy_ticket).price
+            totalAmount = totalAmount + Ticket.objects.get(id=buy_ticket, puser=self.request.user.puser).price
 
         print('totalAmount:{}'.format(totalAmount))
 
         ##返却値を作成
-        object_list = Ticket.objects.filter(id__in=buy_list)
+        object_list = Ticket.objects.filter(id__in=buy_list, puser=self.request.user.puser)
         child_data = Balance.objects.select_related('cuser').get(cuser_id=child_id)
 
         if totalAmount > childBalance:
@@ -120,7 +139,7 @@ class TicketBuyView(LoginRequiredMixin, View):
 
             ##履歴を更新
             for buy_ticket in buy_list:
-                ticket_obj = Ticket.objects.get(id=buy_ticket)
+                ticket_obj = Ticket.objects.get(id=buy_ticket, puser=self.request.user.puser)
                 ticket_price = ticket_obj.price
                 history = History(cuser_id=child_id, ticket_id=buy_ticket, ticket_name=ticket_obj.ticket_name, amount=-ticket_price, kind=2)
                 history.ymd = timezone.now()
@@ -162,13 +181,13 @@ class TicketUseView(LoginRequiredMixin, View):
             print(ticket_holding.used_flg)
             ticket_holding.save()
 
-            ticket_obj = Ticket.objects.get(id=ticket)
+            ticket_obj = Ticket.objects.get(id=ticket, puser=self.request.user.puser)
             history = History(cuser_id=child_id, ticket_id=ticket, ticket_name=ticket_obj.ticket_name, kind=3, ticket_holding_id=ticket_holding.id)
             history.ymd = timezone.now()
             history.save()
 
         ##返却値を作成
-        object_list = Ticket.objects.filter(id__in=use_list)
+        object_list = Ticket.objects.filter(id__in=use_list, puser=self.request.user.puser)
         child_data = Balance.objects.select_related('cuser').get(cuser_id=child_id)
 
         return render(request, 'ticket/use_ticket_complete.html', {'object_list': object_list, 'child_data': child_data})

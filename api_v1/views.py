@@ -42,13 +42,15 @@ class TaskCreateApiView(views.APIView):
 
     def get(self, request, *args, **kwargs):
         task_list = Task.objects.all()
+        if hasattr(request.user, 'puser') and request.user.puser:
+            task_list = task_list.filter(puser=request.user.puser)
         serializer = TaskSerializer(instance=task_list, many=True)
         return Response(serializer.data, status.HTTP_200_OK)
 
     def post(self, request, *args, **kwargs):
         serializer = TaskSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save()
+        serializer.save(puser=request.user.puser)
         return Response(serializer.data, status.HTTP_201_CREATED)
 
 
@@ -57,7 +59,7 @@ class TaskDeleteApiView(views.APIView):
         return TaskSerializer() #postのinputをうまく入力する為に必要
 
     def delete(self, request, pk, *args, **kwargs):
-        task = get_object_or_404(Task, id=pk)
+        task = get_object_or_404(Task, id=pk, puser=request.user.puser)
         task.delete()
         return Response(status.HTTP_204_NO_CONTENT) # data登録は201、参照は200　deleteはresponseなし
 
@@ -67,7 +69,7 @@ class TaskUpdateApiView(views.APIView):
         return TaskSerializer()
 
     def put(self, request, pk, *args, **kwargs): #putは全項目更新、patchが指定項目の更新
-        task = get_object_or_404(Task, id=pk)
+        task = get_object_or_404(Task, id=pk, puser=request.user.puser)
         selializer = TaskSerializer(instance=task, data=request.data)
         selializer.is_valid(raise_exception=True)
         selializer.save()
@@ -75,7 +77,7 @@ class TaskUpdateApiView(views.APIView):
         return Response(selializer.data, status.HTTP_200_OK)
 
     def patch(self, request, pk, *args, **kwargs):
-        task = get_object_or_404(Task, id=pk)
+        task = get_object_or_404(Task, id=pk, puser=request.user.puser)
         selializer = TaskSerializer(instance=task, data=request.data, partial=True) #partial 一部のデータだけ更新
         selializer.is_valid(raise_exception=True)
         selializer.save()
@@ -85,7 +87,7 @@ class TaskUpdateApiView(views.APIView):
 
 class TaskDetailApiView(views.APIView):
     def get(self, request, pk, *args, **kwargs):
-        task = get_object_or_404(Task, id=pk)
+        task = get_object_or_404(Task, id=pk, puser=request.user.puser)
         selializer = TaskSerializer(instance=task)
 
         return Response(selializer.data, status.HTTP_200_OK)
@@ -96,14 +98,16 @@ class TicketCreateApiView(views.APIView):
         return TicketSerializer()
 
     def get(self, request, *args, **kwargs):
-        task_list = Ticket.objects.all()
-        serializer = TicketSerializer(instance=task_list, many=True)
+        ticket_list = Ticket.objects.all()
+        if hasattr(request.user, 'puser') and request.user.puser:
+            ticket_list = ticket_list.filter(puser=request.user.puser)
+        serializer = TicketSerializer(instance=ticket_list, many=True)
         return Response(serializer.data, status.HTTP_200_OK)
 
     def post(self, request, *args, **kwargs):
         serializer = TicketSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save()
+        serializer.save(puser=request.user.puser)
         return Response(serializer.data, status.HTTP_201_CREATED)
 
 
@@ -112,7 +116,7 @@ class TicketUpdateApiView(views.APIView):
         return TicketSerializer()
 
     def put(self, request, pk, *args, **kwargs): #putは全項目更新、patchが指定項目の更新
-        ticket = get_object_or_404(Ticket, id=pk)
+        ticket = get_object_or_404(Ticket, id=pk, puser=request.user.puser)
         selializer = TicketSerializer(instance=ticket, data=request.data)
         selializer.is_valid(raise_exception=True)
         selializer.save()
@@ -120,7 +124,7 @@ class TicketUpdateApiView(views.APIView):
         return Response(selializer.data, status.HTTP_200_OK)
 
     def patch(self, request, pk, *args, **kwargs):
-        ticket = get_object_or_404(Task, id=pk)
+        ticket = get_object_or_404(Ticket, id=pk, puser=request.user.puser)
         selializer = TicketSerializer(instance=ticket, data=request.data, partial=True) #partial 一部のデータだけ更新
         selializer.is_valid(raise_exception=True)
         selializer.save()
@@ -130,8 +134,8 @@ class TicketUpdateApiView(views.APIView):
 
 class TicketDetailApiView(views.APIView):
     def get(self, request, pk, *args, **kwargs):
-        ticket = get_object_or_404(Task, id=pk)
-        selializer = TicketSerializer(instance=task)
+        ticket = get_object_or_404(Ticket, id=pk, puser=request.user.puser)
+        selializer = TicketSerializer(instance=ticket)
 
         return Response(selializer.data, status.HTTP_200_OK)
 
@@ -141,7 +145,7 @@ class TicketDeleteApiView(views.APIView):
         return TicketSerializer()
 
     def delete(self, request, pk, *args, **kwargs):
-        ticket = get_object_or_404(Ticket, id=pk)
+        ticket = get_object_or_404(Ticket, id=pk, puser=request.user.puser)
         ticket.delete()
         return Response(status.HTTP_204_NO_CONTENT)
 
