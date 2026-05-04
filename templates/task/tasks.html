@@ -1,47 +1,287 @@
 {% extends "base.html" %}
 {% load bootstrap4 %}
 
-
 {% block title %}タスクの一覧{% endblock %}
 
 {% block content %}
+<style>
+.tasks-page {
+    min-height: 100vh;
+    background:
+        linear-gradient(180deg, rgba(255,255,255,0.88), rgba(255,255,255,0.72)),
+        url('/static/Yiepay2.png') center top / cover no-repeat;
+    padding: 28px 0 48px;
+}
 
- <h2>登録されているタスク</h2>
+.tasks-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
 
-<form method="post" action="{% url 'selected_task_delete' %}">
-{% csrf_token %}
+.tasks-header {
+    background: rgba(255,255,255,0.82);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 24px;
+    border: 1px solid rgba(255,255,255,0.50);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.10);
+    padding: 26px;
+    margin-bottom: 28px;
+}
 
-<p>
- {% for data in object_list %}
-  <div class="custom-control custom-switch">
- <input type="checkbox" class="custom-control-input" id="switch{{ data.id }}" name="delete_list" value="{{ data.id }}">
- <label class="custom-control-label" for="switch{{ data.id }}">
- <a href="{% url 'task_detail' data.id %}"> {{ data.task_name }} : {{ data.price }}ペイ</a><br>
-    </label><br>
- </div>
- {% endfor %}
-</p>
+.tasks-title {
+    font-weight: 800;
+    color: #222;
+    font-size: 1.6rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
 
- <div class="container">
- <div class="row" >
-   <div class="col-md-6 mb-3">
-    <button type="button" class="btn btn-outline-primary w-100 btn-lg" onclick="location.href='{% url 'task_regist' %}'"><i class="fas fa-chalkboard-teacher mr-1"></i>新しいタスクを登録する</button>
+.tasks-title::before {
+    content: '✓';
+    font-size: 1.8rem;
+    color: #0d6efd;
+}
 
-   </div>
+.tasks-list-card {
+    background: rgba(255,255,255,0.82);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.50);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.10);
+    padding: 0;
+    margin-bottom: 28px;
+    overflow: hidden;
+    transition: all 0.2s ease;
+}
 
-   <div class="col-md-6 mb-3">
-    <button type="submit" class="btn btn-outline-danger w-100 btn-lg"><i class="fas fa-trash-alt mr-1"></i>タスクを削除する</button>
+.task-item {
+    display: flex;
+    align-items: center;
+    padding: 18px 22px;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    gap: 16px;
+    transition: all 0.2s ease;
+}
 
-   </div>
+.task-item:last-child {
+    border-bottom: none;
+}
 
- </div>
+.task-item:hover {
+    background: rgba(255,255,255,0.95);
+    transform: translateX(2px);
+}
 
+.task-checkbox {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    cursor: pointer;
+    accent-color: #0d6efd;
+}
 
- </div>
-</form>
-<!--
-{% include 'general/pagination.html' %}
---!>
-<h5><a href="{% url 'admin_home' %}">戻る</a></h5>
+.task-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.task-name {
+    font-weight: 700;
+    color: #222;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.task-name:hover {
+    color: #0d6efd;
+    text-decoration: none;
+}
+
+.task-price {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: linear-gradient(135deg, #e0f2ff, #e6f3ff);
+    color: #0d6efd;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    width: fit-content;
+}
+
+.tasks-empty {
+    background: rgba(255,255,255,0.82);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.50);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.10);
+    padding: 60px 40px;
+    text-align: center;
+    color: #6c757d;
+    margin-bottom: 28px;
+}
+
+.tasks-empty-icon {
+    font-size: 3.5rem;
+    margin-bottom: 16px;
+}
+
+.button-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.btn-modern {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 16px 24px;
+    border: none;
+    border-radius: 14px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    width: 100%;
+}
+
+.btn-modern-primary {
+    background: linear-gradient(135deg, #1f8fff, #0d6efd);
+    color: white;
+    box-shadow: 0 8px 20px rgba(13,110,253,0.25);
+}
+
+.btn-modern-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(13,110,253,0.35);
+    color: white;
+    text-decoration: none;
+}
+
+.btn-modern-danger {
+    background: linear-gradient(135deg, #ff6b6b, #f03e3e);
+    color: white;
+    box-shadow: 0 8px 20px rgba(240,62,62,0.25);
+}
+
+.btn-modern-danger:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(240,62,62,0.35);
+    color: white;
+    text-decoration: none;
+}
+
+.back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.82);
+    backdrop-filter: blur(10px);
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.50);
+    padding: 12px 20px;
+    color: #0d6efd;
+    text-decoration: none;
+    font-weight: 700;
+    transition: all 0.2s ease;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    margin-top: 32px;
+}
+
+.back-button:hover {
+    background: rgba(255,255,255,0.95);
+    color: #1f8fff;
+    transform: translateY(-1px);
+    box-shadow: 0 10px 24px rgba(13,110,253,0.15);
+    text-decoration: none;
+}
+
+@media (max-width: 768px) {
+    .tasks-title {
+        font-size: 1.4rem;
+    }
+
+    .button-group {
+        grid-template-columns: 1fr;
+    }
+
+    .task-item {
+        padding: 16px;
+    }
+
+    .tasks-empty {
+        padding: 40px 20px;
+    }
+
+    .task-info {
+        min-width: 0;
+    }
+
+    .task-name {
+        font-size: 0.9rem;
+        word-break: break-word;
+    }
+}
+</style>
+
+<div class="tasks-page">
+    <div class="tasks-container">
+        <div class="tasks-header">
+            <h1 class="tasks-title">登録されているタスク</h1>
+        </div>
+
+        <form method="post" action="{% url 'selected_task_delete' %}">
+            {% csrf_token %}
+
+            {% if object_list %}
+                <div class="tasks-list-card">
+                    {% for data in object_list %}
+                        <div class="task-item">
+                            <input type="checkbox" id="task_{{ data.id }}" name="delete_list" value="{{ data.id }}" class="task-checkbox">
+                            <div class="task-info">
+                                <a href="{% url 'task_detail' data.id %}" class="task-name">{{ data.task_name }}</a>
+                                <span class="task-price">{{ data.price }} ペイ</span>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="tasks-empty">
+                    <div class="tasks-empty-icon">📋</div>
+                    <p>登録されたタスクがまだありません。<br>新しいタスクを作成してください。</p>
+                </div>
+            {% endif %}
+
+            <div class="button-group">
+                <button type="button" class="btn-modern btn-modern-primary" onclick="location.href='{% url 'task_regist' %}'">
+                    <i class="fas fa-chalkboard-teacher"></i>新しいタスクを登録する
+                </button>
+
+                {% if object_list %}
+                    <button type="submit" class="btn-modern btn-modern-danger">
+                        <i class="fas fa-trash-alt"></i>選択したタスクを削除する
+                    </button>
+                {% endif %}
+            </div>
+        </form>
+
+        <a href="{% url 'admin_home' %}" class="back-button">
+            <span>←</span> 管理画面にもどる
+        </a>
+    </div>
+</div>
 
 {% endblock %}
