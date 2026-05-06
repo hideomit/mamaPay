@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}お問い合わせ送信完了{% endblock %}
+
+{% block content %}
+<style>
+.contact-page {
+    min-height: 78vh;
+    background:
+        linear-gradient(90deg, rgba(255,255,255,0.90), rgba(255,255,255,0.58)),
+        url('/static/Yiepay2.png') center center / cover no-repeat;
+    display: flex;
+    align-items: center;
+    padding: 48px 0;
+}
+
+.contact-card {
+    max-width: 500px;
+    background: rgba(255,255,255,0.84);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 24px;
+    border: 1px solid rgba(255,255,255,0.50);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+    padding: 34px;
+}
+
+.contact-title {
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: #222;
+    margin-bottom: 12px;
+}
+
+.contact-text {
+    color: #5f6368;
+    line-height: 1.8;
+    margin-bottom: 24px;
+}
+
+.contact-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #1f8fff, #0d6efd);
+    color: #fff;
+    font-weight: 800;
+    box-shadow: 0 8px 20px rgba(13,110,253,0.28);
+}
+
+.contact-link:hover {
+    color: #fff;
+    text-decoration: none;
+}
+</style>
+
+<div class="contact-page">
+    <div class="container">
+        <div class="contact-card">
+            <h1 class="contact-title">送信しました</h1>
+            <p class="contact-text">お問い合わせありがとうございます。内容を確認して、必要に応じてご連絡します。</p>
+            <a class="contact-link" href="{% url 'home' %}">ホームに戻る</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

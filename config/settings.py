@@ -223,6 +223,8 @@ LOGOUT_REDIRECT_URL = '/accounts/login/'
 #######################
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL', default='webmaster@localhost')
+CONTACT_TO_EMAIL = env('CONTACT_TO_EMAIL', default=DEFAULT_FROM_EMAIL)
 
 #######################
 # Custom user model   #

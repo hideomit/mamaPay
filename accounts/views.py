@@ -1,7 +1,9 @@
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.conf import settings
 from django.db import transaction
 from django.db.models import Count
+from django.core.mail import send_mail
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.utils import timezone
@@ -11,10 +13,66 @@ from django.views.generic import CreateView, ListView, UpdateView, DetailView
 from task.models import Task
 from users.forms import ChildModelForm
 from users.models import Child, Balance, Request, History, Parent
-from .forms import SignupParentForm, ChildStatusModelForm
+from .forms import SignupParentForm, ChildStatusModelForm, ContactForm
 
 
 # Create your views here.
+
+
+class ContactView(View):
+    template_name = 'contact.html'
+
+    def get_initial(self, request):
+        if request.user.is_authenticated:
+            return {
+                'name': request.user.username,
+                'email': request.user.email,
+            }
+        return {}
+
+    def get(self, request, *args, **kwargs):
+        form = ContactForm(initial=self.get_initial(request))
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request, *args, **kwargs):
+        form = ContactForm(request.POST)
+        if not form.is_valid():
+            return render(request, self.template_name, {'form': form})
+
+        contact_to_email = settings.CONTACT_TO_EMAIL
+        data = form.cleaned_data
+        username = request.user.username if request.user.is_authenticated else '未ログイン'
+
+        message = (
+            'お問い合わせが届きました。\n\n'
+            'お名前: {name}\n'
+            'メールアドレス: {email}\n'
+            'ログインユーザー: {username}\n'
+            '件名: {subject}\n\n'
+            '本文:\n'
+            '{message}'
+        ).format(
+            name=data['name'],
+            email=data['email'],
+            username=username,
+            subject=data['subject'],
+            message=data['message'],
+        )
+
+        send_mail(
+            subject='[いえぺい] {}'.format(data['subject']),
+            message=message,
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=[contact_to_email],
+            fail_silently=False,
+        )
+
+        return redirect(reverse('contact_done'))
+
+
+class ContactDoneView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'contact_done.html')
 
 
 class SignupParentView(CreateView):

@@ -207,7 +207,7 @@
             </ul>
             <ul class="navbar-nav app-nav-list">
                 <li class="nav-item">
-                    <a href="contact.html" class="app-nav-link app-nav-action">Contact</a>
+                    <a href="{% url 'contact' %}" class="app-nav-link app-nav-action">Contact</a>
                 </li>
             </ul>
         </div>
@@ -237,7 +237,7 @@
                 <a class="nav-link" href="{% url 'logout' %}">Logout</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="contact.html">Contact</a>
+                <a class="nav-link" href="{% url 'contact' %}">Contact</a>
             </li>
         </ul>
         <p class="app-footer-copy"><small>Copyright &copy;2026 HT Works, All Right Reserved.</small></p>
