@@ -19,7 +19,7 @@ from django.urls import include, path
 from django.views.generic import TemplateView
 from django.contrib.auth import views
 
-from accounts.views import ChildStatusListView, ChildStatusDetailView, ChildStatusUpdateView, HomeListView, ContactView, ContactDoneView
+from accounts.views import ChildStatusListView, ChildStatusDetailView, ChildStatusUpdateView, HomeListView, ContactView, ContactDoneView, EmailChangeView, EmailChangeDoneView
 from config import settings
 from users.views import ChildDeleteView
 
@@ -45,6 +45,8 @@ urlpatterns = [
     path('accounts/signup/', TemplateView.as_view(template_name='signup.html'), name='new_user'),
     path('accounts/password_change/', views.PasswordChangeView.as_view(), name="password_change"),
     path('accounts/password_change/done/', views.PasswordChangeDoneView.as_view(), name='password_change_done'),
+    path('accounts/email_change/', EmailChangeView.as_view(), name='email_change'),
+    path('accounts/email_change/done/', EmailChangeDoneView.as_view(), name='email_change_done'),
     path('accounts/password_reset/', views.PasswordResetView.as_view(), name='password_reset'),
     path('accounts/password_reset/done/', views.PasswordResetDoneView.as_view(), name='password_reset_done'),
     path('accounts/reset/<uidb64>/<token>/', views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),

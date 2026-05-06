@@ -125,6 +125,18 @@
     background: rgba(255,255,255,0.72);
 }
 
+.email-change-btn {
+    color: #0f766e;
+    border-color: rgba(15,118,110,0.55);
+}
+
+.email-change-btn:hover {
+    color: #fff;
+    background: linear-gradient(135deg, #14b8a6, #0f766e);
+    border-color: #0f766e;
+    box-shadow: 0 8px 20px rgba(15,118,110,0.24);
+}
+
 @media (max-width: 768px) {
     .home-page {
         padding-top: 14px;
@@ -214,14 +226,21 @@
         </div>
 
         <div class="row mt-2">
-            <div class="col-md-6 mb-3">
+            <div class="col-md-4 mb-3">
                 <button type="button" class="btn btn-outline-primary w-100 btn-lg action-btn"
                         onclick="location.href='{% url 'password_change' %}'">
                     <i class="fas fa-chalkboard-teacher mr-1"></i>パスワード変更
                 </button>
             </div>
 
-            <div class="col-md-6 mb-3">
+            <div class="col-md-4 mb-3">
+                <button type="button" class="btn w-100 btn-lg action-btn email-change-btn"
+                        onclick="location.href='{% url 'email_change' %}'">
+                    <i class="fas fa-envelope mr-1"></i>メールアドレス変更
+                </button>
+            </div>
+
+            <div class="col-md-4 mb-3">
                 <button type="button" class="btn btn-outline-success w-100 btn-lg action-btn"
                         onclick="location.href='{% url 'logout' %}'">
                     <i class="fas fa-ticket-alt mr-1"></i>ログアウト

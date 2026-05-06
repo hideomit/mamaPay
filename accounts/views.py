@@ -13,7 +13,7 @@ from django.views.generic import CreateView, ListView, UpdateView, DetailView
 from task.models import Task
 from users.forms import ChildModelForm
 from users.models import Child, Balance, Request, History, Parent
-from .forms import SignupParentForm, ChildStatusModelForm, ContactForm
+from .forms import SignupParentForm, ChildStatusModelForm, ContactForm, EmailChangeForm
 
 
 # Create your views here.
@@ -73,6 +73,28 @@ class ContactView(View):
 class ContactDoneView(View):
     def get(self, request, *args, **kwargs):
         return render(request, 'contact_done.html')
+
+
+class EmailChangeView(LoginRequiredMixin, View):
+    template_name = 'registration/email_change_form.html'
+
+    def get(self, request, *args, **kwargs):
+        form = EmailChangeForm(request.user)
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request, *args, **kwargs):
+        form = EmailChangeForm(request.user, request.POST)
+        if not form.is_valid():
+            return render(request, self.template_name, {'form': form})
+
+        request.user.email = form.cleaned_data['email']
+        request.user.save(update_fields=['email'])
+        return redirect(reverse('email_change_done'))
+
+
+class EmailChangeDoneView(LoginRequiredMixin, View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'registration/email_change_done.html')
 
 
 class SignupParentView(CreateView):
