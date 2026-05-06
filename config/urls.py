@@ -43,7 +43,7 @@ urlpatterns = [
     path('accounts/signup/', TemplateView.as_view(template_name='signup.html'), name='new_user'),
     path('accounts/password_change/', views.PasswordChangeView.as_view(), name="password_change"),
     path('accounts/password_change/done/', views.PasswordChangeDoneView.as_view(), name='password_change_done'),
-    path('accounts/password_reset/', views.PasswordResetCompleteView.as_view(), name='password_reset'),
+    path('accounts/password_reset/', views.PasswordResetView.as_view(), name='password_reset'),
     path('accounts/password_reset/done/', views.PasswordResetDoneView.as_view(), name='password_reset_done'),
     path('accounts/reset/<uidb64>/<token>/', views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path('accounts/reset/done/', views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
