@@ -222,10 +222,30 @@ LOGOUT_REDIRECT_URL = '/accounts/login/'
 # Email settings      #
 #######################
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL', default='webmaster@localhost')
-CONTACT_TO_EMAIL = env('CONTACT_TO_EMAIL', default=DEFAULT_FROM_EMAIL)
+# メール設定
+EMAIL_BACKEND = env(
+    "EMAIL_BACKEND",
+    default="django.core.mail.backends.console.EmailBackend"
+)
 
+DEFAULT_FROM_EMAIL = env(
+    "DEFAULT_FROM_EMAIL",
+    default="webmaster@localhost"
+)
+
+CONTACT_TO_EMAIL = env(
+    "CONTACT_TO_EMAIL",
+    default=DEFAULT_FROM_EMAIL
+)
+
+# SMTP設定。本番でSMTPを使う場合だけ必要
+if EMAIL_BACKEND == "django.core.mail.backends.smtp.EmailBackend":
+    EMAIL_HOST = env("EMAIL_HOST")
+    EMAIL_PORT = env.int("EMAIL_PORT", default=587)
+    EMAIL_USE_TLS = env.bool("EMAIL_USE_TLS", default=True)
+    EMAIL_HOST_USER = env("EMAIL_HOST_USER")
+    EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+    
 #######################
 # Custom user model   #
 #######################
