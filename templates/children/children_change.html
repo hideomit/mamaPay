@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load bootstrap4 %}
 
-{% block title %}子どもの情報変更{% endblock %}
+{% block title %}こども情報変更{% endblock %}
 
 {% block content %}
 <style>
@@ -41,7 +41,7 @@
 }
 
 .children-change-title::before {
-    content: '📝';
+    content: '👤';
     font-size: 1.8rem;
 }
 
@@ -129,6 +129,7 @@
 }
 
 .btn-modern-primary:hover {
+    color: white;
     transform: translateY(-2px);
     box-shadow: 0 12px 28px rgba(13,110,253,0.35);
 }
@@ -141,29 +142,24 @@
 
 .btn-modern-secondary:hover {
     background: rgba(255,255,255,1);
-}
-
-.back-button {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(255,255,255,0.86);
-    backdrop-filter: blur(10px);
-    border-radius: 999px;
-    border: 1px solid rgba(255,255,255,0.50);
-    padding: 12px 20px;
-    color: #0d6efd;
-    text-decoration: none;
-    font-weight: 700;
-    transition: all 0.2s ease;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-}
-
-.back-button:hover {
-    background: rgba(255,255,255,0.95);
     color: #1f8fff;
-    transform: translateY(-1px);
-    box-shadow: 0 10px 24px rgba(13,110,253,0.15);
+    text-decoration: none;
+}
+
+.password-help {
+    margin-top: 18px;
+    text-align: right;
+}
+
+.password-help-link {
+    color: #6c757d;
+    font-size: 0.92rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.password-help-link:hover {
+    color: #0d6efd;
     text-decoration: none;
 }
 
@@ -175,6 +171,10 @@
     .children-change-title {
         font-size: 1.4rem;
     }
+
+    .password-help {
+        text-align: center;
+    }
 }
 </style>
 
@@ -182,7 +182,7 @@
     <div class="children-change-container">
         <div class="children-change-header">
             <h1 class="children-change-title">{{ data.name }}の情報変更</h1>
-            <p class="children-change-subtitle">子どもの名前と写真を更新できます。必要に応じて編集してください。</p>
+            <p class="children-change-subtitle">こどもの名前と写真を変更できます。必要に応じて編集してください。</p>
         </div>
 
         <div class="children-card">
@@ -212,6 +212,10 @@
                 <div class="button-group">
                     <button type="submit" class="btn-modern btn-modern-primary">変更する</button>
                     <a href="{% url 'status' %}" class="btn-modern btn-modern-secondary">戻る</a>
+                </div>
+
+                <div class="password-help">
+                    <a href="{% url 'child_password_change' data.id %}" class="password-help-link">こどものパスワード変更はこちら</a>
                 </div>
             </form>
         </div>

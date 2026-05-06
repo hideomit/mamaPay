@@ -1,10 +1,11 @@
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.conf import settings
+from django.core.exceptions import PermissionDenied
 from django.db import transaction
 from django.db.models import Count
 from django.core.mail import send_mail
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.utils import timezone
 from django.views import View
@@ -13,7 +14,8 @@ from django.views.generic import CreateView, ListView, UpdateView, DetailView
 from task.models import Task
 from users.forms import ChildModelForm
 from users.models import Child, Balance, Request, History, Parent
-from .forms import SignupParentForm, ChildStatusModelForm, ContactForm, EmailChangeForm
+from .forms import SignupParentForm, ChildStatusModelForm, ContactForm, EmailChangeForm, ChildPasswordChangeForm
+from .models import LoginUsers
 
 
 # Create your views here.
@@ -95,6 +97,55 @@ class EmailChangeView(LoginRequiredMixin, View):
 class EmailChangeDoneView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         return render(request, 'registration/email_change_done.html')
+
+
+class ChildPasswordChangeView(LoginRequiredMixin, View):
+    template_name = 'children/child_password_change.html'
+
+    def get_child(self):
+        child = get_object_or_404(Child, id=self.kwargs['pk'])
+
+        if self.request.user.puser_id and child.puser_id == self.request.user.puser_id:
+            return child
+
+        raise PermissionDenied
+
+    def get_login_user(self, child):
+        return get_object_or_404(LoginUsers, cuser=child)
+
+    def get(self, request, *args, **kwargs):
+        child = self.get_child()
+        login_user = self.get_login_user(child)
+        form = ChildPasswordChangeForm(login_user)
+        return render(request, self.template_name, {'form': form, 'child': child, 'login_user': login_user})
+
+    def post(self, request, *args, **kwargs):
+        child = self.get_child()
+        login_user = self.get_login_user(child)
+        form = ChildPasswordChangeForm(login_user, request.POST)
+
+        if not form.is_valid():
+            return render(request, self.template_name, {'form': form, 'child': child, 'login_user': login_user})
+
+        login_user.set_password(form.cleaned_data['password1'])
+        login_user.save(update_fields=['password'])
+        return redirect(reverse('child_password_change_done', args=[child.id]))
+
+
+class ChildPasswordChangeDoneView(LoginRequiredMixin, View):
+    template_name = 'children/child_password_change_done.html'
+
+    def get_child(self):
+        child = get_object_or_404(Child, id=self.kwargs['pk'])
+
+        if self.request.user.puser_id and child.puser_id == self.request.user.puser_id:
+            return child
+
+        raise PermissionDenied
+
+    def get(self, request, *args, **kwargs):
+        child = self.get_child()
+        return render(request, self.template_name, {'child': child})
 
 
 class SignupParentView(CreateView):

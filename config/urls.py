@@ -19,7 +19,7 @@ from django.urls import include, path
 from django.views.generic import TemplateView
 from django.contrib.auth import views
 
-from accounts.views import ChildStatusListView, ChildStatusDetailView, ChildStatusUpdateView, HomeListView, ContactView, ContactDoneView, EmailChangeView, EmailChangeDoneView
+from accounts.views import ChildStatusListView, ChildStatusDetailView, ChildStatusUpdateView, HomeListView, ContactView, ContactDoneView, EmailChangeView, EmailChangeDoneView, ChildPasswordChangeView, ChildPasswordChangeDoneView
 from config import settings
 from users.views import ChildDeleteView
 
@@ -37,6 +37,8 @@ urlpatterns = [
     path('switch/', TemplateView.as_view(template_name='switch.html'), name='switch'),
     path('status/', ChildStatusListView.as_view(), name='status'),
     path('status/change/<int:pk>/', ChildStatusDetailView.as_view(), name='status_change'),
+    path('status/change/<int:pk>/password/', ChildPasswordChangeView.as_view(), name='child_password_change'),
+    path('status/change/<int:pk>/password/done/', ChildPasswordChangeDoneView.as_view(), name='child_password_change_done'),
     path('status/delete/', ChildDeleteView.as_view(), name='selected_child_delete'),
     path('status/update/<int:pk>/', ChildStatusUpdateView.as_view(), name='status_update'),
     path('contact/', ContactView.as_view(), name='contact'),
