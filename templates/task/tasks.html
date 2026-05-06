@@ -253,7 +253,7 @@
                             <input type="checkbox" id="task_{{ data.id }}" name="delete_list" value="{{ data.id }}" class="task-checkbox">
                             <div class="task-info">
                                 <a href="{% url 'task_detail' data.id %}" class="task-name">{{ data.task_name }}</a>
-                                <span class="task-price">{{ data.price }} ペイ</span>
+                                <span class="task-price">{{ data.price }} コイン</span>
                             </div>
                         </div>
                     {% endfor %}

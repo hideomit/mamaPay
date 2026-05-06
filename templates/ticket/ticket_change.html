@@ -3,21 +3,184 @@
 {% block title %}チケットの変更{% endblock %}
 
 {% block content %}
+<style>
+.ticket-change-page {
+    min-height: 100vh;
+    background:
+        linear-gradient(180deg, rgba(255,255,255,0.88), rgba(255,255,255,0.72)),
+        url('/static/Yiepay2.png') center top / cover no-repeat;
+    padding: 28px 0 48px;
+}
 
- <h2>チケットを変更する</h2>
+.ticket-change-container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
 
-<form method="post" action="{% url 'ticket_update' ticket.id %}">
+.ticket-change-header {
+    background: rgba(255,255,255,0.86);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 24px;
+    border: 1px solid rgba(255,255,255,0.50);
+    box-shadow: 0 14px 32px rgba(0,0,0,0.10);
+    padding: 28px;
+    margin-bottom: 28px;
+}
 
- {% csrf_token %}
- {# csrf_token はpostメソッドを使うときは必ず入れる #}
+.ticket-change-title {
+    font-weight: 800;
+    color: #222;
+    font-size: 1.6rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
 
-  <input type="text" value="{{ ticket.ticket_name }}" name="ticket_name">
-  <input type="text" value="{{ ticket.price }}" name="price">
+.ticket-change-title::before {
+    content: '🎫';
+    font-size: 1.8rem;
+}
 
- <br>
- <br>
- <button type="submit" class="btn btn-outline-primary">変更する</button>
+.ticket-change-subtitle {
+    margin-top: 12px;
+    color: #5f6368;
+    font-size: 0.98rem;
+}
 
- </form>
+.ticket-form-card {
+    background: rgba(255,255,255,0.86);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 24px;
+    border: 1px solid rgba(255,255,255,0.50);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+    padding: 28px;
+    margin-bottom: 24px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 24px;
+}
+
+.form-group:last-child {
+    margin-bottom: 0;
+}
+
+.form-label {
+    font-weight: 700;
+    color: #222;
+    font-size: 0.98rem;
+}
+
+.form-input {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 14px;
+    border: 1px solid rgba(13,110,253,0.18);
+    background: rgba(255,255,255,0.95);
+    font-size: 1rem;
+    color: #222;
+    font-family: inherit;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 4px rgba(13,110,253,0.08);
+}
+
+.button-group {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 16px;
+    align-items: center;
+}
+
+.btn-modern {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 16px 24px;
+    border: none;
+    border-radius: 14px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.btn-modern-primary {
+    background: linear-gradient(135deg, #1f8fff, #0d6efd);
+    color: white;
+    box-shadow: 0 8px 20px rgba(13,110,253,0.25);
+}
+
+.btn-modern-primary:hover {
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(13,110,253,0.35);
+}
+
+.btn-modern-secondary {
+    background: rgba(255,255,255,0.92);
+    color: #0d6efd;
+    border: 1px solid rgba(13,110,253,0.20);
+}
+
+.btn-modern-secondary:hover {
+    background: rgba(255,255,255,1);
+    color: #1f8fff;
+    text-decoration: none;
+}
+
+@media (max-width: 640px) {
+    .button-group {
+        grid-template-columns: 1fr;
+    }
+
+    .ticket-change-title {
+        font-size: 1.4rem;
+    }
+}
+</style>
+
+<div class="ticket-change-page">
+    <div class="ticket-change-container">
+        <div class="ticket-change-header">
+            <h1 class="ticket-change-title">チケットを変更する</h1>
+            <p class="ticket-change-subtitle">チケット名と必要なコインを編集して、ごほうびの内容を更新しましょう。</p>
+        </div>
+
+        <div class="ticket-form-card">
+            <form method="post" action="{% url 'ticket_update' ticket.id %}">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label class="form-label" for="ticket_name">チケット名</label>
+                    <input type="text" id="ticket_name" class="form-input" name="ticket_name" value="{{ ticket.ticket_name }}" placeholder="チケット名を入力してください">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="price">必要なコイン</label>
+                    <input type="number" id="price" class="form-input" name="price" value="{{ ticket.price }}" min="1" placeholder="必要なコイン数を入力してください">
+                </div>
+
+                <div class="button-group">
+                    <button type="submit" class="btn-modern btn-modern-primary">変更する</button>
+                    <a href="{% url 'ticket' %}" class="btn-modern btn-modern-secondary">戻る</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 {% endblock %}

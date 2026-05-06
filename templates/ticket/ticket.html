@@ -252,7 +252,7 @@
                             <input type="checkbox" id="ticket_{{ data.id }}" name="delete_list" value="{{ data.id }}" class="ticket-checkbox">
                             <div class="ticket-info">
                                 <a href="{% url 'ticket_detail' data.id %}" class="ticket-name">{{ data.ticket_name }}</a>
-                                <span class="ticket-price">{{ data.price }} ペイ</span>
+                                <span class="ticket-price">{{ data.price }} コイン</span>
                             </div>
                         </div>
                     {% endfor %}

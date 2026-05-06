@@ -4,18 +4,213 @@
 {% block title %}チケットの登録{% endblock %}
 
 {% block content %}
+<style>
+.ticket-regist-page {
+    min-height: 100vh;
+    background:
+        linear-gradient(180deg, rgba(255,255,255,0.88), rgba(255,255,255,0.72)),
+        url('/static/Yiepay2.png') center top / cover no-repeat;
+    padding: 28px 0 48px;
+}
 
- <h2>新しいチケットを登録する</h2>
+.ticket-regist-container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
 
-<form method ="post">
-{% csrf_token %}
- {# csrf_token はpostメソッドを使うときは必ず入れる #}
+.ticket-regist-header {
+    background: rgba(255,255,255,0.86);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 24px;
+    border: 1px solid rgba(255,255,255,0.50);
+    box-shadow: 0 14px 32px rgba(0,0,0,0.10);
+    padding: 28px;
+    margin-bottom: 28px;
+}
 
- {% bootstrap_form form %}
+.ticket-regist-title {
+    font-weight: 800;
+    color: #222;
+    font-size: 1.6rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
 
+.ticket-regist-title::before {
+    content: '🎫';
+    font-size: 1.8rem;
+}
 
- <button class="btn btn-primary" type="submit">登録する</button>
-</form>
+.ticket-regist-subtitle {
+    margin-top: 12px;
+    color: #5f6368;
+    font-size: 0.98rem;
+}
 
+.ticket-form-card {
+    background: rgba(255,255,255,0.86);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 24px;
+    border: 1px solid rgba(255,255,255,0.50);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+    padding: 28px;
+    margin-bottom: 24px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 24px;
+}
+
+.form-group:last-child {
+    margin-bottom: 0;
+}
+
+.form-label {
+    font-weight: 700;
+    color: #222;
+    font-size: 0.98rem;
+}
+
+.form-input {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 14px;
+    border: 1px solid rgba(13,110,253,0.18);
+    background: rgba(255,255,255,0.95);
+    font-size: 1rem;
+    color: #222;
+    font-family: inherit;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 4px rgba(13,110,253,0.08);
+}
+
+.form-help-text {
+    font-size: 0.85rem;
+    color: #5f6368;
+    margin-top: 6px;
+}
+
+.form-error {
+    color: #dc3545;
+    font-size: 0.88rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.button-group {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 16px;
+    align-items: center;
+}
+
+.btn-modern {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 16px 24px;
+    border: none;
+    border-radius: 14px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.btn-modern-primary {
+    background: linear-gradient(135deg, #1f8fff, #0d6efd);
+    color: white;
+    box-shadow: 0 8px 20px rgba(13,110,253,0.25);
+}
+
+.btn-modern-primary:hover {
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(13,110,253,0.35);
+}
+
+.btn-modern-secondary {
+    background: rgba(255,255,255,0.92);
+    color: #0d6efd;
+    border: 1px solid rgba(13,110,253,0.20);
+}
+
+.btn-modern-secondary:hover {
+    background: rgba(255,255,255,1);
+    color: #1f8fff;
+    text-decoration: none;
+}
+
+@media (max-width: 640px) {
+    .button-group {
+        grid-template-columns: 1fr;
+    }
+
+    .ticket-regist-title {
+        font-size: 1.4rem;
+    }
+}
+</style>
+
+<div class="ticket-regist-page">
+    <div class="ticket-regist-container">
+        <div class="ticket-regist-header">
+            <h1 class="ticket-regist-title">新しいチケットを登録する</h1>
+            <p class="ticket-regist-subtitle">チケット名と必要なコインを設定して、こどもが交換できるごほうびを追加しましょう。</p>
+        </div>
+
+        <div class="ticket-form-card">
+            <form method="post">
+                {% csrf_token %}
+
+                {% for field in form %}
+                    {% if field.name == 'ticket_name' %}
+                        <div class="form-group">
+                            <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            <input type="text" id="{{ field.id_for_label }}" class="form-input" name="{{ field.name }}" value="{{ field.value|default:'' }}" placeholder="チケット名を入力してください">
+                            {% for error in field.errors %}
+                                <p class="form-error">{{ error }}</p>
+                            {% endfor %}
+                            {% if field.help_text %}
+                                <p class="form-help-text">{{ field.help_text|safe }}</p>
+                            {% endif %}
+                        </div>
+                    {% elif field.name == 'price' %}
+                        <div class="form-group">
+                            <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            <input type="number" id="{{ field.id_for_label }}" class="form-input" name="{{ field.name }}" value="{{ field.value|default:'' }}" min="1" placeholder="必要なコイン数を入力してください">
+                            {% for error in field.errors %}
+                                <p class="form-error">{{ error }}</p>
+                            {% endfor %}
+                            {% if field.help_text %}
+                                <p class="form-help-text">{{ field.help_text|safe }}</p>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+
+                <div class="button-group">
+                    <button type="submit" class="btn-modern btn-modern-primary">登録する</button>
+                    <a href="{% url 'admin_home' %}" class="btn-modern btn-modern-secondary">戻る</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 {% endblock %}
