@@ -1,6 +1,6 @@
 from django import forms
-from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.password_validation import validate_password
 
 from accounts.models import LoginUsers
 from users.models import Child
@@ -15,7 +15,7 @@ class SignupParentForm(UserCreationForm):
 class SignupChildForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = LoginUsers
-        fields = ('username', 'email')
+        fields = ('username',)
 
 
 class ChildStatusModelForm(forms.ModelForm):

@@ -4,19 +4,258 @@
 {% block title %}こどもを登録{% endblock %}
 
 {% block content %}
+<style>
+.child-regist-page {
+    min-height: 100vh;
+    background:
+        linear-gradient(180deg, rgba(255,255,255,0.88), rgba(255,255,255,0.72)),
+        url('/static/Yiepay2.png') center top / cover no-repeat;
+    padding: 28px 0 48px;
+}
 
-<h2>写真のアップロード</h2>
+.child-regist-container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
 
+.child-regist-header {
+    background: rgba(255,255,255,0.86);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 24px;
+    border: 1px solid rgba(255,255,255,0.50);
+    box-shadow: 0 14px 32px rgba(0,0,0,0.10);
+    padding: 28px;
+    margin-bottom: 28px;
+}
 
-<form method="post" enctype="multipart/form-data">
-{% csrf_token %}
- {# csrf_token はpostメソッドを使うときは必ず入れる #}
- {# {% bootstrap_form form %} #}
+.child-regist-title {
+    font-weight: 800;
+    color: #222;
+    font-size: 1.6rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
 
-{{ c_form.as_p }}
-{{ s_form.as_p }}
+.child-regist-title::before {
+    content: '👤';
+    font-size: 1.8rem;
+}
 
- <button class="btn btn-primary" type="submit">登録する</button>
-</form>
+.child-regist-subtitle {
+    margin-top: 12px;
+    color: #5f6368;
+    font-size: 0.98rem;
+}
+
+.child-card {
+    background: rgba(255,255,255,0.86);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 24px;
+    border: 1px solid rgba(255,255,255,0.50);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+    padding: 28px;
+    margin-bottom: 24px;
+}
+
+.form-section-title {
+    font-size: 1.05rem;
+    font-weight: 900;
+    color: #222;
+    margin: 0 0 18px;
+}
+
+.form-section {
+    margin-bottom: 30px;
+}
+
+.form-section:last-child {
+    margin-bottom: 0;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 24px;
+}
+
+.form-label {
+    font-weight: 700;
+    color: #222;
+    font-size: 0.98rem;
+}
+
+.form-input,
+.form-file {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 14px;
+    border: 1px solid rgba(13,110,253,0.18);
+    background: rgba(255,255,255,0.95);
+    font-size: 1rem;
+    color: #222;
+    font-family: inherit;
+}
+
+.form-input:focus,
+.form-file:focus {
+    outline: none;
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 4px rgba(13,110,253,0.08);
+}
+
+.form-help-text {
+    font-size: 0.85rem;
+    color: #5f6368;
+    margin: 0;
+}
+
+.section-help-text {
+    margin: -8px 0 22px;
+    line-height: 1.7;
+}
+
+.form-error,
+.errorlist {
+    color: #dc3545;
+    font-size: 0.88rem;
+    font-weight: 700;
+    margin: 0 0 8px;
+    padding-left: 18px;
+}
+
+.button-group {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 16px;
+    align-items: center;
+}
+
+.btn-modern {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 16px 24px;
+    border: none;
+    border-radius: 14px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.btn-modern-primary {
+    background: linear-gradient(135deg, #1f8fff, #0d6efd);
+    color: white;
+    box-shadow: 0 8px 20px rgba(13,110,253,0.25);
+}
+
+.btn-modern-primary:hover {
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(13,110,253,0.35);
+}
+
+.btn-modern-secondary {
+    background: rgba(255,255,255,0.92);
+    color: #0d6efd;
+    border: 1px solid rgba(13,110,253,0.20);
+}
+
+.btn-modern-secondary:hover {
+    background: rgba(255,255,255,1);
+    color: #1f8fff;
+    text-decoration: none;
+}
+
+@media (max-width: 640px) {
+    .button-group {
+        grid-template-columns: 1fr;
+    }
+
+    .child-regist-title {
+        font-size: 1.4rem;
+    }
+}
+</style>
+
+<div class="child-regist-page">
+    <div class="child-regist-container">
+        <div class="child-regist-header">
+            <h1 class="child-regist-title">こどもを登録する</h1>
+            <p class="child-regist-subtitle">こどもの名前、写真、ログインIDとパスワードを設定します。こどものメールアドレスは不要です。</p>
+        </div>
+
+        <div class="child-card">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="form-section">
+                    <h2 class="form-section-title">こどもの情報</h2>
+
+                    {% for field in c_form %}
+                        {% if field.name == 'name' %}
+                            <div class="form-group">
+                                <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                <input type="text" id="{{ field.id_for_label }}" class="form-input" name="{{ field.name }}" value="{{ field.value|default:'' }}" placeholder="こどもの名前を入力してください">
+                                {% for error in field.errors %}
+                                    <p class="form-error">{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% elif field.name == 'photo' %}
+                            <div class="form-group">
+                                <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                <input type="file" id="{{ field.id_for_label }}" class="form-file" name="{{ field.name }}">
+                                {% for error in field.errors %}
+                                    <p class="form-error">{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+                {% if s_form %}
+                    <div class="form-section">
+                        <h2 class="form-section-title">ログイン情報</h2>
+                        <p class="form-help-text section-help-text">こどもがじぶんでログインするときのIDとパスワードです。</p>
+                        {{ s_form.non_field_errors }}
+
+                        {% for field in s_form %}
+                            <div class="form-group">
+                                <label class="form-label" for="{{ field.id_for_label }}">
+                                    {% if field.name == 'username' %}
+                                        ログインID
+                                    {% elif field.name == 'password1' %}
+                                        パスワード
+                                    {% elif field.name == 'password2' %}
+                                        パスワード（確認）
+                                    {% else %}
+                                        {{ field.label }}
+                                    {% endif %}
+                                </label>
+                                <input id="{{ field.id_for_label }}" class="form-input" name="{{ field.name }}" value="{{ field.value|default:'' }}" {% if field.name == 'password1' or field.name == 'password2' %}type="password"{% else %}type="text"{% endif %}>
+                                {% for error in field.errors %}
+                                    <p class="form-error">{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                <div class="button-group">
+                    <button class="btn-modern btn-modern-primary" type="submit">登録する</button>
+                    <a href="{% url 'children' %}" class="btn-modern btn-modern-secondary">戻る</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 {% endblock %}
