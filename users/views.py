@@ -1,8 +1,9 @@
 from pprint import pprint
 
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import PermissionDenied
 from django.db.models import Count
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 # Create your views here.
 from django.urls import reverse_lazy, reverse
@@ -144,12 +145,27 @@ class ChildApplyView(LoginRequiredMixin, ListView):
     template_name = 'children/apply_task.html'
     pagenate_by = 10
 
+    def get_child(self):
+        child = get_object_or_404(Child, id=self.kwargs['pk'])
+        user = self.request.user
+
+        if user.puser_id and child.puser_id == user.puser_id:
+            return child
+        if user.cuser_id and child.id == user.cuser_id:
+            return child
+
+        raise PermissionDenied
+
+    def get_queryset(self):
+        child = self.get_child()
+        return Task.objects.filter(puser=child.puser)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 #        pprint(self.kwargs)
-        child_id = self.kwargs['pk']
-        context['child_data'] = Child.objects.get(id=child_id)
-        context['balance_data'] = Balance.objects.select_related('cuser').get(cuser_id=child_id)
+        child = self.get_child()
+        context['child_data'] = child
+        context['balance_data'] = Balance.objects.select_related('cuser').get(cuser=child)
         return context
 
 
@@ -158,16 +174,37 @@ class TaskApplyView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         apply_task_list = request.POST.getlist('apply_task_list')
         apply_child_id = request.POST.get('apply_child_id', None)
+        child = get_object_or_404(Child, id=apply_child_id)
+        user = self.request.user
+
+        if user.puser_id and child.puser_id == user.puser_id:
+            pass
+        elif user.cuser_id and child.id == user.cuser_id:
+            pass
+        else:
+            raise PermissionDenied
+
+        try:
+            posted_task_ids = {int(task_id) for task_id in apply_task_list}
+        except ValueError:
+            raise PermissionDenied
+
+        valid_task_ids = set(Task.objects.filter(
+            id__in=apply_task_list,
+            puser=child.puser,
+        ).values_list('id', flat=True))
+
+        if valid_task_ids != posted_task_ids:
+            raise PermissionDenied
 
         for apply_task in apply_task_list:
             ##申請リストの更新
-            puser_id = Child.objects.get(id=apply_child_id).puser_id
-            childRequest = Request(cuser_id=apply_child_id, task_id=apply_task, status=1, puser_id=puser_id)
+            childRequest = Request(cuser=child, task_id=apply_task, status=1, puser=child.puser)
             childRequest.save()
 
-        request_list = Request.objects.select_related('task').filter(cuser_id=apply_child_id, status=1)
-        child_data = Child.objects.get(id=apply_child_id)
-        balance_data = Balance.objects.select_related('cuser').get(cuser_id=apply_child_id)
+        request_list = Request.objects.select_related('task').filter(cuser=child, status=1)
+        child_data = child
+        balance_data = Balance.objects.select_related('cuser').get(cuser=child)
 
         return render(request, 'children/apply_complete.html',
                       {'child_data': child_data, 'request_list': request_list, 'balance_data': balance_data})

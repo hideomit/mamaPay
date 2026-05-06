@@ -1,17 +1,29 @@
 from pprint import pprint
 
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import PermissionDenied
 from django.urls import reverse_lazy, reverse
 from django.utils import timezone
 from django.views import View
 from django.views.generic import CreateView, DetailView, UpdateView
 from django.views.generic.list import ListView
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 # Create your views here.
 from users.models import Ticket_holding, Child, Balance, History
 from .forms import TicketModelForm
 from .models import Ticket
+
+
+def get_permitted_child(user, child_id):
+    child = get_object_or_404(Child, id=child_id)
+
+    if user.puser_id and child.puser_id == user.puser_id:
+        return child
+    if user.cuser_id and child.id == user.cuser_id:
+        return child
+
+    raise PermissionDenied
 
 
 class TicketListView(LoginRequiredMixin, ListView):
@@ -66,19 +78,20 @@ class ChildTicketShopView(LoginRequiredMixin, ListView):
     model = Ticket
     template_name = 'ticket/ticket_shop.html'
 
+    def get_child(self):
+        return get_permitted_child(self.request.user, self.kwargs['pk'])
+
     def get_queryset(self):
-        queryset = Ticket.objects.all()
-        if hasattr(self.request.user, 'puser') and self.request.user.puser:
-            queryset = queryset.filter(puser=self.request.user.puser)
-        return queryset
+        child = self.get_child()
+        return Ticket.objects.filter(puser=child.puser)
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        child_id = self.kwargs['pk']
-        pprint(child_id)
-        context['child_data'] = Child.objects.get(id=child_id)
-        if Balance.objects.filter(cuser_id=child_id).exists():
-            context['balance_data'] = Balance.objects.get(cuser_id=child_id)
+        child = self.get_child()
+        pprint(child.id)
+        context['child_data'] = child
+        if Balance.objects.filter(cuser=child).exists():
+            context['balance_data'] = Balance.objects.get(cuser=child)
         else:
             context['balance_data'] = None
 
@@ -103,50 +116,59 @@ class TicketBuyView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         buy_list = request.POST.getlist('buy_list')
         child_id = request.POST.get('child_id')
+        child = get_permitted_child(self.request.user, child_id)
 
         print('buy_list:{}'.format(buy_list))
-        print('child_id:{}'.format(child_id))
+        print('child_id:{}'.format(child.id))
 
-        if Balance.objects.filter(cuser_id=child_id).exists():
-            childBalance = Balance.objects.get(cuser_id=child_id).balance
+        if Balance.objects.filter(cuser=child).exists():
+            childBalance = Balance.objects.get(cuser=child).balance
         else:
             childBalance = 0
 
         print('childBalance:{}'.format(childBalance))
 
-        totalAmount = 0
-        for buy_ticket in buy_list:
-            totalAmount = totalAmount + Ticket.objects.get(id=buy_ticket, puser=self.request.user.puser).price
+        try:
+            posted_ticket_ids = {int(ticket_id) for ticket_id in buy_list}
+        except ValueError:
+            raise PermissionDenied
+
+        object_list = Ticket.objects.filter(id__in=buy_list, puser=child.puser)
+        valid_ticket_ids = set(object_list.values_list('id', flat=True))
+
+        if valid_ticket_ids != posted_ticket_ids:
+            raise PermissionDenied
+
+        totalAmount = sum(ticket.price for ticket in object_list)
 
         print('totalAmount:{}'.format(totalAmount))
 
         ##返却値を作成
-        object_list = Ticket.objects.filter(id__in=buy_list, puser=self.request.user.puser)
-        child_data = Balance.objects.select_related('cuser').get(cuser_id=child_id)
+        child_data = Balance.objects.select_related('cuser').get(cuser=child)
 
         if totalAmount > childBalance:
             return render(request, 'ticket/ticket_shop_incomplete.html', {'object_list': object_list, 'child_data': child_data})
         else:
             ##チケット保持リストを更新
             for buy_ticket in buy_list:
-                ticket_holding = Ticket_holding(ticket_id=buy_ticket, cuser_id=child_id)
+                ticket_holding = Ticket_holding(ticket_id=buy_ticket, cuser=child)
                 ticket_holding.save()
 
             ##残高を更新
-            balance = Balance.objects.get(cuser_id=child_id)
+            balance = Balance.objects.get(cuser=child)
             balance.balance = childBalance - totalAmount
             balance.save()
 
             ##履歴を更新
             for buy_ticket in buy_list:
-                ticket_obj = Ticket.objects.get(id=buy_ticket, puser=self.request.user.puser)
+                ticket_obj = object_list.get(id=buy_ticket)
                 ticket_price = ticket_obj.price
-                history = History(cuser_id=child_id, ticket_id=buy_ticket, ticket_name=ticket_obj.ticket_name, amount=-ticket_price, kind=2)
+                history = History(cuser=child, ticket_id=buy_ticket, ticket_name=ticket_obj.ticket_name, amount=-ticket_price, kind=2)
                 history.ymd = timezone.now()
                 history.save()
 
             ##返却値を更新
-            child_data = Balance.objects.select_related('cuser').get(cuser_id=child_id)
+            child_data = Balance.objects.select_related('cuser').get(cuser=child)
 
             return render(request, 'ticket/ticket_shop_complete.html', {'object_list': object_list, 'child_data': child_data})
 
