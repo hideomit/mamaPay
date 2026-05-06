@@ -22,81 +22,227 @@
     <meta name="theme-color" content="#ffffff">
 
     <title>{% block title %}{% endblock %}</title>
+
+    <style>
+        body {
+            min-height: 100vh;
+            background: #f6f9fc;
+            color: #222;
+        }
+
+        .app-navbar {
+            background: rgba(255,255,255,0.88);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.65);
+            box-shadow: 0 10px 28px rgba(15,23,42,0.08);
+        }
+
+        .app-navbar .container {
+            min-height: 72px;
+        }
+
+        .app-brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            color: #1f2937;
+            font-weight: 900;
+            letter-spacing: 0;
+            text-decoration: none;
+        }
+
+        .app-brand:hover {
+            color: #0d6efd;
+            text-decoration: none;
+        }
+
+        .app-brand-logo {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 8px 20px rgba(13,110,253,0.16);
+        }
+
+        .app-brand-text {
+            font-size: 1.08rem;
+        }
+
+        .app-navbar .navbar-toggler {
+            border: 1px solid rgba(13,110,253,0.22);
+            border-radius: 12px;
+            padding: 8px 10px;
+            color: #0d6efd;
+        }
+
+        .app-navbar .navbar-toggler:focus {
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(13,110,253,0.10);
+        }
+
+        .app-navbar .navbar-toggler-icon {
+            width: 1.25em;
+            height: 1.25em;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%2813, 110, 253, 0.88%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+        .app-nav-list {
+            gap: 8px;
+        }
+
+        .app-nav-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 40px;
+            padding: 9px 14px;
+            border-radius: 999px;
+            color: #3f4b5b;
+            font-weight: 700;
+            text-decoration: none;
+            transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+        }
+
+        .app-nav-link:hover {
+            background: rgba(13,110,253,0.08);
+            color: #0d6efd;
+            text-decoration: none;
+            transform: translateY(-1px);
+        }
+
+        .app-nav-action {
+            background: linear-gradient(135deg, #1f8fff, #0d6efd);
+            color: #fff;
+            box-shadow: 0 8px 18px rgba(13,110,253,0.22);
+        }
+
+        .app-nav-action:hover {
+            background: linear-gradient(135deg, #3b9cff, #0d6efd);
+            color: #fff;
+        }
+
+        .app-main {
+            min-height: calc(100vh - 176px);
+        }
+
+        .app-footer {
+            background: rgba(255,255,255,0.88);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255,255,255,0.65);
+            color: #5f6368;
+            box-shadow: 0 -8px 24px rgba(15,23,42,0.05);
+        }
+
+        .app-footer .nav-link {
+            color: #5f6368;
+            font-weight: 700;
+            border-radius: 999px;
+            padding: 8px 12px;
+        }
+
+        .app-footer .nav-link:hover {
+            color: #0d6efd;
+            background: rgba(13,110,253,0.08);
+        }
+
+        .app-footer-copy {
+            margin: 0;
+            color: #7b8490;
+        }
+
+        @media (max-width: 767.98px) {
+            .app-navbar .container {
+                min-height: 64px;
+            }
+
+            .app-navbar .navbar-collapse {
+                padding: 12px 0 16px;
+            }
+
+            .app-nav-list {
+                gap: 6px;
+            }
+
+            .app-nav-link {
+                justify-content: flex-start;
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
 
-<!-- Load c3.css -->
 <link href="/static/c3.min.css" rel="stylesheet" type="text/css">
-<!-- Load d3.js and c3.js -->
 <script src="/static/d3.min.js" charset="utf-8"></script>
 <script src="/static/c3.min.js"></script>
 
-
-<nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
+<nav class="navbar navbar-expand-md app-navbar sticky-top">
     <div class="container">
-            <a class="navbar-brand" href="{% url 'home' %}"><img class="rounded-circle mr-3" src="/static/iepay2.jpg" alt="いえぺい" width="45" height="45">いえぺい</a>
-            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+        <a class="app-brand" href="{% url 'home' %}">
+            <img class="app-brand-logo" src="/static/iepay2.jpg" alt="いえぺい">
+            <span class="app-brand-text">いえぺい</span>
+        </a>
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
         <div class="collapse navbar-collapse" id="navbar-content">
-         <ul class="navbar-nav mr-auto">
+            <ul class="navbar-nav app-nav-list ml-md-4 mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'home' %}">Home<span class="sr-only">(current)</span></a>
+                    <a class="app-nav-link" href="{% url 'home' %}">Home<span class="sr-only">(current)</span></a>
                 </li>
-             {% if user.cuser_id %}
+                {% if user.cuser_id %}
+                    <li class="nav-item">
+                        <a class="app-nav-link" href="{% url 'child_home' user.cuser_id %}">Child</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="app-nav-link" href="{% url 'admin_home' %}">Mama</a>
+                    </li>
+                {% endif %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'child_home' user.cuser_id %}">Child</a>
-                </li>
-             {% else %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'admin_home' %}">Mama</a>
-                </li>
-             {% endif %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'logout' %}">logout</a>
+                    <a class="app-nav-link" href="{% url 'logout' %}">Logout</a>
                 </li>
             </ul>
-            <ul class="navbar-nav">
+            <ul class="navbar-nav app-nav-list">
                 <li class="nav-item">
-                    <a href="contact.html" class="nav-link btn btn-info">Contact</a>
+                    <a href="contact.html" class="app-nav-link app-nav-action">Contact</a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
 
-    <main class="container">
-        {% block content %}{% endblock %}
-    </main>
+<main class="app-main">
+    {% block content %}{% endblock %}
+</main>
 
-<!-- フッター　-->
-    <footer class="py-4 bg-dark text-light">
-        <div class="container text-center">
-            <ul class="nav justify-content-center mb-3">
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'home' %}">Home</a>
-                </li>
-             {% if user.cuser_id %}
+<footer class="app-footer py-4">
+    <div class="container text-center">
+        <ul class="nav justify-content-center mb-3">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'home' %}">Home</a>
+            </li>
+            {% if user.cuser_id %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'child_home' user.cuser_id %}">Child</a>
                 </li>
-             {% else %}
+            {% else %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'admin_home' %}">Mama</a>
                 </li>
-             {% endif %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'logout' %}">logout</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="contact.html">Contact</a>
-                </li>
-            </ul>
-            <p><small>Copyright &copy;2020 HT Works, All Right Reserved.</small></p>
-        </div>
-    </footer>
-    <!-- /フッター -->
+            {% endif %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="contact.html">Contact</a>
+            </li>
+        </ul>
+        <p class="app-footer-copy"><small>Copyright &copy;2026 HT Works, All Right Reserved.</small></p>
+    </div>
+</footer>
 
 </body>
-
 </html>
