@@ -183,12 +183,21 @@ class ChildStatusListView(LoginRequiredMixin, ListView):
 
 class ChildStatusGetView(LoginRequiredMixin, View):
 
+    def get_child(self, child_id):
+        child = get_object_or_404(Child, id=child_id)
+
+        if self.request.user.puser_id and child.puser_id == self.request.user.puser_id:
+            return child
+
+        raise PermissionDenied
+
     def get(self, request, *args, **kwargs):
+        child = self.get_child(kwargs['pk'])
         try:
-            balance = Balance.objects.select_related('cuser').get(cuser_id=kwargs['pk'])
+            balance = Balance.objects.select_related('cuser').get(cuser=child)
         except Balance.DoesNotExist:
             balance = None
-        object_list = Request.objects.filter(cuser_id=kwargs['pk'], status='1')
+        object_list = Request.objects.select_related('task').filter(cuser=child, puser=child.puser, status=1)
 
         return render(request, 'children/child_status.html', {'balance': balance, 'object_list': object_list})
 
@@ -224,11 +233,30 @@ class HomeListView(LoginRequiredMixin, ListView):
 
 class ApproveTaskView(LoginRequiredMixin, View):
 
-    @transaction.atomic
-    def task_data_save(self, request_id_list):
+    def get_owned_requests(self, request_id_list):
+        if not self.request.user.puser_id:
+            raise PermissionDenied
 
-        for request_id in request_id_list:
-            applyRequests = Request.objects.get(id=request_id)
+        try:
+            posted_request_ids = {int(request_id) for request_id in request_id_list}
+        except ValueError:
+            raise PermissionDenied
+
+        apply_requests = list(Request.objects.select_related('task', 'cuser').filter(
+            id__in=posted_request_ids,
+            puser=self.request.user.puser,
+            status=1,
+        ))
+
+        if {apply_request.id for apply_request in apply_requests} != posted_request_ids:
+            raise PermissionDenied
+
+        return apply_requests
+
+    @transaction.atomic
+    def task_data_save(self, apply_requests):
+
+        for applyRequests in apply_requests:
             applyRequests.status = 2  ##1が未承認、2が承認
             applyRequests.save()
 
@@ -254,19 +282,43 @@ class ApproveTaskView(LoginRequiredMixin, View):
 
     def post(self, request, *args, **kwargs):
         request_id_list = request.POST.getlist('approve_task_list')
-        self.task_data_save(request_id_list)
+        apply_requests = self.get_owned_requests(request_id_list)
+        self.task_data_save(apply_requests)
 
         return redirect(reverse('children'))
 
 
 class ApproveTaskDeleteView(LoginRequiredMixin, View):
 
+    def get_child(self, child_id):
+        child = get_object_or_404(Child, id=child_id)
+
+        if self.request.user.puser_id and child.puser_id == self.request.user.puser_id:
+            return child
+
+        raise PermissionDenied
+
     def post(self, request, *args, **kwargs):
         delete_list = request.POST.getlist('approve_task_list') #単品はrequest.POST.get 複数はrequest.POST.getlist
-        Request.objects.filter(id__in=delete_list).delete() #複数の場合は__in=
-
         approve_child_id = request.POST.get('approve_child_id', None)
-        print(approve_child_id)
+        child = self.get_child(approve_child_id)
 
-        return redirect(reverse_lazy('child_status', args=approve_child_id)) #reverseに動的なパラメータを渡す
+        try:
+            posted_request_ids = {int(request_id) for request_id in delete_list}
+        except ValueError:
+            raise PermissionDenied
+
+        apply_requests = Request.objects.filter(
+            id__in=posted_request_ids,
+            cuser=child,
+            puser=self.request.user.puser,
+            status=1,
+        )
+
+        if set(apply_requests.values_list('id', flat=True)) != posted_request_ids:
+            raise PermissionDenied
+
+        apply_requests.delete() #複数の場合は__in=
+
+        return redirect(reverse_lazy('child_status', args=[child.id])) #reverseに動的なパラメータを渡す
 
