@@ -1,7 +1,9 @@
 from pprint import pprint
 
+from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
+from django.core.mail import send_mail
 from django.db.models import Count
 from django.shortcuts import render, redirect, get_object_or_404
 
@@ -11,6 +13,7 @@ from django.views import View
 from django.views.generic import ListView, CreateView, DetailView, UpdateView
 
 from accounts.forms import SignupChildForm
+from accounts.models import LoginUsers
 from task.models import Task
 from users.forms import ChildModelForm
 from users.models import Child, History, Balance, Request
@@ -171,6 +174,39 @@ class ChildApplyView(LoginRequiredMixin, ListView):
 
 class TaskApplyView(LoginRequiredMixin, View):
 
+    def send_apply_notification(self, request, child, applied_tasks):
+        if not applied_tasks:
+            return
+
+        parent_user = LoginUsers.objects.filter(puser=child.puser).first()
+        if not parent_user or not parent_user.email:
+            return
+
+        approval_url = request.build_absolute_uri(reverse('child_status', args=[child.id]))
+        task_lines = '\n'.join(
+            ['・{}（{}コイン）'.format(task.task_name, task.price) for task in applied_tasks]
+        )
+        total_coin = sum(task.price for task in applied_tasks)
+
+        message = (
+            '{child_name}さんからタスク完了申請が届きました。\n\n'
+            'タスク名:\n{task_lines}\n\n'
+            '獲得予定コイン: {total_coin}コイン\n\n'
+            '承認リンク:\n{approval_url}\n'
+        ).format(
+            child_name=child.name,
+            task_lines=task_lines,
+            total_coin=total_coin,
+            approval_url=approval_url,
+        )
+
+        send_mail(
+            subject='【いえペイ】{}さんがタスク完了申請'.format(child.name),
+            message=message,
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=[parent_user.email],
+        )
+
     def post(self, request, *args, **kwargs):
         apply_task_list = request.POST.getlist('apply_task_list')
         apply_child_id = request.POST.get('apply_child_id', None)
@@ -189,10 +225,11 @@ class TaskApplyView(LoginRequiredMixin, View):
         except ValueError:
             raise PermissionDenied
 
-        valid_task_ids = set(Task.objects.filter(
-            id__in=apply_task_list,
+        applied_tasks = list(Task.objects.filter(
+            id__in=posted_task_ids,
             puser=child.puser,
-        ).values_list('id', flat=True))
+        ))
+        valid_task_ids = {task.id for task in applied_tasks}
 
         if valid_task_ids != posted_task_ids:
             raise PermissionDenied
@@ -201,6 +238,8 @@ class TaskApplyView(LoginRequiredMixin, View):
             ##申請リストの更新
             childRequest = Request(cuser=child, task_id=apply_task, status=1, puser=child.puser)
             childRequest.save()
+
+        self.send_apply_notification(request, child, applied_tasks)
 
         request_list = Request.objects.select_related('task').filter(cuser=child, status=1)
         child_data = child
