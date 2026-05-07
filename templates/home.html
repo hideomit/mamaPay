@@ -76,6 +76,47 @@
     box-shadow: 0 16px 36px rgba(0,0,0,0.14);
 }
 
+.empty-child-card {
+    min-height: 260px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.empty-child-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(13,110,253,0.10);
+    color: #0d6efd;
+    font-size: 2rem;
+    margin-bottom: 16px;
+}
+
+.empty-child-title {
+    font-size: 1.2rem;
+    font-weight: 900;
+    color: #222;
+    margin-bottom: 8px;
+}
+
+.empty-child-text {
+    color: #6c757d;
+    line-height: 1.7;
+    margin-bottom: 18px;
+}
+
+.empty-child-btn {
+    border-radius: 999px;
+    padding: 11px 22px;
+    font-weight: 800;
+    box-shadow: 0 6px 16px rgba(13,110,253,0.22);
+}
+
 .child-photo {
     width: 86px;
     height: 86px;
@@ -222,6 +263,25 @@
                     </div>
                 </div>
             </div>
+            {% empty %}
+                {% if not user.cuser_id %}
+                    <div class="col-xl-4 col-md-6 mb-4">
+                        <div class="child-card empty-child-card h-100">
+                            <div>
+                                <div class="empty-child-icon">
+                                    <i class="fas fa-child"></i>
+                                </div>
+                                <div class="empty-child-title">まずはこどもを登録しましょう！</div>
+                                <p class="empty-child-text">
+                                    こどもを登録すると、タスクやチケットを使えるようになります。
+                                </p>
+                                <a href="{% url 'children_regist' %}" class="btn btn-primary empty-child-btn">
+                                    こどもを登録する
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
             {% endfor %}
         </div>
 
