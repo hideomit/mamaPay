@@ -1,7 +1,7 @@
 from django.views.generic import TemplateView
 from django.urls import path
 
-from task.views import TaskListView, TaskRegistView, TaskDeleteView, TaskUpdateView, TaskDetailView
+from task.views import TaskListView, TaskRegistView, TaskDeleteView, TaskUpdateView, TaskDetailView, TaskTemplateView
 
 # TaskInputView,
 
@@ -9,6 +9,7 @@ urlpatterns = [
 
     path('', TaskListView.as_view(), name='tasks'),
     path('regist/', TaskRegistView.as_view(), name='task_regist'),
+    path('template/', TaskTemplateView.as_view(), name='task_template'),
     path('delete/', TaskDeleteView.as_view(), name='selected_task_delete'), ##DeleteViewはインスタンスいらない。単体消す用。
     path('update/<int:pk>', TaskUpdateView.as_view(), name='task_update'),
     path('detail/<int:pk>', TaskDetailView.as_view(), name='task_detail'),

@@ -1,0 +1,191 @@
+{% extends "base.html" %}
+
+{% block title %}チケットテンプレート{% endblock %}
+
+{% block content %}
+<style>
+.template-page {
+    min-height: 100vh;
+    background:
+        linear-gradient(180deg, rgba(255,255,255,0.88), rgba(255,255,255,0.72)),
+        url('/static/Yiepay2.png') center top / cover no-repeat;
+    padding: 28px 0 48px;
+}
+
+.template-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+.template-header,
+.template-result,
+.template-card {
+    background: rgba(255,255,255,0.86);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.50);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+}
+
+.template-header {
+    padding: 28px;
+    margin-bottom: 24px;
+}
+
+.template-title {
+    font-weight: 900;
+    color: #222;
+    font-size: 1.6rem;
+    margin: 0;
+}
+
+.template-subtitle {
+    margin: 12px 0 0;
+    color: #5f6368;
+    line-height: 1.7;
+}
+
+.template-result {
+    padding: 20px 24px;
+    margin-bottom: 24px;
+    color: #7c3aed;
+    font-weight: 800;
+}
+
+.template-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+.template-card {
+    padding: 22px;
+}
+
+.template-card-title {
+    font-size: 1.1rem;
+    font-weight: 900;
+    color: #222;
+    margin: 0 0 8px;
+}
+
+.template-card-description {
+    color: #5f6368;
+    font-size: 0.92rem;
+    line-height: 1.6;
+    min-height: 48px;
+    margin: 0 0 16px;
+}
+
+.template-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.template-list-item {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    padding-bottom: 10px;
+    color: #222;
+    font-weight: 700;
+}
+
+.template-price {
+    color: #a855f7;
+    white-space: nowrap;
+}
+
+.btn-modern {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 14px;
+    font-weight: 800;
+    font-size: 0.94rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    width: 100%;
+}
+
+.btn-modern-primary {
+    background: linear-gradient(135deg, #c084fc, #8b5cf6);
+    color: #fff;
+    box-shadow: 0 8px 20px rgba(139,92,246,0.22);
+}
+
+.btn-modern-primary:hover {
+    color: #fff;
+    transform: translateY(-1px);
+    text-decoration: none;
+}
+
+.back-button {
+    display: inline-flex;
+    margin-top: 28px;
+    color: #8b5cf6;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+@media (max-width: 900px) {
+    .template-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .template-card-description {
+        min-height: 0;
+    }
+}
+</style>
+
+<div class="template-page">
+    <div class="template-container">
+        <div class="template-header">
+            <h1 class="template-title">チケットテンプレートから追加</h1>
+            <p class="template-subtitle">登録される内容を確認して、使いたいテンプレートをまとめて追加できます。同じ名前のチケットがある場合は追加せずにスキップします。</p>
+        </div>
+
+        {% if selected_template %}
+            <div class="template-result">
+                {{ selected_template.label }}を追加しました。追加: {{ created_count }}件 / スキップ: {{ skipped_count }}件
+            </div>
+        {% endif %}
+
+        <div class="template-grid">
+            {% for key, group in template_groups.items %}
+                <div class="template-card">
+                    <h2 class="template-card-title">{{ group.label }}</h2>
+                    <p class="template-card-description">{{ group.description }}</p>
+                    <ul class="template-list">
+                        {% for item in group.items %}
+                            <li class="template-list-item">
+                                <span>{{ item.ticket_name }}</span>
+                                <span class="template-price">{{ item.price }}コイン</span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <form method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="template_key" value="{{ key }}">
+                        <button type="submit" class="btn-modern btn-modern-primary">このテンプレートを追加</button>
+                    </form>
+                </div>
+            {% endfor %}
+        </div>
+
+        <a href="{% url 'ticket' %}" class="back-button">チケット一覧にもどる</a>
+    </div>
+</div>
+
+{% endblock %}

@@ -137,7 +137,7 @@
 
 .button-group {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 16px;
 }
 
@@ -179,6 +179,19 @@
 .btn-modern-danger:hover {
     transform: translateY(-2px);
     box-shadow: 0 12px 28px rgba(240,62,62,0.35);
+    color: white;
+    text-decoration: none;
+}
+
+.btn-modern-secondary {
+    background: linear-gradient(135deg, #c084fc, #8b5cf6);
+    color: white;
+    box-shadow: 0 8px 20px rgba(139,92,246,0.22);
+}
+
+.btn-modern-secondary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(139,92,246,0.32);
     color: white;
     text-decoration: none;
 }
@@ -267,6 +280,10 @@
             <div class="button-group">
                 <button type="button" class="btn-modern btn-modern-primary" onclick="location.href='{% url 'ticket_regist' %}'">
                     <i class="fas fa-plus"></i>新しいチケットを登録する
+                </button>
+
+                <button type="button" class="btn-modern btn-modern-secondary" onclick="location.href='{% url 'ticket_template' %}'">
+                    <i class="fas fa-list-alt"></i>テンプレートから追加
                 </button>
 
                 {% if object_list %}

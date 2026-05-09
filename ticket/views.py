@@ -15,6 +15,43 @@ from .forms import TicketModelForm
 from .models import Ticket
 
 
+TICKET_TEMPLATE_GROUPS = {
+    'preschool': {
+        'label': '幼児テンプレート',
+        'description': '小さな楽しみと生活リズムに合うチケットです。',
+        'items': [
+            {'ticket_name': '好きなおやつ', 'price': 50},
+            {'ticket_name': '絵本を1冊よんでもらう', 'price': 40},
+            {'ticket_name': '公園であそぶ', 'price': 80},
+            {'ticket_name': 'シールを1枚えらぶ', 'price': 30},
+            {'ticket_name': '好きな動画を10分みる', 'price': 60},
+        ],
+    },
+    'elementary': {
+        'label': '小学生テンプレート',
+        'description': '遊び・おやつ・家族時間を組み合わせたチケットです。',
+        'items': [
+            {'ticket_name': 'ゲーム30分', 'price': 120},
+            {'ticket_name': '好きなおやつ', 'price': 80},
+            {'ticket_name': 'ガチャ1回', 'price': 150},
+            {'ticket_name': '夜ごはんリクエスト', 'price': 200},
+            {'ticket_name': '家族でボードゲーム', 'price': 100},
+        ],
+    },
+    'junior_high': {
+        'label': '中学生テンプレート',
+        'description': '自分時間や少し大きめのごほうび向けチケットです。',
+        'items': [
+            {'ticket_name': 'スマホ30分', 'price': 150},
+            {'ticket_name': 'コンビニスイーツ', 'price': 180},
+            {'ticket_name': '好きな動画を30分みる', 'price': 140},
+            {'ticket_name': '休日の外食リクエスト', 'price': 400},
+            {'ticket_name': '本・文具を買う', 'price': 300},
+        ],
+    },
+}
+
+
 def get_permitted_child(user, child_id):
     child = get_object_or_404(Child, id=child_id)
 
@@ -47,6 +84,48 @@ class TicketRegistView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.puser = self.request.user.puser
         return super().form_valid(form)
+
+
+class TicketTemplateView(LoginRequiredMixin, View):
+    template_name = 'ticket/ticket_template.html'
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name, {'template_groups': TICKET_TEMPLATE_GROUPS})
+
+    def post(self, request, *args, **kwargs):
+        if not request.user.puser_id:
+            raise PermissionDenied
+
+        template_key = request.POST.get('template_key')
+        template_group = TICKET_TEMPLATE_GROUPS.get(template_key)
+        if not template_group:
+            raise PermissionDenied
+
+        existing_names = set(Ticket.objects.filter(
+            puser=request.user.puser,
+            ticket_name__in=[item['ticket_name'] for item in template_group['items']],
+        ).values_list('ticket_name', flat=True))
+
+        created_count = 0
+        skipped_count = 0
+        for item in template_group['items']:
+            if item['ticket_name'] in existing_names:
+                skipped_count += 1
+                continue
+            Ticket.objects.create(
+                puser=request.user.puser,
+                ticket_name=item['ticket_name'],
+                price=item['price'],
+            )
+            created_count += 1
+
+        return render(request, self.template_name, {
+            'template_groups': TICKET_TEMPLATE_GROUPS,
+            'selected_template': template_group,
+            'created_count': created_count,
+            'skipped_count': skipped_count,
+            'back_url': reverse('ticket'),
+        })
 
 
 class TicketUpdateView(LoginRequiredMixin, UpdateView):
