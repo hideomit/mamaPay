@@ -238,8 +238,8 @@ class TaskApplyView(LoginRequiredMixin, View):
         total_coin = sum(task.price for task in applied_tasks)
 
         message = (
-            '{child_name}さんからタスク完了申請が届きました。\n\n'
-            'タスク名:\n{task_lines}\n\n'
+            '{child_name}さんからおてつだい完了申請が届きました。\n\n'
+            'おてつだい名:\n{task_lines}\n\n'
             '獲得予定コイン: {total_coin}コイン\n\n'
             '承認リンク:\n{approval_url}\n'
         ).format(
@@ -250,7 +250,7 @@ class TaskApplyView(LoginRequiredMixin, View):
         )
 
         send_mail(
-            subject='【いえペイ】{}さんがタスク完了申請'.format(child.name),
+            subject='【いえペイ】{}さんがおてつだい完了申請'.format(child.name),
             message=message,
             from_email=settings.DEFAULT_FROM_EMAIL,
             recipient_list=[parent_user.email],

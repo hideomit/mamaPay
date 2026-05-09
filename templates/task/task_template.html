@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}タスクテンプレート{% endblock %}
+{% block title %}おてつだいテンプレート{% endblock %}
 
 {% block content %}
 <style>
@@ -152,8 +152,8 @@
 <div class="template-page">
     <div class="template-container">
         <div class="template-header">
-            <h1 class="template-title">タスクテンプレートから追加</h1>
-            <p class="template-subtitle">登録される内容を確認して、使いたいテンプレートをまとめて追加できます。同じ名前のタスクがある場合は追加せずにスキップします。</p>
+            <h1 class="template-title">おてつだいテンプレートから追加</h1>
+            <p class="template-subtitle">登録される内容を確認して、使いたいテンプレートをまとめて追加できます。同じ名前のおてつだいがある場合は追加せずにスキップします。</p>
         </div>
 
         {% if selected_template %}
@@ -184,7 +184,7 @@
             {% endfor %}
         </div>
 
-        <a href="{% url 'tasks' %}" class="back-button">タスク一覧にもどる</a>
+        <a href="{% url 'tasks' %}" class="back-button">おてつだい一覧にもどる</a>
     </div>
 </div>
 

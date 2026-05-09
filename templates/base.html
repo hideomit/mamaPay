@@ -147,6 +147,24 @@
             background: rgba(13,110,253,0.08);
         }
 
+        .app-footer-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 1rem;
+        }
+
+        .app-footer-nav-main,
+        .app-footer-nav-action {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
         .app-footer-copy {
             margin: 0;
             color: #7b8490;
@@ -168,6 +186,17 @@
             .app-nav-link {
                 justify-content: flex-start;
                 width: 100%;
+            }
+
+            .app-footer-nav {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .app-footer-nav-main,
+            .app-footer-nav-action {
+                justify-content: center;
+                flex-wrap: wrap;
             }
         }
     </style>
@@ -191,33 +220,35 @@
             <ul class="navbar-nav app-nav-list ml-md-4 mr-auto">
                 {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="app-nav-link" href="{% url 'home' %}">Home<span class="sr-only">(current)</span></a>
+                        <a class="app-nav-link" href="{% url 'home' %}">ホーム<span class="sr-only">(current)</span></a>
                     </li>
                     {% if user.cuser_id %}
                         <li class="nav-item">
-                            <a class="app-nav-link" href="{% url 'child_home' user.cuser_id %}">Child</a>
+                            <a class="app-nav-link" href="{% url 'child_home' user.cuser_id %}">こどもがめん</a>
                         </li>
                     {% else %}
                         <li class="nav-item">
-                            <a class="app-nav-link" href="{% url 'tasks' %}">Task</a>
+                            <a class="app-nav-link" href="{% url 'admin_home' %}">まま画面</a>
                         </li>
                         <li class="nav-item">
-                            <a class="app-nav-link" href="{% url 'ticket' %}">Ticket</a>
+                            <a class="app-nav-link" href="{% url 'tasks' %}">おてつだい</a>
                         </li>
                         <li class="nav-item">
-                            <a class="app-nav-link" href="{% url 'admin_home' %}">Mama</a>
+                            <a class="app-nav-link" href="{% url 'ticket' %}">チケット</a>
                         </li>
                     {% endif %}
                     <li class="nav-item">
-                        <a class="app-nav-link" href="{% url 'logout' %}">Logout</a>
+                        <a class="app-nav-link" href="{% url 'logout' %}">ログアウト</a>
                     </li>
                 {% endif %}
             </ul>
-            <ul class="navbar-nav app-nav-list">
-                <li class="nav-item">
-                    <a href="{% url 'contact' %}" class="app-nav-link app-nav-action">Contact</a>
-                </li>
-            </ul>
+            {% if not user.cuser_id %}
+                <ul class="navbar-nav app-nav-list">
+                    <li class="nav-item">
+                        <a href="{% url 'contact' %}" class="app-nav-link app-nav-action">Contact</a>
+                    </li>
+                </ul>
+            {% endif %}
         </div>
     </div>
 </nav>
@@ -227,36 +258,42 @@
 </main>
 
 <footer class="app-footer py-4">
-    <div class="container text-center">
-        <ul class="nav justify-content-center mb-3">
-            {% if user.is_authenticated %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'home' %}">Home</a>
-                </li>
-                {% if user.cuser_id %}
+    <div class="container">
+        <div class="app-footer-nav">
+            <ul class="app-footer-nav-main">
+                {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'child_home' user.cuser_id %}">Child</a>
+                        <a class="nav-link" href="{% url 'home' %}">ホーム</a>
                     </li>
-                {% else %}
+                    {% if user.cuser_id %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'child_home' user.cuser_id %}">こどもがめん</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'admin_home' %}">まま画面</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'tasks' %}">おてつだい</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'ticket' %}">チケット</a>
+                        </li>
+                    {% endif %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'tasks' %}">Task</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'ticket' %}">Ticket</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'admin_home' %}">Mama</a>
+                        <a class="nav-link" href="{% url 'logout' %}">ログアウト</a>
                     </li>
                 {% endif %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-                </li>
+            </ul>
+            {% if not user.cuser_id %}
+                <ul class="app-footer-nav-action">
+                    <li class="nav-item">
+                        <a class="app-nav-link app-nav-action" href="{% url 'contact' %}">Contact</a>
+                    </li>
+                </ul>
             {% endif %}
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'contact' %}">Contact</a>
-            </li>
-        </ul>
-        <p class="app-footer-copy"><small>Copyright &copy;2026 HT Works, All Right Reserved.</small></p>
+        </div>
+        <p class="app-footer-copy text-center"><small>Copyright &copy;2026 HT Works, All Right Reserved.</small></p>
     </div>
 </footer>
 

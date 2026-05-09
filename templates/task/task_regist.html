@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load bootstrap4 %}
 
-{% block title %}タスクの登録{% endblock %}
+{% block title %}おてつだいの登録{% endblock %}
 
 {% block content %}
 <style>
@@ -191,8 +191,8 @@
 <div class="task-regist-page">
     <div class="task-regist-container">
         <div class="task-regist-header">
-            <h1 class="task-regist-title">新しいタスクを登録する</h1>
-            <p class="task-regist-subtitle">タスク名と報酬を設定して、新しいおてつだいを追加しましょう。</p>
+            <h1 class="task-regist-title">新しいおてつだいを登録する</h1>
+            <p class="task-regist-subtitle">おてつだいの名前と、もらえるコインを設定しましょう。</p>
         </div>
 
         <div class="task-form-card">
@@ -203,7 +203,7 @@
                     {% if field.name == 'task_name' %}
                         <div class="form-group">
                             <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
-                            <input type="text" id="{{ field.id_for_label }}" class="form-input" name="{{ field.name }}" value="{{ field.value|default:'' }}" placeholder="タスク名を入力してください">
+                            <input type="text" id="{{ field.id_for_label }}" class="form-input" name="{{ field.name }}" value="{{ field.value|default:'' }}" placeholder="おてつだい名を入力してください">
                             {% if field.help_text %}
                                 <p class="form-help-text">{{ field.help_text|safe }}</p>
                             {% endif %}

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load bootstrap4 %}
 
-{% block title %}タスクの一覧{% endblock %}
+{% block title %}おてつだいの一覧{% endblock %}
 
 {% block content %}
 <style>
@@ -253,7 +253,7 @@
 <div class="tasks-page">
     <div class="tasks-container">
         <div class="tasks-header">
-            <h1 class="tasks-title">登録されているタスク</h1>
+            <h1 class="tasks-title">登録されているおてつだい</h1>
         </div>
 
         <form method="post" action="{% url 'selected_task_delete' %}">
@@ -274,13 +274,13 @@
             {% else %}
                 <div class="tasks-empty">
                     <div class="tasks-empty-icon">📋</div>
-                    <p>登録されたタスクがまだありません。<br>新しいタスクを作成してください。</p>
+                    <p>登録されたおてつだいがまだありません。<br>新しいおてつだいを作成してください。</p>
                 </div>
             {% endif %}
 
             <div class="button-group">
                 <button type="button" class="btn-modern btn-modern-primary" onclick="location.href='{% url 'task_regist' %}'">
-                    <i class="fas fa-plus"></i>新しいタスクを登録する
+                    <i class="fas fa-plus"></i>新しいおてつだいを登録する
                 </button>
 
                 <button type="button" class="btn-modern btn-modern-secondary" onclick="location.href='{% url 'task_template' %}'">
@@ -289,7 +289,7 @@
 
                 {% if object_list %}
                     <button type="submit" class="btn-modern btn-modern-danger">
-                        <i class="fas fa-trash-alt"></i>選択したタスクを削除する
+                        <i class="fas fa-trash-alt"></i>選択したおてつだいを削除する
                     </button>
                 {% endif %}
             </div>

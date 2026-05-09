@@ -12,7 +12,7 @@ from .models import Task
 TASK_TEMPLATE_GROUPS = {
     'preschool': {
         'label': '幼児テンプレート',
-        'description': '身の回りのことを楽しく習慣にするタスクです。',
+        'description': '身の回りのことを楽しく習慣にするおてつだいです。',
         'items': [
             {'task_name': 'おもちゃをかたづける', 'price': 10},
             {'task_name': 'はみがきをする', 'price': 10},
@@ -23,7 +23,7 @@ TASK_TEMPLATE_GROUPS = {
     },
     'elementary': {
         'label': '小学生テンプレート',
-        'description': '学校生活と家庭のお手伝いをバランスよく入れたタスクです。',
+        'description': '学校生活と家庭のお手伝いをバランスよく入れたおてつだいです。',
         'items': [
             {'task_name': '宿題をする', 'price': 30},
             {'task_name': '明日の準備をする', 'price': 20},
@@ -34,7 +34,7 @@ TASK_TEMPLATE_GROUPS = {
     },
     'junior_high': {
         'label': '中学生テンプレート',
-        'description': '学習や生活管理を自分で進めるためのタスクです。',
+        'description': '学習や生活管理を自分で進めるためのおてつだいです。',
         'items': [
             {'task_name': '英単語を10個覚える', 'price': 40},
             {'task_name': '30分勉強する', 'price': 50},
