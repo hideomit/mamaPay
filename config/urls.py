@@ -19,7 +19,7 @@ from django.urls import include, path
 from django.views.generic import TemplateView
 from django.contrib.auth import views
 
-from accounts.views import ChildStatusListView, ChildStatusDetailView, ChildStatusUpdateView, HomeListView, ContactView, ContactDoneView, EmailChangeView, EmailChangeDoneView, ChildPasswordChangeView, ChildPasswordChangeDoneView
+from accounts.views import ChildStatusListView, ChildStatusDetailView, ChildStatusUpdateView, HomeListView, ContactView, ContactDoneView, EmailChangeView, EmailChangeDoneView, ChildPasswordChangeView, ChildPasswordChangeDoneView, AccountDeactivateView, AccountDeactivateDoneView
 from config import settings
 from users.views import ChildDeleteView
 
@@ -49,6 +49,8 @@ urlpatterns = [
     path('accounts/password_change/done/', views.PasswordChangeDoneView.as_view(), name='password_change_done'),
     path('accounts/email_change/', EmailChangeView.as_view(), name='email_change'),
     path('accounts/email_change/done/', EmailChangeDoneView.as_view(), name='email_change_done'),
+    path('accounts/deactivate/', AccountDeactivateView.as_view(), name='account_deactivate'),
+    path('accounts/deactivate/done/', AccountDeactivateDoneView.as_view(), name='account_deactivate_done'),
     path('accounts/password_reset/', views.PasswordResetView.as_view(), name='password_reset'),
     path('accounts/password_reset/done/', views.PasswordResetDoneView.as_view(), name='password_reset_done'),
     path('accounts/reset/<uidb64>/<token>/', views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),

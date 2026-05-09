@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}退会完了{% endblock %}
+
+{% block content %}
+<style>
+.deactivate-done-page {
+    min-height: 100vh;
+    background:
+        linear-gradient(180deg, rgba(255,255,255,0.88), rgba(255,255,255,0.72)),
+        url('/static/Yiepay2.png') center top / cover no-repeat;
+    padding: 28px 0 48px;
+}
+
+.deactivate-done-card {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 30px;
+    background: rgba(255,255,255,0.86);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 24px;
+    border: 1px solid rgba(255,255,255,0.50);
+    box-shadow: 0 14px 32px rgba(0,0,0,0.10);
+    text-align: center;
+}
+
+.deactivate-done-title {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: #222;
+    margin-bottom: 14px;
+}
+
+.deactivate-done-text {
+    color: #5f6368;
+    line-height: 1.8;
+    margin-bottom: 24px;
+}
+
+.login-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 22px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.92);
+    border: 1px solid rgba(13,110,253,0.20);
+    color: #0d6efd;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.login-link:hover {
+    color: #1f8fff;
+    text-decoration: none;
+}
+</style>
+
+<div class="deactivate-done-page">
+    <div class="deactivate-done-card">
+        <h1 class="deactivate-done-title">退会が完了しました</h1>
+        <p class="deactivate-done-text">ご利用ありがとうございました。</p>
+        <a href="{% url 'login' %}" class="login-link">ログイン画面へ</a>
+    </div>
+</div>
+
+{% endblock %}

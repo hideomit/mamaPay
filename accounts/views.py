@@ -1,6 +1,6 @@
 import random
 
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
@@ -99,6 +99,33 @@ class EmailChangeView(LoginRequiredMixin, View):
 class EmailChangeDoneView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         return render(request, 'registration/email_change_done.html')
+
+
+class AccountDeactivateView(LoginRequiredMixin, View):
+    template_name = 'registration/account_deactivate.html'
+
+    def get(self, request, *args, **kwargs):
+        if not request.user.puser_id:
+            raise PermissionDenied
+        return render(request, self.template_name)
+
+    def post(self, request, *args, **kwargs):
+        if not request.user.puser_id:
+            raise PermissionDenied
+
+        if request.POST.get('confirm_deactivate') != '1':
+            return render(request, self.template_name, {'confirm_error': '退会するには確認チェックを入れてください。'})
+
+        LoginUsers.objects.filter(cuser__puser=request.user.puser).update(is_active=False)
+        request.user.is_active = False
+        request.user.save(update_fields=['is_active'])
+        logout(request)
+        return redirect(reverse('account_deactivate_done'))
+
+
+class AccountDeactivateDoneView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'registration/account_deactivate_done.html')
 
 
 class ChildPasswordChangeView(LoginRequiredMixin, View):

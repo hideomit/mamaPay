@@ -178,6 +178,23 @@
     box-shadow: 0 8px 20px rgba(15,118,110,0.24);
 }
 
+.account-deactivate-link-wrap {
+    text-align: right;
+    margin: 4px 0 24px;
+}
+
+.account-deactivate-link {
+    color: #8b949e;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.account-deactivate-link:hover {
+    color: #dc3545;
+    text-decoration: none;
+}
+
 @media (max-width: 768px) {
     .home-page {
         padding-top: 14px;
@@ -307,6 +324,12 @@
                 </button>
             </div>
         </div>
+
+        {% if user.puser_id %}
+            <div class="account-deactivate-link-wrap">
+                <a href="{% url 'account_deactivate' %}" class="account-deactivate-link">退会をご希望の方はこちら</a>
+            </div>
+        {% endif %}
 
     </div>
 </div>
