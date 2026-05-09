@@ -132,26 +132,10 @@
 
 .back-button {
     display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(255,255,255,0.82);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-radius: 999px;
-    border: 1px solid rgba(255,255,255,0.50);
-    padding: 12px 20px;
     margin-top: 28px;
     color: #8b5cf6;
     font-weight: 800;
     text-decoration: none;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-    transition: all 0.2s ease;
-}
-
-.back-button:hover {
-    color: #7c3aed;
-    text-decoration: none;
-    transform: translateY(-1px);
 }
 
 @media (max-width: 900px) {
@@ -200,7 +184,7 @@
             {% endfor %}
         </div>
 
-        <a href="{% url 'ticket' %}" class="back-button"><span>←</span> チケット一覧にもどる</a>
+        <a href="{% url 'ticket' %}" class="back-button">チケット一覧にもどる</a>
     </div>
 </div>
 
