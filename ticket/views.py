@@ -1,7 +1,9 @@
 from pprint import pprint
 
+from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
+from django.core.mail import send_mail
 from django.urls import reverse_lazy, reverse
 from django.utils import timezone
 from django.views import View
@@ -10,6 +12,7 @@ from django.views.generic.list import ListView
 from django.shortcuts import render, redirect, get_object_or_404
 
 # Create your views here.
+from accounts.models import LoginUsers
 from users.models import Ticket_holding, Child, Balance, History
 from .forms import TicketModelForm
 from .models import Ticket
@@ -256,39 +259,106 @@ class ChildHoldingTicketView(LoginRequiredMixin, ListView):
     model = Ticket_holding
     template_name = 'ticket/use_ticket.html'
 
+    def get_child(self):
+        return get_permitted_child(self.request.user, self.kwargs['pk'])
+
     def get_queryset(self):
-        return Ticket_holding.objects.filter(cuser_id=self.kwargs['pk'], used_flg=0)
+        child = self.get_child()
+        return Ticket_holding.objects.select_related('ticket').filter(
+            cuser=child,
+            used_flg=0,
+            ticket__puser=child.puser,
+        )
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        child_id = self.kwargs['pk']
-        pprint(child_id)
-        context['child_data'] = Child.objects.get(id=child_id)
-        context['balance_data'] = Balance.objects.select_related('cuser').get(cuser_id=child_id)
+        child = self.get_child()
+        pprint(child.id)
+        context['child_data'] = child
+        context['balance_data'] = Balance.objects.select_related('cuser').get(cuser=child)
 
         return context
 
 
 class TicketUseView(LoginRequiredMixin, View):
 
+    def send_use_notification(self, request, child, used_tickets):
+        if not used_tickets:
+            return
+
+        parent_user = LoginUsers.objects.filter(puser=child.puser).first()
+        if not parent_user or not parent_user.email:
+            return
+
+        ticket_lines = '\n'.join(
+            ['・{}（{}コイン）'.format(ticket.ticket_name, ticket.price) for ticket in used_tickets]
+        )
+        total_coin = sum(ticket.price for ticket in used_tickets)
+        confirm_url = request.build_absolute_uri(reverse('child_home', args=[child.id]))
+
+        message = (
+            '{child_name}さんがチケットを利用しました。\n\n'
+            'チケット名:\n{ticket_lines}\n\n'
+            '利用チケットのコイン合計: {total_coin}コイン\n\n'
+            '確認リンク:\n{confirm_url}\n'
+        ).format(
+            child_name=child.name,
+            ticket_lines=ticket_lines,
+            total_coin=total_coin,
+            confirm_url=confirm_url,
+        )
+
+        send_mail(
+            subject='【いえペイ】{}さんがチケットを利用しました'.format(child.name),
+            message=message,
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=[parent_user.email],
+        )
+
     def post(self, request, *args, **kwargs):
         use_list = request.POST.getlist('use_list')
         child_id = request.POST.get('child_id')
+        child = get_permitted_child(self.request.user, child_id)
 
-        for ticket in use_list:
+        try:
+            posted_ticket_ids = [int(ticket_id) for ticket_id in use_list]
+        except ValueError:
+            raise PermissionDenied
+
+        valid_ticket_ids = set(Ticket.objects.filter(
+            id__in=posted_ticket_ids,
+            puser=child.puser,
+        ).values_list('id', flat=True))
+
+        if valid_ticket_ids != set(posted_ticket_ids):
+            raise PermissionDenied
+
+        used_tickets = []
+
+        for ticket in posted_ticket_ids:
             ##チケット保有リストの更新  ##履歴の更新
-            ticket_holding = Ticket_holding.objects.filter(ticket_id=ticket, cuser_id=child_id, used_flg=0).first()
+            ticket_holding = Ticket_holding.objects.select_related('ticket').filter(
+                ticket_id=ticket,
+                cuser=child,
+                ticket__puser=child.puser,
+                used_flg=0,
+            ).first()
+            if not ticket_holding:
+                raise PermissionDenied
             ticket_holding.used_flg = '1'  ##使用済み
             print(ticket_holding.used_flg)
             ticket_holding.save()
 
-            ticket_obj = Ticket.objects.get(id=ticket, puser=self.request.user.puser)
-            history = History(cuser_id=child_id, ticket_id=ticket, ticket_name=ticket_obj.ticket_name, kind=3, ticket_holding_id=ticket_holding.id)
+            ticket_obj = ticket_holding.ticket
+            used_tickets.append(ticket_obj)
+            history = History(cuser=child, ticket_id=ticket, ticket_name=ticket_obj.ticket_name, kind=3, ticket_holding_id=ticket_holding.id)
             history.ymd = timezone.now()
             history.save()
 
         ##返却値を作成
-        object_list = Ticket.objects.filter(id__in=use_list, puser=self.request.user.puser)
-        child_data = Balance.objects.select_related('cuser').get(cuser_id=child_id)
+        self.send_use_notification(request, child, used_tickets)
+
+        object_list = used_tickets
+        child_data = Balance.objects.select_related('cuser').get(cuser=child)
 
         return render(request, 'ticket/use_ticket_complete.html', {'object_list': object_list, 'child_data': child_data})
