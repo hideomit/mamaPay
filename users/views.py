@@ -36,7 +36,7 @@ class ChildRegistView(LoginRequiredMixin, CreateView):
     template_name = "children/children_regist.html"
     model = Child
     form_class = ChildModelForm
-    success_url = reverse_lazy('children')
+    success_url = reverse_lazy('status')
 
     ##外部キーを入れるのはこれでよいのか？　https://qiita.com/godan09/items/97ea3a6397bf619b6517
     def form_valid(self, form):
@@ -48,7 +48,7 @@ class ChildUpdateView(LoginRequiredMixin, UpdateView):
     template_name = "children/children_regist.html"
     model = Child
     form_class = ChildModelForm
-    success_url = reverse_lazy('children')
+    success_url = reverse_lazy('status')
 
     def form_valid(self, form):
         form.instance.puser_id = self.request.user.id
@@ -98,12 +98,17 @@ class ChildInputView(LoginRequiredMixin, View):
 
         child = c_form.save(commit=False)
         child.puser = self.request.user.puser  ##request.userはログインユーザー
+        use_default_child_photo = request.POST.get('use_default_child_photo') == '1'
 
         if self.kwargs.get('pk') is not None: #更新動作
             child.id = self.kwargs.get('pk')
             child_data = Child.objects.get(pk=child.id)
             # child.create_datetime = form.cleaned_data['create_datetime']##create_datetimeエラー回避
             child.create_datetime = child_data.create_datetime
+            if use_default_child_photo and not request.FILES.get('photo'):
+                self.add_default_photo(child, default_child_photo)
+            elif not request.FILES.get('photo'):
+                child.photo = child_data.photo
             #
            ##saveはidがないとcreateになる。idがあれば更新になる
 
@@ -120,7 +125,7 @@ class ChildInputView(LoginRequiredMixin, View):
             login_user.cuser = child
             login_user.save()
 
-        return redirect(reverse('children'))
+        return redirect(reverse('status'))
 
 
 

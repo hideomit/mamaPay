@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load bootstrap4 %}
+{% load static %}
 
 {% block title %}こども情報変更{% endblock %}
 
@@ -100,6 +101,68 @@
     margin-top: 6px;
 }
 
+.default-photo-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    border-radius: 18px;
+    border: 1px solid rgba(13,110,253,0.14);
+    background: rgba(255,255,255,0.76);
+    margin-bottom: 14px;
+}
+
+.default-photo-preview {
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #fff;
+    border: 3px solid rgba(13,110,253,0.14);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+    flex-shrink: 0;
+}
+
+.default-photo-text {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+    min-width: 0;
+}
+
+.default-photo-title {
+    font-weight: 800;
+    color: #222;
+    font-size: 0.96rem;
+}
+
+.default-photo-refresh {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 54px;
+    height: 38px;
+    border: 1px solid rgba(13,110,253,0.18);
+    border-radius: 999px;
+    background: rgba(255,255,255,0.92);
+    color: #0d6efd;
+    font-weight: 800;
+    font-size: 0.88rem;
+    line-height: 1;
+    padding: 0 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.default-photo-refresh:hover {
+    background: #fff;
+    color: #1f8fff;
+    box-shadow: 0 8px 18px rgba(13,110,253,0.12);
+    transform: translateY(-1px);
+}
+
 .button-group {
     display: grid;
     grid-template-columns: 1fr auto;
@@ -164,6 +227,11 @@
 }
 
 @media (max-width: 640px) {
+    .default-photo-card {
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+
     .button-group {
         grid-template-columns: 1fr;
     }
@@ -201,7 +269,21 @@
                     {% elif field.name == 'photo' %}
                         <div class="form-group">
                             <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
-                            <input type="file" id="{{ field.id_for_label }}" class="form-file" name="{{ field.name }}">
+                            <div class="default-photo-card">
+                                {% if data.photo %}
+                                    <img class="default-photo-preview" id="defaultChildPhotoPreview" src="{{ data.photo.url }}" alt="こどものアイコン">
+                                {% else %}
+                                    <img class="default-photo-preview" id="defaultChildPhotoPreview" src="{% static default_child_photo %}" alt="こどものデフォルトアイコン">
+                                {% endif %}
+                                <div class="default-photo-text">
+                                    <span class="default-photo-title">このアイコンで登録されています</span>
+                                </div>
+                                <button type="button" class="default-photo-refresh" id="defaultChildPhotoRefresh" aria-label="アイコンを更新" title="アイコンを更新">更新</button>
+                            </div>
+                            <input type="hidden" id="defaultChildPhotoInput" name="default_child_photo" value="{{ default_child_photo }}">
+                            <input type="hidden" id="useDefaultChildPhotoInput" name="use_default_child_photo" value="{% if data.photo %}0{% else %}1{% endif %}">
+                            <p class="form-help-text">じぶんで写真をアップロードすることもできます。</p>
+                            <input type="file" id="{{ field.id_for_label }}" class="form-file" name="{{ field.name }}" accept="image/*">
                             {% if field.help_text %}
                                 <p class="form-help-text">{{ field.help_text|safe }}</p>
                             {% endif %}
@@ -221,5 +303,87 @@
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var refreshButton = document.getElementById('defaultChildPhotoRefresh');
+    var photoInput = document.getElementById('defaultChildPhotoInput');
+    var useDefaultInput = document.getElementById('useDefaultChildPhotoInput');
+    var photoPreview = document.getElementById('defaultChildPhotoPreview');
+    var fileInput = document.getElementById('id_photo');
+    var staticBaseUrl = "{% static '' %}";
+
+    function resizeSelectedPhoto(input, preview) {
+        var file = input.files && input.files[0];
+        if (!file || !file.type.match(/^image\//)) {
+            return;
+        }
+
+        var reader = new FileReader();
+        reader.onload = function (event) {
+            var image = new Image();
+            image.onload = function () {
+                var maxSize = 1400;
+                var scale = Math.min(1, maxSize / Math.max(image.width, image.height));
+                var width = Math.round(image.width * scale);
+                var height = Math.round(image.height * scale);
+                var canvas = document.createElement('canvas');
+                var context = canvas.getContext('2d');
+
+                canvas.width = width;
+                canvas.height = height;
+                context.drawImage(image, 0, 0, width, height);
+
+                canvas.toBlob(function (blob) {
+                    if (!blob || blob.size >= file.size) {
+                        return;
+                    }
+
+                    try {
+                        var fileName = file.name.replace(/\.[^.]+$/, '') + '.jpg';
+                        var resizedFile = new File([blob], fileName, { type: 'image/jpeg', lastModified: Date.now() });
+                        var dataTransfer = new DataTransfer();
+
+                        dataTransfer.items.add(resizedFile);
+                        input.files = dataTransfer.files;
+
+                        if (preview) {
+                            preview.src = URL.createObjectURL(resizedFile);
+                        }
+                        if (useDefaultInput) {
+                            useDefaultInput.value = '0';
+                        }
+                    } catch (error) {
+                        return;
+                    }
+                }, 'image/jpeg', 0.82);
+            };
+            image.src = event.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+
+    if (refreshButton && photoInput && useDefaultInput && photoPreview) {
+        refreshButton.addEventListener('click', function () {
+            var currentPhoto = photoInput.value;
+            var nextPhoto = currentPhoto;
+
+            while (nextPhoto === currentPhoto) {
+                nextPhoto = 'child_default' + (Math.floor(Math.random() * 11) + 1) + '.png';
+            }
+
+            photoInput.value = nextPhoto;
+            useDefaultInput.value = '1';
+            photoPreview.src = staticBaseUrl + nextPhoto;
+        });
+    }
+
+    if (fileInput) {
+        fileInput.addEventListener('change', function () {
+            resizeSelectedPhoto(fileInput, photoPreview);
+        });
+    }
+});
+</script>
 
 {% endblock %}

@@ -1,3 +1,5 @@
+import random
+
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.conf import settings
@@ -210,13 +212,18 @@ class ChildStatusUpdateView(LoginRequiredMixin, UpdateView):
 
 class ChildStatusDetailView(LoginRequiredMixin, DetailView):
     template_name = 'children/children_change.html'
+    default_child_photos = tuple('child_default{}.png'.format(index) for index in range(1, 12))
   #  form_class = ChildModelForm
     model = Child
 
     def get(self, request, *args, **kwargs):
         child = Child.objects.get(id=kwargs['pk']) ##getは1件⇒1レコード、filterは複数⇒query set
         form = ChildModelForm(initial={'name': child.name, 'photo': child.photo})
-        return render(request, self.template_name, {'form': form, 'data': child})
+        return render(request, self.template_name, {
+            'form': form,
+            'data': child,
+            'default_child_photo': random.choice(self.default_child_photos),
+        })
 
 
 class HomeListView(LoginRequiredMixin, ListView):

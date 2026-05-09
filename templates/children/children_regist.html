@@ -291,7 +291,7 @@
                                     <input type="hidden" id="defaultChildPhotoInput" name="default_child_photo" value="{{ default_child_photo }}">
                                     <p class="form-help-text">じぶんで写真をアップロードすることもできます。</p>
                                 {% endif %}
-                                <input type="file" id="{{ field.id_for_label }}" class="form-file" name="{{ field.name }}">
+                                <input type="file" id="{{ field.id_for_label }}" class="form-file" name="{{ field.name }}" accept="image/*">
                                 {% for error in field.errors %}
                                     <p class="form-error">{{ error }}</p>
                                 {% endfor %}
@@ -343,22 +343,89 @@ document.addEventListener('DOMContentLoaded', function () {
     var photoInput = document.getElementById('defaultChildPhotoInput');
     var photoPreview = document.getElementById('defaultChildPhotoPreview');
     var staticBaseUrl = "{% static '' %}";
+    var nameInput = document.getElementById('id_name');
+    var usernameInput = document.getElementById('id_username');
+    var fileInput = document.getElementById('id_photo');
+    var usernameTouched = false;
 
-    if (!refreshButton || !photoInput || !photoPreview) {
-        return;
-    }
-
-    refreshButton.addEventListener('click', function () {
-        var currentPhoto = photoInput.value;
-        var nextPhoto = currentPhoto;
-
-        while (nextPhoto === currentPhoto) {
-            nextPhoto = 'child_default' + (Math.floor(Math.random() * 11) + 1) + '.png';
+    function resizeSelectedPhoto(input, preview) {
+        var file = input.files && input.files[0];
+        if (!file || !file.type.match(/^image\//)) {
+            return;
         }
 
-        photoInput.value = nextPhoto;
-        photoPreview.src = staticBaseUrl + nextPhoto;
-    });
+        var reader = new FileReader();
+        reader.onload = function (event) {
+            var image = new Image();
+            image.onload = function () {
+                var maxSize = 1400;
+                var scale = Math.min(1, maxSize / Math.max(image.width, image.height));
+                var width = Math.round(image.width * scale);
+                var height = Math.round(image.height * scale);
+                var canvas = document.createElement('canvas');
+                var context = canvas.getContext('2d');
+
+                canvas.width = width;
+                canvas.height = height;
+                context.drawImage(image, 0, 0, width, height);
+
+                canvas.toBlob(function (blob) {
+                    if (!blob || blob.size >= file.size) {
+                        return;
+                    }
+
+                    try {
+                        var fileName = file.name.replace(/\.[^.]+$/, '') + '.jpg';
+                        var resizedFile = new File([blob], fileName, { type: 'image/jpeg', lastModified: Date.now() });
+                        var dataTransfer = new DataTransfer();
+
+                        dataTransfer.items.add(resizedFile);
+                        input.files = dataTransfer.files;
+
+                        if (preview) {
+                            preview.src = URL.createObjectURL(resizedFile);
+                        }
+                    } catch (error) {
+                        return;
+                    }
+                }, 'image/jpeg', 0.82);
+            };
+            image.src = event.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+
+    if (nameInput && usernameInput) {
+        usernameInput.addEventListener('input', function () {
+            usernameTouched = true;
+        });
+
+        nameInput.addEventListener('input', function () {
+            if (!usernameTouched) {
+                usernameInput.value = nameInput.value;
+            }
+        });
+    }
+
+    if (refreshButton && photoInput && photoPreview) {
+        refreshButton.addEventListener('click', function () {
+            var currentPhoto = photoInput.value;
+            var nextPhoto = currentPhoto;
+
+            while (nextPhoto === currentPhoto) {
+                nextPhoto = 'child_default' + (Math.floor(Math.random() * 11) + 1) + '.png';
+            }
+
+            photoInput.value = nextPhoto;
+            photoPreview.src = staticBaseUrl + nextPhoto;
+        });
+    }
+
+    if (fileInput) {
+        fileInput.addEventListener('change', function () {
+            resizeSelectedPhoto(fileInput, photoPreview);
+        });
+    }
 });
 </script>
 
