@@ -199,6 +199,12 @@
                         </li>
                     {% else %}
                         <li class="nav-item">
+                            <a class="app-nav-link" href="{% url 'tasks' %}">Task</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="app-nav-link" href="{% url 'ticket' %}">Ticket</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="app-nav-link" href="{% url 'admin_home' %}">Mama</a>
                         </li>
                     {% endif %}
@@ -232,6 +238,12 @@
                         <a class="nav-link" href="{% url 'child_home' user.cuser_id %}">Child</a>
                     </li>
                 {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'tasks' %}">Task</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'ticket' %}">Ticket</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'admin_home' %}">Mama</a>
                     </li>
