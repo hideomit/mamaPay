@@ -341,12 +341,14 @@
                 </button>
             </div>
 
-            <div class="col-md-4 mb-3">
-                <button type="button" class="btn w-100 btn-lg action-btn email-change-btn"
-                        onclick="location.href='{% url 'email_change' %}'">
-                    <i class="fas fa-envelope mr-1"></i>メールアドレス変更
-                </button>
-            </div>
+            {% if not user.cuser_id %}
+                <div class="col-md-4 mb-3">
+                    <button type="button" class="btn w-100 btn-lg action-btn email-change-btn"
+                            onclick="location.href='{% url 'email_change' %}'">
+                        <i class="fas fa-envelope mr-1"></i>メールアドレス変更
+                    </button>
+                </div>
+            {% endif %}
 
             <div class="col-md-4 mb-3">
                 <button type="button" class="btn btn-outline-success w-100 btn-lg action-btn"
