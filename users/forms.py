@@ -4,6 +4,8 @@ from users.models import Child, Request
 
 
 class ChildModelForm(forms.ModelForm):
+    photo = forms.ImageField(required=False)
+
     class Meta:
         model = Child
         fields = ('name', 'photo')

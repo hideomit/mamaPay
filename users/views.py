@@ -1,8 +1,11 @@
+import random
 from pprint import pprint
 
 from django.conf import settings
+from django.contrib.staticfiles import finders
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
+from django.core.files import File
 from django.core.mail import send_mail
 from django.db.models import Count
 from django.shortcuts import render, redirect, get_object_or_404
@@ -53,9 +56,28 @@ class ChildUpdateView(LoginRequiredMixin, UpdateView):
 
 
 class ChildInputView(LoginRequiredMixin, View):
+    default_child_photos = tuple('child_default{}.png'.format(index) for index in range(1, 12))
+
+    def get_default_child_photo(self, request):
+        default_photo = request.POST.get('default_child_photo')
+        if default_photo in self.default_child_photos:
+            return default_photo
+        return random.choice(self.default_child_photos)
+
+    def add_default_photo(self, child, default_photo):
+        default_photo_path = finders.find(default_photo)
+        if not default_photo_path:
+            return
+
+        with open(default_photo_path, 'rb') as photo_file:
+            child.photo.save(default_photo, File(photo_file), save=False)
 
     def get(self, request, *args, **kwargs):
-        context = {'c_form': ChildModelForm(), 's_form': SignupChildForm()}
+        context = {
+            'c_form': ChildModelForm(),
+            's_form': SignupChildForm(),
+            'default_child_photo': self.get_default_child_photo(request),
+        }
         return render(request, 'children/children_regist.html', context)
 
     ##postだけだと405エラーがでてしまった。必ずgetとpostは両方かかなければならない制約でもある？
@@ -63,6 +85,7 @@ class ChildInputView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         c_form = ChildModelForm(request.POST, request.FILES)
         s_form = SignupChildForm(request.POST)
+        default_child_photo = self.get_default_child_photo(request)
 
         if self.kwargs.get('pk') is not None:  # 更新動作
             if not c_form.is_valid():  ##is_validはフォームに入った値にエラーがないかバリデートするメソッド。バリデートがエラーになった場合にエラーを返す
@@ -70,7 +93,7 @@ class ChildInputView(LoginRequiredMixin, View):
                 return render(request, 'children/children_regist.html', context)
         else:
             if not c_form.is_valid() or not s_form.is_valid():  ##is_validはフォームに入った値にエラーがないかバリデートするメソッド。バリデートがエラーになった場合にエラーを返す
-                context = {'c_form': c_form, 's_form': s_form}
+                context = {'c_form': c_form, 's_form': s_form, 'default_child_photo': default_child_photo}
                 return render(request, 'children/children_regist.html', context)
 
         child = c_form.save(commit=False)
@@ -83,6 +106,9 @@ class ChildInputView(LoginRequiredMixin, View):
             child.create_datetime = child_data.create_datetime
             #
            ##saveはidがないとcreateになる。idがあれば更新になる
+
+        if self.kwargs.get('pk') is None and not request.FILES.get('photo'):
+            self.add_default_photo(child, default_child_photo)
 
         child.save()  ##childはmodelではなくForm。これでDB登録してる？<< fome.saveで一度インスタンスに保存している
 
