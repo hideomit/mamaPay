@@ -29,6 +29,24 @@ class ChildListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
        return self.model.objects.filter(cuser__puser=self.request.user.puser)
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(object_list=object_list, **kwargs)
+        balances = list(context['object_list'])
+        pending_counts = Request.objects.filter(
+            cuser__puser=self.request.user.puser,
+            status=1,
+        ).values('cuser_id').annotate(count=Count('id'))
+        pending_count_map = {
+            item['cuser_id']: item['count']
+            for item in pending_counts
+        }
+
+        for balance in balances:
+            balance.pending_request_count = pending_count_map.get(balance.cuser_id, 0)
+
+        context['object_list'] = balances
+        return context
+
 
 ##3宿題
 
