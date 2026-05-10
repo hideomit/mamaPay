@@ -1,5 +1,6 @@
 import random
 from pprint import pprint
+from datetime import timedelta
 
 from django.conf import settings
 from django.contrib.staticfiles import finders
@@ -7,8 +8,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.core.files import File
 from django.core.mail import send_mail
-from django.db.models import Count
+from django.db.models import Count, Sum
 from django.shortcuts import render, redirect, get_object_or_404
+from django.utils import timezone
 
 # Create your views here.
 from django.urls import reverse_lazy, reverse
@@ -170,6 +172,87 @@ class ChildHistoryView(LoginRequiredMixin, ListView):
 
 
 class ChildHomeView(LoginRequiredMixin, View):
+    chart_colors = (
+        '#7cc08a',
+        '#69aee7',
+        '#f2b86b',
+        '#d884a8',
+        '#8f8bd6',
+        '#6fc7c0',
+    )
+
+    def get_monthly_summary(self, child_id):
+        today = timezone.now()
+        if timezone.is_aware(today):
+            today = timezone.localtime(today)
+        month_start = today.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
+        if month_start.month == 12:
+            next_month = month_start.replace(year=month_start.year + 1, month=1)
+        else:
+            next_month = month_start.replace(month=month_start.month + 1)
+        month_end = next_month - timedelta(days=1)
+
+        monthly_history = History.objects.filter(
+            cuser_id=child_id,
+            ymd__gte=month_start,
+            ymd__lt=next_month,
+        )
+        monthly_income = monthly_history.filter(kind=1).aggregate(total=Sum('amount'))['total'] or 0
+        monthly_expense = monthly_history.filter(kind=2).aggregate(total=Sum('amount'))['total'] or 0
+        monthly_balance = monthly_income + monthly_expense
+
+        income_items = list(monthly_history.filter(kind=1).values('task_name').annotate(
+            total=Sum('amount'),
+        ).order_by('-total'))
+
+        chart_segments = []
+        income_breakdown = []
+        cursor = 0
+        for index, item in enumerate(income_items):
+            amount = item['total'] or 0
+            if amount <= 0 or monthly_income <= 0:
+                continue
+
+            color = self.chart_colors[index % len(self.chart_colors)]
+            start = cursor
+            percent = amount / monthly_income * 100
+            cursor += percent
+            chart_segments.append({
+                'name': item['task_name'] or 'おてつだい',
+                'amount': amount,
+                'color': color,
+                'percent': '{:.4f}'.format(percent),
+                'rest': '{:.4f}'.format(100 - percent),
+                'offset': '{:.4f}'.format(-start),
+            })
+            income_breakdown.append({
+                'name': item['task_name'] or 'おてつだい',
+                'amount': amount,
+                'color': color,
+            })
+
+        if chart_segments:
+            chart_title = '\n'.join(
+                '{}: {}コイン'.format(item['name'], item['amount'])
+                for item in income_breakdown
+            )
+        else:
+            chart_title = '今月のおてつだいはまだありません'
+
+        return {
+            'monthly_period_label': '{}月1日〜{}月{}日'.format(
+                month_start.month,
+                month_end.month,
+                month_end.day,
+            ),
+            'monthly_income': monthly_income,
+            'monthly_expense': monthly_expense,
+            'monthly_balance': monthly_balance,
+            'monthly_income_breakdown': income_breakdown[:3],
+            'monthly_chart_segments': chart_segments,
+            'monthly_chart_title': chart_title,
+        }
+
     def get(self, request, *args, **kwargs):
         child_data = Child.objects.get(id=self.kwargs['pk'])
 
@@ -189,7 +272,15 @@ class ChildHomeView(LoginRequiredMixin, View):
                                                                         'ticket__ticket_name').annotate(
             count=Count('ticket_id')).order_by('-count').first()
 
-        return render(request, 'children/child_home.html', {'child_data': child_data, 'balance_data': balance_data, 'top_task': top_task, 'top_ticket': top_ticket})
+        context = {
+            'child_data': child_data,
+            'balance_data': balance_data,
+            'top_task': top_task,
+            'top_ticket': top_ticket,
+        }
+        context.update(self.get_monthly_summary(child_data.id))
+
+        return render(request, 'children/child_home.html', context)
 
 
 class ChildApplyView(LoginRequiredMixin, ListView):
