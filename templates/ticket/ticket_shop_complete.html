@@ -202,18 +202,27 @@
             </div>
         </div>
 
-        {% if object_list %}
+        {% if ticket_summary_list %}
+            <div class="ticket-list-card">
+                {% for data in ticket_summary_list %}
+                    <div class="ticket-item">
+                        <span class="ticket-name">{{ data.ticket.ticket_name }}{% if data.count > 1 %} × {{ data.count }}{% endif %}</span>
+                        <span class="ticket-price">{{ data.total_price }}コイン</span>
+                    </div>
+                {% endfor %}
+            </div>
+        {% elif object_list %}
             <div class="ticket-list-card">
                 {% for data in object_list %}
                     <div class="ticket-item">
                         <span class="ticket-name">{{ data.ticket_name }}</span>
-                        <span class="ticket-price">¥{{ data.price }}</span>
+                        <span class="ticket-price">{{ data.price }}コイン</span>
                     </div>
                 {% endfor %}
             </div>
         {% endif %}
 
-        <a href="{% url 'child_home' child_data.cuser.id %}" class="back-button">こどもがめんに戻る</a>
+        <a href="{% url 'child_home' child_data.cuser.id %}" class="back-button">← こどもがめんに戻る</a>
     </div>
 </div>
 

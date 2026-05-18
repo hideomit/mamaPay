@@ -99,6 +99,7 @@
 .shop-item {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     padding: 16px;
     background: rgba(255,255,255,0.65);
     border-radius: 16px;
@@ -109,9 +110,15 @@
     position: relative;
 }
 
+.shop-item.is-selected {
+    background: rgba(255,255,255,0.92);
+    border-color: rgba(249,115,22,0.28);
+    box-shadow: 0 8px 18px rgba(249,115,22,0.10);
+}
+
 .shop-item:hover {
     background: rgba(255,255,255,0.85);
-    border-color: rgba(13,110,253,0.20);
+    border-color: rgba(249,115,22,0.22);
     transform: translateX(4px);
 }
 
@@ -167,7 +174,6 @@
     color: #333;
     margin: 0;
     gap: 12px;
-    margin-left: 8px;
 }
 
 .shop-item input[type="checkbox"]:checked ~ .shop-label {
@@ -176,8 +182,9 @@
 
 .ticket-info {
     display: flex;
-    align-items: baseline;
-    gap: 8px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
 }
 
 .ticket-name {
@@ -189,6 +196,71 @@
     font-weight: 900;
     font-size: 1.1rem;
     color: #0d6efd;
+}
+
+.ticket-stepper {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    margin-left: 16px;
+}
+
+.stepper-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid rgba(249,115,22,0.25);
+    background: rgba(255,255,255,0.86);
+    color: #f97316;
+    font-size: 1.1rem;
+    font-weight: 900;
+    line-height: 1;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.stepper-btn:hover {
+    background: rgba(249,115,22,0.10);
+    transform: translateY(-1px);
+}
+
+.stepper-count {
+    min-width: 28px;
+    text-align: center;
+    color: #222;
+    font-size: 1.15rem;
+    font-weight: 900;
+}
+
+.shop-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin: 18px 0;
+    padding: 14px 16px;
+    border-radius: 16px;
+    background: rgba(249,115,22,0.10);
+    color: #9a3412;
+    font-weight: 900;
+}
+
+.shop-total.is-over {
+    background: rgba(220,38,38,0.10);
+    color: #b91c1c;
+}
+
+.shop-total-note {
+    margin-top: 6px;
+    color: #b91c1c;
+    font-size: 0.85rem;
+    font-weight: 800;
+    display: none;
+}
+
+.shop-total.is-over .shop-total-note {
+    display: block;
 }
 
 .no-tickets {
@@ -228,6 +300,13 @@
 
 .submit-btn:active {
     transform: translateY(0);
+}
+
+.submit-btn:disabled {
+    background: #cbd5e1;
+    box-shadow: none;
+    cursor: not-allowed;
+    transform: none;
 }
 
 .back-button {
@@ -278,6 +357,16 @@
         margin-bottom: 12px;
     }
 
+    .ticket-stepper {
+        gap: 8px;
+        margin-left: 12px;
+    }
+
+    .stepper-btn {
+        width: 34px;
+        height: 34px;
+    }
+
     .submit-btn {
         padding: 14px;
         font-size: 1rem;
@@ -319,22 +408,34 @@
                 {% csrf_token %}
 
                 {% for data in object_list %}
-                    <label class="shop-item" for="ticket_{{ data.id }}">
-                        <input type="checkbox" id="ticket_{{ data.id }}" name="buy_list" value="{{ data.id }}">
-                        <span class="shop-checkbox-custom"></span>
+                    <div class="shop-item" data-ticket-item data-price="{{ data.price }}">
                         <span class="shop-label">
                             <span class="ticket-info">
                                 <span class="ticket-name">{{ data.ticket_name }}</span>
                                 <span class="ticket-price">{{ data.price }}コイン</span>
                             </span>
                         </span>
-                    </label>
+                        <span class="ticket-stepper">
+                            <button type="button" class="stepper-btn" data-stepper-minus aria-label="{{ data.ticket_name }}をへらす">−</button>
+                            <span class="stepper-count" data-stepper-count>0</span>
+                            <button type="button" class="stepper-btn" data-stepper-plus aria-label="{{ data.ticket_name }}をふやす">＋</button>
+                        </span>
+                        <input type="hidden" name="ticket_quantity_{{ data.id }}" value="0" data-stepper-input>
+                    </div>
                 {% endfor %}
 
                 <input type="hidden" name="child_id" value="{{ child_data.id }}" />
+                <input type="hidden" id="current-balance" value="{{ balance_data.balance|default:0 }}" />
 
+                <div class="shop-total" id="shop-total">
+                    <span>合計</span>
+                    <span>
+                        <span id="total-count">0</span>枚 / <span id="total-coin">0</span>コイン
+                        <span class="shop-total-note">コインがたりません</span>
+                    </span>
+                </div>
                 <div class="submit-container">
-                    <button type="submit" class="submit-btn">
+                    <button type="submit" class="submit-btn" id="buy-submit" disabled>
                         <i class="fas fa-shopping-cart mr-2"></i>チケットをかう
                     </button>
                 </div>
@@ -347,5 +448,60 @@
         </a>
     </div>
 </div>
+
+<script>
+(function () {
+    var maxQuantity = 10;
+    var ticketItems = Array.prototype.slice.call(document.querySelectorAll('[data-ticket-item]'));
+    var totalCount = document.getElementById('total-count');
+    var totalCoin = document.getElementById('total-coin');
+    var totalBox = document.getElementById('shop-total');
+    var submitButton = document.getElementById('buy-submit');
+    var currentBalance = Number(document.getElementById('current-balance').value || 0);
+
+    function updateTotal() {
+        var count = 0;
+        var coin = 0;
+
+        ticketItems.forEach(function (item) {
+            var input = item.querySelector('[data-stepper-input]');
+            var quantity = Number(input.value || 0);
+            var price = Number(item.getAttribute('data-price') || 0);
+
+            count += quantity;
+            coin += quantity * price;
+            item.classList.toggle('is-selected', quantity > 0);
+        });
+
+        var isOver = coin > currentBalance;
+        totalCount.textContent = count;
+        totalCoin.textContent = coin;
+        totalBox.classList.toggle('is-over', isOver);
+        submitButton.disabled = count === 0 || isOver;
+    }
+
+    ticketItems.forEach(function (item) {
+        var input = item.querySelector('[data-stepper-input]');
+        var countLabel = item.querySelector('[data-stepper-count]');
+        var minusButton = item.querySelector('[data-stepper-minus]');
+        var plusButton = item.querySelector('[data-stepper-plus]');
+
+        function setQuantity(nextValue) {
+            var quantity = Math.max(0, Math.min(maxQuantity, nextValue));
+            input.value = quantity;
+            countLabel.textContent = quantity;
+            updateTotal();
+        }
+
+        minusButton.addEventListener('click', function () {
+            setQuantity(Number(input.value || 0) - 1);
+        });
+
+        plusButton.addEventListener('click', function () {
+            setQuantity(Number(input.value || 0) + 1);
+        });
+    });
+}());
+</script>
 
 {% endblock %}
