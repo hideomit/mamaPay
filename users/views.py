@@ -1,6 +1,7 @@
 import random
 from pprint import pprint
 from datetime import timedelta
+from collections import OrderedDict
 
 from django.conf import settings
 from django.contrib.staticfiles import finders
@@ -314,6 +315,44 @@ class ChildApplyView(LoginRequiredMixin, ListView):
 
 class TaskApplyView(LoginRequiredMixin, View):
 
+    max_apply_quantity = 10
+
+    def get_task_summary(self, requests):
+        summary_map = OrderedDict()
+        for request in requests:
+            task_id = request.task_id
+            if task_id not in summary_map:
+                summary_map[task_id] = {
+                    'task': request.task,
+                    'count': 0,
+                    'total_price': 0,
+                }
+            summary_map[task_id]['count'] += 1
+            summary_map[task_id]['total_price'] += request.task.price
+        return list(summary_map.values())
+
+    def get_posted_task_quantities(self, request):
+        task_quantities = {}
+        for key, value in request.POST.items():
+            if not key.startswith('task_quantity_'):
+                continue
+
+            try:
+                task_id = int(key.replace('task_quantity_', '', 1))
+                quantity = int(value)
+            except ValueError:
+                raise PermissionDenied
+
+            if quantity < 0 or quantity > self.max_apply_quantity:
+                raise PermissionDenied
+            if quantity > 0:
+                task_quantities[task_id] = quantity
+
+        if not task_quantities:
+            raise PermissionDenied
+
+        return task_quantities
+
     def send_apply_notification(self, request, child, applied_tasks):
         if not applied_tasks:
             return
@@ -323,9 +362,21 @@ class TaskApplyView(LoginRequiredMixin, View):
             return
 
         approval_url = request.build_absolute_uri(reverse('child_status', args=[child.id]))
-        task_lines = '\n'.join(
-            ['・{}（{}コイン）'.format(task.task_name, task.price) for task in applied_tasks]
-        )
+        task_summary = OrderedDict()
+        for task in applied_tasks:
+            if task.id not in task_summary:
+                task_summary[task.id] = {'task': task, 'count': 0, 'total_price': 0}
+            task_summary[task.id]['count'] += 1
+            task_summary[task.id]['total_price'] += task.price
+
+        task_lines = '\n'.join([
+            '・{} × {}（{}コイン）'.format(
+                item['task'].task_name,
+                item['count'],
+                item['total_price'],
+            )
+            for item in task_summary.values()
+        ])
         total_coin = sum(task.price for task in applied_tasks)
 
         message = (
@@ -348,7 +399,6 @@ class TaskApplyView(LoginRequiredMixin, View):
         )
 
     def post(self, request, *args, **kwargs):
-        apply_task_list = request.POST.getlist('apply_task_list')
         apply_child_id = request.POST.get('apply_child_id', None)
         child = get_object_or_404(Child, id=apply_child_id)
         user = self.request.user
@@ -360,10 +410,8 @@ class TaskApplyView(LoginRequiredMixin, View):
         else:
             raise PermissionDenied
 
-        try:
-            posted_task_ids = {int(task_id) for task_id in apply_task_list}
-        except ValueError:
-            raise PermissionDenied
+        task_quantities = self.get_posted_task_quantities(request)
+        posted_task_ids = set(task_quantities.keys())
 
         applied_tasks = list(Task.objects.filter(
             id__in=posted_task_ids,
@@ -374,19 +422,28 @@ class TaskApplyView(LoginRequiredMixin, View):
         if valid_task_ids != posted_task_ids:
             raise PermissionDenied
 
-        for apply_task in apply_task_list:
-            ##申請リストの更新
-            childRequest = Request(cuser=child, task_id=apply_task, status=1, puser=child.puser)
-            childRequest.save()
+        applied_task_instances = []
+        task_map = {task.id: task for task in applied_tasks}
+        for task_id, quantity in task_quantities.items():
+            for _ in range(quantity):
+                childRequest = Request(cuser=child, task_id=task_id, status=1, puser=child.puser)
+                childRequest.save()
+                applied_task_instances.append(task_map[task_id])
 
-        self.send_apply_notification(request, child, applied_tasks)
+        self.send_apply_notification(request, child, applied_task_instances)
 
         request_list = Request.objects.select_related('task').filter(cuser=child, status=1)
         child_data = child
         balance_data = Balance.objects.select_related('cuser').get(cuser=child)
+        request_summary_list = self.get_task_summary(request_list)
 
         return render(request, 'children/apply_complete.html',
-                      {'child_data': child_data, 'request_list': request_list, 'balance_data': balance_data})
+                      {
+                          'child_data': child_data,
+                          'request_list': request_list,
+                          'request_summary_list': request_summary_list,
+                          'balance_data': balance_data,
+                      })
 
 
 class TaskApplyCompView(LoginRequiredMixin, View):

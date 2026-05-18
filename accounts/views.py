@@ -1,4 +1,5 @@
 import random
+from collections import OrderedDict
 
 from django.contrib.auth import login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -227,8 +228,27 @@ class ChildStatusGetView(LoginRequiredMixin, View):
         except Balance.DoesNotExist:
             balance = None
         object_list = Request.objects.select_related('task').filter(cuser=child, puser=child.puser, status=1)
+        request_group_map = OrderedDict()
+        for apply_request in object_list:
+            task_id = apply_request.task_id
+            if task_id not in request_group_map:
+                request_group_map[task_id] = {
+                    'task': apply_request.task,
+                    'request_ids': [],
+                    'count': 0,
+                    'total_price': 0,
+                }
+            request_group_map[task_id]['request_ids'].append(str(apply_request.id))
+            request_group_map[task_id]['count'] += 1
+            request_group_map[task_id]['total_price'] += apply_request.task.price
 
-        return render(request, 'children/child_status.html', {'balance': balance, 'object_list': object_list})
+        request_group_list = list(request_group_map.values())
+
+        return render(request, 'children/child_status.html', {
+            'balance': balance,
+            'object_list': object_list,
+            'request_group_list': request_group_list,
+        })
 
 
 class ChildStatusUpdateView(LoginRequiredMixin, UpdateView):
@@ -288,13 +308,28 @@ class HomeListView(LoginRequiredMixin, ListView):
 
 class ApproveTaskView(LoginRequiredMixin, View):
 
+    def get_posted_request_ids(self, request):
+        posted_values = request.POST.getlist('approve_request_group') or request.POST.getlist('approve_task_list')
+        posted_request_ids = set()
+        try:
+            for posted_value in posted_values:
+                for request_id in posted_value.split(','):
+                    if request_id:
+                        posted_request_ids.add(int(request_id))
+        except ValueError:
+            raise PermissionDenied
+        return posted_request_ids
+
     def get_owned_requests(self, request_id_list):
         if not self.request.user.puser_id:
             raise PermissionDenied
 
         try:
-            posted_request_ids = {int(request_id) for request_id in request_id_list}
+            posted_request_ids = set(request_id_list)
         except ValueError:
+            raise PermissionDenied
+
+        if not posted_request_ids:
             raise PermissionDenied
 
         apply_requests = list(Request.objects.select_related('task', 'cuser').filter(
@@ -336,7 +371,7 @@ class ApproveTaskView(LoginRequiredMixin, View):
             createHistory.save()
 
     def post(self, request, *args, **kwargs):
-        request_id_list = request.POST.getlist('approve_task_list')
+        request_id_list = self.get_posted_request_ids(request)
         apply_requests = self.get_owned_requests(request_id_list)
         self.task_data_save(apply_requests)
 
@@ -354,13 +389,20 @@ class ApproveTaskDeleteView(LoginRequiredMixin, View):
         raise PermissionDenied
 
     def post(self, request, *args, **kwargs):
-        delete_list = request.POST.getlist('approve_task_list') #単品はrequest.POST.get 複数はrequest.POST.getlist
+        delete_values = request.POST.getlist('approve_request_group') or request.POST.getlist('approve_task_list')
         approve_child_id = request.POST.get('approve_child_id', None)
         child = self.get_child(approve_child_id)
 
         try:
-            posted_request_ids = {int(request_id) for request_id in delete_list}
+            posted_request_ids = set()
+            for posted_value in delete_values:
+                for request_id in posted_value.split(','):
+                    if request_id:
+                        posted_request_ids.add(int(request_id))
         except ValueError:
+            raise PermissionDenied
+
+        if not posted_request_ids:
             raise PermissionDenied
 
         apply_requests = Request.objects.filter(

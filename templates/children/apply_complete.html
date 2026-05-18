@@ -309,7 +309,18 @@
         <div class="waiting-section">
             <h2 class="waiting-title">ママのOKまち</h2>
 
-            {% if request_list %}
+            {% if request_summary_list %}
+                {% for request in request_summary_list %}
+                    <div class="task-item-card">
+                        <span class="task-icon">💼</span>
+                        <div class="task-details">
+                            <div class="task-name">{{ request.task.task_name }}{% if request.count > 1 %} × {{ request.count }}{% endif %}</div>
+                            <div class="task-status">確認待機中</div>
+                        </div>
+                        <div class="task-price">¥{{ request.total_price }}</div>
+                    </div>
+                {% endfor %}
+            {% elif request_list %}
                 {% for request in request_list %}
                     <div class="task-item-card">
                         <span class="task-icon">💼</span>

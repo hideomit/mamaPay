@@ -99,6 +99,7 @@
 .task-item {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     padding: 16px;
     background: rgba(255,255,255,0.65);
     border-radius: 16px;
@@ -107,6 +108,12 @@
     cursor: pointer;
     border: 2px solid transparent;
     position: relative;
+}
+
+.task-item.is-selected {
+    background: rgba(255,255,255,0.92);
+    border-color: rgba(13,110,253,0.28);
+    box-shadow: 0 8px 18px rgba(13,110,253,0.10);
 }
 
 .task-item:hover {
@@ -160,14 +167,14 @@
 
 .task-label {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
     flex-grow: 1;
     cursor: pointer;
     font-weight: 600;
     color: #333;
     margin: 0;
-    gap: 14px;
-    margin-left: 8px;
+    gap: 4px;
 }
 
 .task-item input[type="checkbox"]:checked ~ .task-label {
@@ -183,6 +190,54 @@
     font-size: 0.9rem;
     color: #6c757d;
     font-weight: 600;
+}
+
+.task-stepper {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    margin-left: 16px;
+}
+
+.stepper-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid rgba(13,110,253,0.22);
+    background: rgba(255,255,255,0.86);
+    color: #0d6efd;
+    font-size: 1.1rem;
+    font-weight: 900;
+    line-height: 1;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.stepper-btn:hover {
+    background: rgba(13,110,253,0.10);
+    transform: translateY(-1px);
+}
+
+.stepper-count {
+    min-width: 28px;
+    text-align: center;
+    color: #222;
+    font-size: 1.15rem;
+    font-weight: 900;
+}
+
+.apply-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin: 18px 0;
+    padding: 14px 16px;
+    border-radius: 16px;
+    background: rgba(13,110,253,0.08);
+    color: #0d4f9e;
+    font-weight: 900;
 }
 
 .no-tasks {
@@ -222,6 +277,13 @@
 
 .submit-btn:active {
     transform: translateY(0);
+}
+
+.submit-btn:disabled {
+    background: #cbd5e1;
+    box-shadow: none;
+    cursor: not-allowed;
+    transform: none;
 }
 
 .back-button {
@@ -272,6 +334,16 @@
         margin-bottom: 12px;
     }
 
+    .task-stepper {
+        gap: 8px;
+        margin-left: 12px;
+    }
+
+    .stepper-btn {
+        width: 34px;
+        height: 34px;
+    }
+
     .submit-btn {
         padding: 14px;
         font-size: 1rem;
@@ -306,14 +378,18 @@
 
             {% if object_list %}
                 {% for list in object_list %}
-                    <label class="task-item" for="task_{{ list.id }}">
-                        <input type="checkbox" id="task_{{ list.id }}" name="apply_task_list" value="{{ list.id }}">
-                        <span class="task-checkbox-custom"></span>
+                    <div class="task-item" data-task-item data-price="{{ list.price }}">
                         <span class="task-label">
                             <span class="task-name">{{ list.task_name }}</span>
                             <span class="task-price">{{ list.price }}コイン</span>
                         </span>
-                    </label>
+                        <span class="task-stepper">
+                            <button type="button" class="stepper-btn" data-stepper-minus aria-label="{{ list.task_name }}をへらす">−</button>
+                            <span class="stepper-count" data-stepper-count>0</span>
+                            <button type="button" class="stepper-btn" data-stepper-plus aria-label="{{ list.task_name }}をふやす">＋</button>
+                        </span>
+                        <input type="hidden" name="task_quantity_{{ list.id }}" value="0" data-stepper-input>
+                    </div>
                 {% endfor %}
             {% else %}
                 <div class="no-tasks">
@@ -325,8 +401,12 @@
             <input type="hidden" name="apply_child_id" value="{{ child_data.id }}" />
 
             {% if object_list %}
+                <div class="apply-total">
+                    <span>合計</span>
+                    <span><span id="total-count">0</span>件 / <span id="total-coin">0</span>コイン</span>
+                </div>
                 <div class="submit-container">
-                    <button type="submit" class="submit-btn">
+                    <button type="submit" class="submit-btn" id="apply-submit" disabled>
                         <i class="fas fa-chalkboard-teacher mr-2"></i>ママにおしえる
                     </button>
                 </div>
@@ -339,5 +419,56 @@
         </a>
     </div>
 </div>
+
+<script>
+(function () {
+    var maxQuantity = 10;
+    var taskItems = Array.prototype.slice.call(document.querySelectorAll('[data-task-item]'));
+    var totalCount = document.getElementById('total-count');
+    var totalCoin = document.getElementById('total-coin');
+    var submitButton = document.getElementById('apply-submit');
+
+    function updateTotal() {
+        var count = 0;
+        var coin = 0;
+
+        taskItems.forEach(function (item) {
+            var input = item.querySelector('[data-stepper-input]');
+            var quantity = Number(input.value || 0);
+            var price = Number(item.getAttribute('data-price') || 0);
+
+            count += quantity;
+            coin += quantity * price;
+            item.classList.toggle('is-selected', quantity > 0);
+        });
+
+        totalCount.textContent = count;
+        totalCoin.textContent = coin;
+        submitButton.disabled = count === 0;
+    }
+
+    taskItems.forEach(function (item) {
+        var input = item.querySelector('[data-stepper-input]');
+        var countLabel = item.querySelector('[data-stepper-count]');
+        var minusButton = item.querySelector('[data-stepper-minus]');
+        var plusButton = item.querySelector('[data-stepper-plus]');
+
+        function setQuantity(nextValue) {
+            var quantity = Math.max(0, Math.min(maxQuantity, nextValue));
+            input.value = quantity;
+            countLabel.textContent = quantity;
+            updateTotal();
+        }
+
+        minusButton.addEventListener('click', function () {
+            setQuantity(Number(input.value || 0) - 1);
+        });
+
+        plusButton.addEventListener('click', function () {
+            setQuantity(Number(input.value || 0) + 1);
+        });
+    });
+}());
+</script>
 
 {% endblock %}

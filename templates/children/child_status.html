@@ -157,6 +157,18 @@
     word-break: break-word;
 }
 
+.status-count {
+    color: #0d6efd;
+    font-weight: 900;
+    white-space: nowrap;
+}
+
+.status-price {
+    color: #f59e0b;
+    font-weight: 900;
+    white-space: nowrap;
+}
+
 .status-empty {
     background: rgba(255,255,255,0.86);
     backdrop-filter: blur(10px);
@@ -276,18 +288,19 @@
         <form method="post" action="child_approve">
             {% csrf_token %}
 
-            {% if not object_list %}
+            {% if not request_group_list %}
                 <div class="status-empty">
                     <div class="status-empty-icon">😌</div>
                     <p>{{ balance.cuser }}の申請はありません</p>
                 </div>
             {% else %}
                 <div class="status-card">
-                    {% for list in object_list %}
+                    {% for list in request_group_list %}
                         <div class="status-item">
-                            <input type="checkbox" class="status-checkbox" id="switch{{ list.id }}" name="approve_task_list" value="{{ list.id }}">
+                            <input type="checkbox" class="status-checkbox" id="switch{{ forloop.counter }}" name="approve_request_group" value="{{ list.request_ids|join:',' }}">
                             <div class="status-info">
-                                <span class="status-name">{{ list.task }}</span>
+                                <span class="status-name">{{ list.task }}{% if list.count > 1 %} <span class="status-count">× {{ list.count }}</span>{% endif %}</span>
+                                <span class="status-price">{{ list.total_price }}コイン</span>
                             </div>
                         </div>
                     {% endfor %}
