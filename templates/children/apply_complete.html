@@ -297,9 +297,9 @@
                 <div class="balance-label">ままコイン残高</div>
                 <div class="balance-amount">
                     {% if balance_data.balance == None %}
-                        ¥0
+                        <img src="/static/yiecoin.png" class="coin-icon coin-icon-lg" alt="コイン">0
                     {% else %}
-                        ¥{{ balance_data.balance }}
+                        <img src="/static/yiecoin.png" class="coin-icon coin-icon-lg" alt="コイン">{{ balance_data.balance }}
                     {% endif %}
                 </div>
             </div>
@@ -317,7 +317,7 @@
                             <div class="task-name">{{ request.task.task_name }}{% if request.count > 1 %} × {{ request.count }}{% endif %}</div>
                             <div class="task-status">確認待機中</div>
                         </div>
-                        <div class="task-price">¥{{ request.total_price }}</div>
+                        <div class="task-price"><img src="/static/yiecoin.png" class="coin-icon" alt="コイン">{{ request.total_price }}</div>
                     </div>
                 {% endfor %}
             {% elif request_list %}
@@ -328,7 +328,7 @@
                             <div class="task-name">{{ request.task.task_name }}</div>
                             <div class="task-status">確認待機中</div>
                         </div>
-                        <div class="task-price">¥{{ request.task.price }}</div>
+                        <div class="task-price"><img src="/static/yiecoin.png" class="coin-icon" alt="コイン">{{ request.task.price }}</div>
                     </div>
                 {% endfor %}
             {% else %}

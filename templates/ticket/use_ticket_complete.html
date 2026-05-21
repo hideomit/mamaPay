@@ -207,7 +207,7 @@
                 {% for data in object_list %}
                     <div class="ticket-item">
                         <span class="ticket-name">{{ data.ticket_name }}</span>
-                        <span class="ticket-price">¥{{ data.price }}</span>
+                        <span class="ticket-price"><img src="/static/yiecoin.png" class="coin-icon" alt="コイン">{{ data.price }}</span>
                     </div>
                 {% endfor %}
             </div>

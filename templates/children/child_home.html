@@ -353,9 +353,9 @@
                     <div class="balance-label">ままコイン残高</div>
 
                     {% if balance_data.balance == None %}
-                        <div class="pay">¥0</div>
+                        <div class="pay"><img src="/static/yiecoin.png" class="coin-icon coin-icon-lg" alt="コイン">0</div>
                     {% else %}
-                        <div class="pay">¥{{ balance_data.balance }}</div>
+                        <div class="pay"><img src="/static/yiecoin.png" class="coin-icon coin-icon-lg" alt="コイン">{{ balance_data.balance }}</div>
                     {% endif %}
                 </div>
             </div>
