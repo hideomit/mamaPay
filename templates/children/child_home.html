@@ -424,27 +424,12 @@
         <section class="summary-card">
             <div class="summary-title">最近のようす</div>
 
-            <div class="summary-item">
-                <span class="summary-icon"><i class="fas fa-hands-helping"></i></span>
-                <span>
-                    {% if top_task.task__task_name == None %}
-                        なにもやってないよ！
-                    {% else %}
-                        {{ child_data.name }}は「{{ top_task.task__task_name }}」ばっかりやっている
-                    {% endif %}
-                </span>
-            </div>
-
-            <div class="summary-item">
-                <span class="summary-icon"><i class="fas fa-ticket-alt"></i></span>
-                <span>
-                    {% if top_ticket.ticket__ticket_name == None %}
-                        なにもやってないよ！
-                    {% else %}
-                        {{ child_data.name }}は「{{ top_ticket.ticket__ticket_name }}」ばっかりやっている
-                    {% endif %}
-                </span>
-            </div>
+            {% for message in recent_status_messages %}
+                <div class="summary-item">
+                    <span class="summary-icon"><i class="fas fa-star"></i></span>
+                    <span>{{ message }}</span>
+                </div>
+            {% endfor %}
         </section>
 
         <section class="action-card">

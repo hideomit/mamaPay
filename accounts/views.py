@@ -24,6 +24,35 @@ from .models import LoginUsers
 # Create your views here.
 
 
+def build_child_status_context(child, selection_error=None):
+    try:
+        balance = Balance.objects.select_related('cuser').get(cuser=child)
+    except Balance.DoesNotExist:
+        balance = None
+
+    object_list = Request.objects.select_related('task').filter(cuser=child, puser=child.puser, status=1)
+    request_group_map = OrderedDict()
+    for apply_request in object_list:
+        task_id = apply_request.task_id
+        if task_id not in request_group_map:
+            request_group_map[task_id] = {
+                'task': apply_request.task,
+                'request_ids': [],
+                'count': 0,
+                'total_price': 0,
+            }
+        request_group_map[task_id]['request_ids'].append(str(apply_request.id))
+        request_group_map[task_id]['count'] += 1
+        request_group_map[task_id]['total_price'] += apply_request.task.price
+
+    return {
+        'balance': balance,
+        'object_list': object_list,
+        'request_group_list': list(request_group_map.values()),
+        'selection_error': selection_error,
+    }
+
+
 class ContactView(View):
     template_name = 'contact.html'
 
@@ -223,32 +252,7 @@ class ChildStatusGetView(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
         child = self.get_child(kwargs['pk'])
-        try:
-            balance = Balance.objects.select_related('cuser').get(cuser=child)
-        except Balance.DoesNotExist:
-            balance = None
-        object_list = Request.objects.select_related('task').filter(cuser=child, puser=child.puser, status=1)
-        request_group_map = OrderedDict()
-        for apply_request in object_list:
-            task_id = apply_request.task_id
-            if task_id not in request_group_map:
-                request_group_map[task_id] = {
-                    'task': apply_request.task,
-                    'request_ids': [],
-                    'count': 0,
-                    'total_price': 0,
-                }
-            request_group_map[task_id]['request_ids'].append(str(apply_request.id))
-            request_group_map[task_id]['count'] += 1
-            request_group_map[task_id]['total_price'] += apply_request.task.price
-
-        request_group_list = list(request_group_map.values())
-
-        return render(request, 'children/child_status.html', {
-            'balance': balance,
-            'object_list': object_list,
-            'request_group_list': request_group_list,
-        })
+        return render(request, 'children/child_status.html', build_child_status_context(child))
 
 
 class ChildStatusUpdateView(LoginRequiredMixin, UpdateView):
@@ -307,6 +311,14 @@ class HomeListView(LoginRequiredMixin, ListView):
 
 
 class ApproveTaskView(LoginRequiredMixin, View):
+
+    def get_child(self, child_id):
+        child = get_object_or_404(Child, id=child_id)
+
+        if self.request.user.puser_id and child.puser_id == self.request.user.puser_id:
+            return child
+
+        raise PermissionDenied
 
     def get_posted_request_ids(self, request):
         posted_values = request.POST.getlist('approve_request_group') or request.POST.getlist('approve_task_list')
@@ -371,7 +383,14 @@ class ApproveTaskView(LoginRequiredMixin, View):
             createHistory.save()
 
     def post(self, request, *args, **kwargs):
+        approve_child_id = request.POST.get('approve_child_id', None)
+        child = self.get_child(approve_child_id)
         request_id_list = self.get_posted_request_ids(request)
+        if not request_id_list:
+            return render(request, 'children/child_status.html', build_child_status_context(
+                child,
+                '承認するおてつだいを選んでください。',
+            ))
         apply_requests = self.get_owned_requests(request_id_list)
         self.task_data_save(apply_requests)
 
@@ -403,7 +422,10 @@ class ApproveTaskDeleteView(LoginRequiredMixin, View):
             raise PermissionDenied
 
         if not posted_request_ids:
-            raise PermissionDenied
+            return render(request, 'children/child_status.html', build_child_status_context(
+                child,
+                '却下するおてつだいを選んでください。',
+            ))
 
         apply_requests = Request.objects.filter(
             id__in=posted_request_ids,

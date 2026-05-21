@@ -254,6 +254,163 @@ class ChildHomeView(LoginRequiredMixin, View):
             'monthly_chart_title': chart_title,
         }
 
+    def get_recent_status_messages(self, child):
+        now = timezone.now()
+        if timezone.is_aware(now):
+            now = timezone.localtime(now)
+        this_week_start = now - timedelta(days=now.weekday())
+        this_week_start = this_week_start.replace(hour=0, minute=0, second=0, microsecond=0)
+        last_week_start = this_week_start - timedelta(days=7)
+        today = now.date()
+        three_days_ago = (now - timedelta(days=2)).replace(hour=0, minute=0, second=0, microsecond=0)
+        tomorrow = (now + timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0)
+
+        this_week_counts = list(History.objects.filter(
+            cuser__puser=child.puser,
+            kind=1,
+            ymd__gte=this_week_start,
+            ymd__lt=now,
+        ).values(
+            'cuser_id',
+            'cuser__name',
+        ).annotate(
+            count=Count('id'),
+        ).order_by('-count'))
+
+        this_week_task_histories = list(History.objects.filter(
+            cuser__puser=child.puser,
+            kind=1,
+            ymd__gte=this_week_start,
+            ymd__lt=now,
+            task_id__isnull=False,
+        ).values(
+            'cuser_id',
+            'cuser__name',
+            'task_id',
+            'task_name',
+            'task__task_name',
+        ).order_by('ymd'))
+
+        messages = []
+
+        if this_week_counts:
+            top_child = this_week_counts[0]
+            messages.append(
+                '今週は {} が {} 回おてつだいしたよ！'.format(
+                    top_child['cuser__name'],
+                    top_child['count'],
+                )
+            )
+
+        last_week_counts = History.objects.filter(
+            cuser__puser=child.puser,
+            kind=1,
+            ymd__gte=last_week_start,
+            ymd__lt=this_week_start,
+        ).values(
+            'cuser_id',
+        ).annotate(
+            count=Count('id'),
+        )
+        last_week_count_map = {
+            item['cuser_id']: item['count']
+            for item in last_week_counts
+        }
+
+        best_growth = None
+        for item in this_week_counts:
+            diff = item['count'] - last_week_count_map.get(item['cuser_id'], 0)
+            if diff <= 0:
+                continue
+            if best_growth is None or diff > best_growth['diff']:
+                best_growth = {
+                    'name': item['cuser__name'],
+                    'diff': diff,
+                }
+
+        if best_growth:
+            messages.append(
+                '{} は先週より {} 回多くおてつだいしてるよ！'.format(
+                    best_growth['name'],
+                    best_growth['diff'],
+                )
+            )
+
+        task_ids = [
+            item['task_id']
+            for item in this_week_task_histories
+        ]
+        past_task_pairs = set(History.objects.filter(
+            cuser__puser=child.puser,
+            kind=1,
+            task_id__in=task_ids,
+            ymd__lt=this_week_start,
+        ).values_list(
+            'cuser_id',
+            'task_id',
+        ))
+
+        first_achievement = None
+        for item in this_week_task_histories:
+            task_pair = (item['cuser_id'], item['task_id'])
+            if task_pair in past_task_pairs:
+                continue
+            first_achievement = item
+            break
+
+        if first_achievement:
+            task_name = first_achievement['task_name'] or first_achievement['task__task_name'] or 'おてつだい'
+            messages.append(
+                '{} が今週はじめて「{}」を達成したよ！'.format(
+                    first_achievement['cuser__name'],
+                    task_name,
+                )
+            )
+
+        streak_days = {
+            today - timedelta(days=day)
+            for day in range(3)
+        }
+        streak_histories = History.objects.filter(
+            cuser__puser=child.puser,
+            kind=1,
+            ymd__gte=three_days_ago,
+            ymd__lt=tomorrow,
+        ).values(
+            'cuser_id',
+            'cuser__name',
+            'ymd',
+        )
+        child_streak_days = {}
+        child_names = {}
+        for item in streak_histories:
+            child_streak_days.setdefault(item['cuser_id'], set()).add(item['ymd'].date())
+            child_names[item['cuser_id']] = item['cuser__name']
+
+        streak_child_ids = [
+            child_id
+            for child_id, days in child_streak_days.items()
+            if streak_days.issubset(days)
+        ]
+        if streak_child_ids:
+            streak_child_id = random.choice(streak_child_ids)
+            messages.append(
+                '{} は3日連続でおてつだいしてるよ！'.format(
+                    child_names[streak_child_id],
+                )
+            )
+
+        total = sum(item['count'] for item in this_week_counts)
+        if total > 0:
+            messages.append(
+                '今週はみんなで {} 回おてつだいしたよ！'.format(total)
+            )
+
+        if not messages:
+            return ['今週のおてつだいはこれからだよ！']
+
+        return random.sample(messages, min(2, len(messages)))
+
     def get(self, request, *args, **kwargs):
         child_data = Child.objects.get(id=self.kwargs['pk'])
 
@@ -265,19 +422,10 @@ class ChildHomeView(LoginRequiredMixin, View):
         else:
             balance_data = None
 
-        top_task = History.objects.filter(cuser_id=kwargs['pk'], kind=1).values('task_id', 'cuser_id',
-                                                                        'task__task_name').annotate(
-            count=Count('task_id')).order_by('-count').first()
-
-        top_ticket = History.objects.filter(cuser_id=kwargs['pk'], kind=3).values('ticket_id', 'cuser_id',
-                                                                        'ticket__ticket_name').annotate(
-            count=Count('ticket_id')).order_by('-count').first()
-
         context = {
             'child_data': child_data,
             'balance_data': balance_data,
-            'top_task': top_task,
-            'top_ticket': top_ticket,
+            'recent_status_messages': self.get_recent_status_messages(child_data),
         }
         context.update(self.get_monthly_summary(child_data.id))
 
