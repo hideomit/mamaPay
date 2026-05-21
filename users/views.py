@@ -296,7 +296,7 @@ class ChildHomeView(LoginRequiredMixin, View):
         if this_week_counts:
             top_child = this_week_counts[0]
             messages.append(
-                '今週は {} が {} 回おてつだいしたよ！'.format(
+                '今週のおてつだいチャンピオンは {}！{} 回もがんばったよ！'.format(
                     top_child['cuser__name'],
                     top_child['count'],
                 )
