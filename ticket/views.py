@@ -328,7 +328,7 @@ class ChildHoldingTicketView(LoginRequiredMixin, ListView):
 
 class TicketUseView(LoginRequiredMixin, View):
 
-    def send_use_notification(self, request, child, used_tickets):
+    def send_use_notification(self, request, child, used_tickets, use_message=''):
         if not used_tickets:
             return
 
@@ -341,16 +341,21 @@ class TicketUseView(LoginRequiredMixin, View):
         )
         total_coin = sum(ticket.price for ticket in used_tickets)
         confirm_url = request.build_absolute_uri(reverse('child_home', args=[child.id]))
+        use_message_text = ''
+        if use_message:
+            use_message_text = 'メッセージ:\n{}\n\n'.format(use_message)
 
         message = (
             '{child_name}さんがチケットを利用しました。\n\n'
             'チケット名:\n{ticket_lines}\n\n'
             '利用チケットのコイン合計: {total_coin}コイン\n\n'
+            '{use_message_text}'
             '確認リンク:\n{confirm_url}\n'
         ).format(
             child_name=child.name,
             ticket_lines=ticket_lines,
             total_coin=total_coin,
+            use_message_text=use_message_text,
             confirm_url=confirm_url,
         )
 
@@ -364,6 +369,7 @@ class TicketUseView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         use_list = request.POST.getlist('use_list')
         child_id = request.POST.get('child_id')
+        use_message = request.POST.get('use_message', '').strip()[:300]
         child = get_permitted_child(self.request.user, child_id)
 
         try:
@@ -402,7 +408,7 @@ class TicketUseView(LoginRequiredMixin, View):
             history.save()
 
         ##返却値を作成
-        self.send_use_notification(request, child, used_tickets)
+        self.send_use_notification(request, child, used_tickets, use_message)
 
         object_list = used_tickets
         child_data = Balance.objects.select_related('cuser').get(cuser=child)

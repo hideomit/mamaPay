@@ -190,6 +190,36 @@
     margin-bottom: 12px;
 }
 
+.ticket-message-field {
+    margin: 18px 0;
+}
+
+.ticket-message-label {
+    display: block;
+    color: #333;
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+
+.ticket-message-textarea {
+    width: 100%;
+    border: 2px solid rgba(13,110,253,0.12);
+    border-radius: 16px;
+    background: rgba(255,255,255,0.78);
+    color: #333;
+    font-weight: 600;
+    padding: 14px 16px;
+    resize: vertical;
+    min-height: 96px;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ticket-message-textarea:focus {
+    border-color: rgba(13,110,253,0.45);
+    box-shadow: 0 0 0 4px rgba(13,110,253,0.10);
+}
+
 .submit-container {
     display: flex;
     gap: 12px;
@@ -317,6 +347,17 @@
                 {% endfor %}
 
                 <input type="hidden" name="child_id" value="{{ child_data.id }}" />
+
+                <div class="ticket-message-field">
+                    <label class="ticket-message-label" for="use_message">ままへのメッセージ</label>
+                    <textarea
+                        class="ticket-message-textarea"
+                        id="use_message"
+                        name="use_message"
+                        rows="3"
+                        maxlength="300"
+                        placeholder="例：いっしょにあそぼうね！"></textarea>
+                </div>
 
                 <div class="submit-container">
                     <button type="submit" class="submit-btn">
