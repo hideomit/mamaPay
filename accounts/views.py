@@ -277,11 +277,13 @@ class ChildStatusDetailView(LoginRequiredMixin, DetailView):
         })
 
 
-class HomeListView(LoginRequiredMixin, ListView):
+class HomeListView(ListView):
     model = Balance
     template_name = 'home.html'
 
     def get_queryset(self):
+        if not self.request.user.is_authenticated:
+            return self.model.objects.none()
 
         if self.request.user.puser:
             return self.model.objects.filter(cuser__puser=self.request.user.puser)
@@ -290,6 +292,8 @@ class HomeListView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(object_list=object_list, **kwargs)
+        if not self.request.user.is_authenticated:
+            return context
         if not self.request.user.puser_id:
             return context
 

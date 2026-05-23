@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 
-{% block title %}お問い合わせ送信完了{% endblock %}
+{% block title %}お問い合わせ送信完了 - いえぺい{% endblock %}
+{% block robots %}noindex,follow{% endblock %}
+{% block canonical_url %}https://www.yiepay.net/contact/done/{% endblock %}
 
 {% block content %}
 <style>
@@ -60,7 +62,7 @@
     <div class="container">
         <div class="contact-card">
             <h1 class="contact-title">送信しました</h1>
-            <p class="contact-text">お問い合わせありがとうございます。内容を確認して、必要に応じてご連絡します。</p>
+            <p class="contact-text">お問い合わせありがとうございます。内容を確認して、必要に応じて連絡します。</p>
             <a class="contact-link" href="{% url 'home' %}">ホームに戻る</a>
         </div>
     </div>

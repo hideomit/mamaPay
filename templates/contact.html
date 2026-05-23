@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 
-{% block title %}お問い合わせ{% endblock %}
+{% block title %}お問い合わせ - いえぺい{% endblock %}
+{% block meta_description %}いえぺいへのお問い合わせページです。ご質問や不具合のご連絡はこちらから送信できます。{% endblock %}
+{% block canonical_url %}https://www.yiepay.net/contact/{% endblock %}
+{% block og_title %}お問い合わせ - いえぺい{% endblock %}
+{% block og_description %}いえぺいへのお問い合わせページです。ご質問や不具合のご連絡はこちらから送信できます。{% endblock %}
+{% block og_url %}https://www.yiepay.net/contact/{% endblock %}
 
 {% block content %}
 <style>
@@ -102,13 +107,15 @@
     <div class="container">
         <div class="contact-card">
             <h1 class="contact-title">お問い合わせ</h1>
-            <p class="contact-text">ご質問や不具合の連絡はこちらから送信してください。</p>
+            <p class="contact-text">ご質問や不具合のご連絡はこちらから送信してください。</p>
 
             <form method="post">
                 {% csrf_token %}
                 {% for field in form %}
                     <div class="form-group">
-                        <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        <label class="form-label" for="{{ field.id_for_label }}">
+                            {% if field.name == 'name' %}お名前{% elif field.name == 'email' %}メールアドレス{% elif field.name == 'subject' %}件名{% else %}お問い合わせ内容{% endif %}
+                        </label>
                         {% if field.name == 'message' %}
                             <textarea id="{{ field.id_for_label }}" class="form-textarea" name="{{ field.name }}" placeholder="お問い合わせ内容を入力してください">{{ field.value|default:'' }}</textarea>
                         {% else %}

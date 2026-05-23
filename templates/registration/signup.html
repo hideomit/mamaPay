@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 
-{% block title %}ユーザー登録{% endblock %}
+{% block title %}いえぺい 新規ユーザー登録{% endblock %}
+{% block meta_description %}いえぺいの新規ユーザー登録ページです。家族のお手伝い、ままコイン、チケットを管理できます。{% endblock %}
+{% block canonical_url %}https://www.yiepay.net/accounts/signup/{% endblock %}
+{% block og_title %}いえぺい 新規ユーザー登録{% endblock %}
+{% block og_description %}家族のお手伝い、ままコイン、チケットを管理できる、いえぺいの新規ユーザー登録ページです。{% endblock %}
+{% block og_url %}https://www.yiepay.net/accounts/signup/{% endblock %}
 
 {% block content %}
 <style>
@@ -128,12 +133,14 @@
 <div class="signup-hero">
     <div class="container">
         <div class="signup-card">
-            <h1>ままの新規登録</h1>
-            <p class="signup-subtitle">最初のユーザー登録画面です。メールアドレスとパスワードを入力し、安心して家族の管理を始めましょう。</p>
+            <h1>新規ユーザー登録</h1>
+            <p class="signup-subtitle">
+                メールアドレスとパスワードを入力して、家族のお手伝い管理をはじめましょう。
+            </p>
             <form method="post">
                 {% csrf_token %}
                 {{ form.as_p }}
-                <button type="submit">ユーザー登録</button>
+                <button type="submit">登録する</button>
             </form>
             <div class="signup-links">
                 <p class="mb-1"><a href="{% url 'login' %}">すでに登録済みの方はこちら</a></p>

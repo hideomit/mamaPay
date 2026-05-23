@@ -1,6 +1,26 @@
 {% extends "base.html" %}
 
-{% block title %}ホーム{% endblock %}
+{% block title %}いえぺい - 家族で使えるお手伝いアプリ{% endblock %}
+{% block meta_description %}いえぺいは、子どものお手伝い、ままコイン、チケット、ごほうびを家族で楽しく管理できる家庭向けアプリです。{% endblock %}
+{% block structured_data %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "いえぺい",
+  "alternateName": "yiepay",
+  "url": "https://www.yiepay.net/",
+  "applicationCategory": "LifestyleApplication",
+  "operatingSystem": "Web",
+  "description": "いえぺいは、子どものお手伝い、ままコイン、チケット、ごほうびを家族で楽しく管理できる家庭向けアプリです。",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "JPY"
+  }
+}
+</script>
+{% endblock %}
 
 {% block content %}
 <style>
@@ -10,6 +30,107 @@
         linear-gradient(180deg, rgba(255,255,255,0.88), rgba(255,255,255,0.72)),
         url('/static/Yiepay2.png') center top / cover no-repeat;
     padding: 28px 0 48px;
+}
+
+.public-hero {
+    min-height: calc(100vh - 220px);
+    display: flex;
+    align-items: center;
+    padding: 44px 0;
+}
+
+.public-copy {
+    max-width: 640px;
+}
+
+.public-logo {
+    width: 100%;
+    max-width: 430px;
+    height: auto;
+    filter: drop-shadow(0 8px 22px rgba(0,0,0,0.12));
+    margin-bottom: 22px;
+}
+
+.public-title {
+    font-size: 2.4rem;
+    font-weight: 900;
+    line-height: 1.35;
+    color: #1f2937;
+    margin-bottom: 16px;
+}
+
+.public-text {
+    color: #4b5563;
+    font-size: 1.05rem;
+    line-height: 1.9;
+    margin-bottom: 24px;
+}
+
+.public-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.public-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 12px 22px;
+    border-radius: 999px;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.public-button-primary {
+    background: linear-gradient(135deg, #1f8fff, #0d6efd);
+    color: #fff;
+    box-shadow: 0 8px 20px rgba(13,110,253,0.25);
+}
+
+.public-button-primary:hover {
+    color: #fff;
+    text-decoration: none;
+}
+
+.public-button-secondary {
+    background: rgba(255,255,255,0.82);
+    color: #0d6efd;
+    border: 1px solid rgba(13,110,253,0.22);
+}
+
+.public-button-secondary:hover {
+    color: #0a58ca;
+    text-decoration: none;
+}
+
+.feature-list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 32px;
+}
+
+.feature-card {
+    background: rgba(255,255,255,0.82);
+    border: 1px solid rgba(255,255,255,0.55);
+    border-radius: 8px;
+    box-shadow: 0 10px 26px rgba(15,23,42,0.08);
+    padding: 18px;
+}
+
+.feature-card h2 {
+    font-size: 1.05rem;
+    font-weight: 900;
+    color: #1f2937;
+    margin-bottom: 8px;
+}
+
+.feature-card p {
+    color: #5f6368;
+    line-height: 1.7;
+    margin: 0;
 }
 
 .home-hero {
@@ -38,13 +159,14 @@
     margin-bottom: 0;
 }
 
-.notice-card {
-    background: rgba(255,255,255,0.72);
-    backdrop-filter: blur(8px);
-    border-radius: 20px;
-    border: 1px solid rgba(255,255,255,0.45);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-    padding: 18px 22px;
+.notice-card,
+.child-card {
+    background: rgba(255,255,255,0.82);
+    backdrop-filter: blur(10px);
+    border-radius: 24px;
+    border: 1px solid rgba(255,255,255,0.50);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.10);
+    padding: 22px;
     margin-bottom: 22px;
 }
 
@@ -61,13 +183,6 @@
 }
 
 .child-card {
-    background: rgba(255,255,255,0.82);
-    backdrop-filter: blur(10px);
-    border-radius: 24px;
-    border: 1px solid rgba(255,255,255,0.50);
-    box-shadow: 0 12px 30px rgba(0,0,0,0.10);
-    padding: 22px;
-    margin-bottom: 22px;
     transition: all 0.2s ease;
 }
 
@@ -110,11 +225,11 @@
     margin-bottom: 18px;
 }
 
-.empty-child-btn {
+.empty-child-btn,
+.detail-btn,
+.action-btn {
     border-radius: 999px;
-    padding: 11px 22px;
     font-weight: 800;
-    box-shadow: 0 6px 16px rgba(13,110,253,0.22);
 }
 
 .child-photo {
@@ -133,11 +248,6 @@
     text-decoration: none;
 }
 
-.child-name:hover {
-    text-decoration: none;
-    color: #0a58ca;
-}
-
 .balance-label {
     color: #6c757d;
     font-size: 0.78rem;
@@ -150,13 +260,6 @@
     font-weight: 900;
     line-height: 1.1;
     color: #222;
-}
-
-.detail-btn {
-    border-radius: 999px;
-    padding: 10px 22px;
-    font-weight: 700;
-    box-shadow: 0 6px 16px rgba(13,110,253,0.22);
 }
 
 .pending-alert {
@@ -175,31 +278,6 @@
     text-decoration: none;
 }
 
-.pending-alert:hover {
-    color: #78350f;
-    background: rgba(254,240,138,0.98);
-    text-decoration: none;
-}
-
-.action-btn {
-    border-radius: 18px;
-    padding: 14px;
-    font-weight: 700;
-    background: rgba(255,255,255,0.72);
-}
-
-.email-change-btn {
-    color: #0f766e;
-    border-color: rgba(15,118,110,0.55);
-}
-
-.email-change-btn:hover {
-    color: #fff;
-    background: linear-gradient(135deg, #14b8a6, #0f766e);
-    border-color: #0f766e;
-    box-shadow: 0 8px 20px rgba(15,118,110,0.24);
-}
-
 .account-deactivate-link-wrap {
     text-align: right;
     margin: 4px 0 24px;
@@ -212,32 +290,34 @@
     text-decoration: none;
 }
 
-.account-deactivate-link:hover {
-    color: #dc3545;
-    text-decoration: none;
-}
-
 @media (max-width: 768px) {
     .home-page {
         padding-top: 14px;
     }
 
-    .home-hero {
-        padding: 18px;
-        border-radius: 22px;
+    .public-hero {
+        min-height: auto;
+        padding: 26px 0;
     }
 
-    .home-logo {
-        max-width: 300px;
+    .public-title {
+        font-size: 1.8rem;
     }
 
+    .feature-list {
+        grid-template-columns: 1fr;
+    }
+
+    .home-hero,
+    .child-card,
     .notice-card {
-        padding: 16px;
-    }
-
-    .child-card {
         padding: 18px;
         border-radius: 22px;
+    }
+
+    .home-logo,
+    .public-logo {
+        max-width: 300px;
     }
 
     .child-photo {
@@ -254,11 +334,10 @@
 {% if user.is_authenticated %}
 <div class="home-page">
     <div class="container">
-
         <section class="home-hero">
             <img src="/static/yiepay_logo.png" class="home-logo" alt="いえぺい">
             <p class="home-message">
-                お手伝いを「ままコイン」に。家族で楽しくためて、使えるアプリです。
+                お手伝いを「ままコイン」に。家族で楽しく使えるアプリです。
             </p>
         </section>
 
@@ -266,11 +345,11 @@
             <div class="notice-title">お知らせ</div>
             <div>
                 <span class="notice-date">2026年05月18日</span>
-                <span>おてつだいが複数入力できるようになりました</span>
+                <span>おてつだいを複数入力できるようになりました。</span>
             </div>
             <div>
-                <span class="notice-date">2026年04月29日</span>
-                <span>いえぺいサービスβテスト中</span>
+                <span class="notice-date">2026年04月09日</span>
+                <span>いえぺいサービスβテスト中です。</span>
             </div>
         </section>
 
@@ -323,7 +402,7 @@
                                 <div class="empty-child-icon">
                                     <i class="fas fa-child"></i>
                                 </div>
-                                <div class="empty-child-title">まずはこどもを登録しましょう！</div>
+                                <div class="empty-child-title">まずはこどもを登録しましょう</div>
                                 <p class="empty-child-text">
                                     こどもを登録すると、おてつだいやチケットを使えるようになります。
                                 </p>
@@ -341,13 +420,13 @@
             <div class="col-md-4 mb-3">
                 <button type="button" class="btn btn-outline-primary w-100 btn-lg action-btn"
                         onclick="location.href='{% url 'password_change' %}'">
-                    <i class="fas fa-chalkboard-teacher mr-1"></i>パスワード変更
+                    <i class="fas fa-key mr-1"></i>パスワード変更
                 </button>
             </div>
 
             {% if not user.cuser_id %}
                 <div class="col-md-4 mb-3">
-                    <button type="button" class="btn w-100 btn-lg action-btn email-change-btn"
+                    <button type="button" class="btn btn-outline-info w-100 btn-lg action-btn"
                             onclick="location.href='{% url 'email_change' %}'">
                         <i class="fas fa-envelope mr-1"></i>メールアドレス変更
                     </button>
@@ -357,7 +436,7 @@
             <div class="col-md-4 mb-3">
                 <button type="button" class="btn btn-outline-success w-100 btn-lg action-btn"
                         onclick="location.href='{% url 'logout' %}'">
-                    <i class="fas fa-ticket-alt mr-1"></i>ログアウト
+                    <i class="fas fa-sign-out-alt mr-1"></i>ログアウト
                 </button>
             </div>
         </div>
@@ -367,15 +446,41 @@
                 <a href="{% url 'account_deactivate' %}" class="account-deactivate-link">退会をご希望の方はこちら</a>
             </div>
         {% endif %}
-
     </div>
 </div>
 {% else %}
-<div class="container mt-4">
-    <button type="button" class="btn btn-outline-danger w-100 btn-lg"
-            onclick="location.href='{% url 'login' %}'">
-        <i class="fas fa-thumbs-up mr-1"></i>ログイン
-    </button>
+<div class="home-page">
+    <div class="container">
+        <section class="public-hero">
+            <div class="public-copy">
+                <img src="/static/yiepay_logo.png" class="public-logo" alt="いえぺい">
+                <h1 class="public-title">家族のお手伝いとごほうびを、楽しく見える化。</h1>
+                <p class="public-text">
+                    いえぺいは、子どものお手伝い、ままコイン、チケットを家族で管理できるWebアプリです。
+                    毎日の小さな「できた」を記録して、家庭のルールをごほうびにつなげられます。
+                </p>
+                <div class="public-actions">
+                    <a class="public-button public-button-primary" href="{% url 'new_user' %}">新規登録</a>
+                    <a class="public-button public-button-secondary" href="{% url 'login' %}">ログイン</a>
+                </div>
+
+                <div class="feature-list">
+                    <div class="feature-card">
+                        <h2>お手伝い管理</h2>
+                        <p>家族で決めたお手伝いを登録し、達成した分を申請できます。</p>
+                    </div>
+                    <div class="feature-card">
+                        <h2>ままコイン</h2>
+                        <p>承認されたお手伝いをコインとしてためて、残高を確認できます。</p>
+                    </div>
+                    <div class="feature-card">
+                        <h2>チケット</h2>
+                        <p>ためたコインをごほうびチケットに変えて、楽しく使えます。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 </div>
 {% endif %}
 

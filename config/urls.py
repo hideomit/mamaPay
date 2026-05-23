@@ -21,9 +21,12 @@ from django.contrib.auth import views
 
 from accounts.views import ChildStatusListView, ChildStatusDetailView, ChildStatusUpdateView, HomeListView, ContactView, ContactDoneView, EmailChangeView, EmailChangeDoneView, ChildPasswordChangeView, ChildPasswordChangeDoneView, AccountDeactivateView, AccountDeactivateDoneView
 from config import settings
+from config.views import robots_txt, sitemap_xml
 from users.views import ChildDeleteView
 
 urlpatterns = [
+    path('robots.txt', robots_txt, name='robots_txt'),
+    path('sitemap.xml', sitemap_xml, name='sitemap_xml'),
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
     path('users/', include('users.urls')),

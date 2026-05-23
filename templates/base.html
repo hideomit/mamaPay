@@ -21,7 +21,18 @@
     <meta name="msapplication-TileColor" content="#00aba9">
     <meta name="theme-color" content="#ffffff">
 
-    <title>{% block title %}{% endblock %}</title>
+    <title>{% block title %}いえぺい{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}いえぺいは、家族のお手伝い、チケット、ごほうびを楽しく管理できる家庭向けアプリです。{% endblock %}">
+    <meta name="robots" content="{% block robots %}index,follow{% endblock %}">
+    <link rel="canonical" href="{% block canonical_url %}https://www.yiepay.net/{% endblock %}">
+    <meta property="og:site_name" content="いえぺい">
+    <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+    <meta property="og:title" content="{% block og_title %}いえぺい - 家族で使えるお手伝いアプリ{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}子どものお手伝いとごほうびを、家族で楽しく管理できる家庭向けアプリです。{% endblock %}">
+    <meta property="og:url" content="{% block og_url %}https://www.yiepay.net/{% endblock %}">
+    <meta property="og:image" content="{% block og_image %}https://www.yiepay.net/static/Yiepay2.png{% endblock %}">
+    <meta name="twitter:card" content="summary_large_image">
+    {% block structured_data %}{% endblock %}
 
     <style>
         body {
@@ -226,7 +237,7 @@
             <img class="app-brand-logo" src="/static/iepay2.jpg" alt="いえぺい">
             <span class="app-brand-text">いえぺい</span>
         </a>
-        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="メニューを開く">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbar-content">
@@ -237,7 +248,7 @@
                     </li>
                     {% if user.cuser_id %}
                         <li class="nav-item">
-                            <a class="app-nav-link" href="{% url 'child_home' user.cuser_id %}">こどもがめん</a>
+                            <a class="app-nav-link" href="{% url 'child_home' user.cuser_id %}">こども画面</a>
                         </li>
                     {% else %}
                         <li class="nav-item">
@@ -255,13 +266,22 @@
                     </li>
                 {% endif %}
             </ul>
-            {% if not user.cuser_id %}
-                <ul class="navbar-nav app-nav-list">
+            <ul class="navbar-nav app-nav-list">
+                {% if user.is_authenticated %}
+                    {% if not user.cuser_id %}
+                        <li class="nav-item">
+                            <a href="{% url 'contact' %}" class="app-nav-link app-nav-action">Contact</a>
+                        </li>
+                    {% endif %}
+                {% else %}
                     <li class="nav-item">
-                        <a href="{% url 'contact' %}" class="app-nav-link app-nav-action">Contact</a>
+                        <a href="{% url 'login' %}" class="app-nav-link">ログイン</a>
                     </li>
-                </ul>
-            {% endif %}
+                    <li class="nav-item">
+                        <a href="{% url 'new_user' %}" class="app-nav-link app-nav-action">新規登録</a>
+                    </li>
+                {% endif %}
+            </ul>
         </div>
     </div>
 </nav>
@@ -275,12 +295,9 @@
         <div class="app-footer-nav">
             <ul class="app-footer-nav-main">
                 {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'home' %}">ホーム</a>
-                    </li>
                     {% if user.cuser_id %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'child_home' user.cuser_id %}">こどもがめん</a>
+                            <a class="nav-link" href="{% url 'child_home' user.cuser_id %}">こども画面</a>
                         </li>
                     {% else %}
                         <li class="nav-item">
@@ -298,15 +315,13 @@
                     </li>
                 {% endif %}
             </ul>
-            {% if not user.cuser_id %}
-                <ul class="app-footer-nav-action">
-                    <li class="nav-item">
-                        <a class="app-nav-link app-nav-action" href="{% url 'contact' %}">Contact</a>
-                    </li>
-                </ul>
-            {% endif %}
+            <ul class="app-footer-nav-action">
+                <li class="nav-item">
+                    <a class="app-nav-link app-nav-action" href="{% url 'contact' %}">Contact</a>
+                </li>
+            </ul>
         </div>
-        <p class="app-footer-copy text-center"><small>Copyright &copy;2026 HT Works, All Right Reserved.</small></p>
+        <p class="app-footer-copy text-center"><small>Copyright &copy;2026 HT Works, All Rights Reserved.</small></p>
     </div>
 </footer>
 
