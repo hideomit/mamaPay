@@ -7,10 +7,13 @@ def robots_txt(request):
     lines = [
         'User-agent: *',
         'Allow: /',
+        '',
         'Disallow: /admin/',
         'Disallow: /api_v1/',
+        'Disallow: /accounts/login/',
         'Disallow: /accounts/password_reset/',
         'Disallow: /accounts/password_change/',
+        '',
         'Sitemap: {}/sitemap.xml'.format(base_url),
     ]
     return HttpResponse('\n'.join(lines), content_type='text/plain')
