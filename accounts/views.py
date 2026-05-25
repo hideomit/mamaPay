@@ -1,7 +1,7 @@
 import random
 from collections import OrderedDict
 
-from django.contrib.auth import login, logout
+from django.contrib.auth import logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
@@ -10,6 +10,8 @@ from django.db.models import Count
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy, reverse
+from django.utils.encoding import force_bytes, force_text
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils import timezone
 from django.views import View
 from django.views.generic import CreateView, ListView, UpdateView, DetailView
@@ -19,6 +21,7 @@ from users.forms import ChildModelForm
 from users.models import Child, Balance, Request, History, Parent
 from .forms import SignupParentForm, ChildStatusModelForm, ContactForm, EmailChangeForm, ChildPasswordChangeForm
 from .models import LoginUsers
+from .tokens import account_activation_token
 
 
 # Create your views here.
@@ -209,21 +212,81 @@ class ChildPasswordChangeDoneView(LoginRequiredMixin, View):
 
 class SignupParentView(CreateView):
     form_class = SignupParentForm
-    success_url = reverse_lazy('login')
+    success_url = reverse_lazy('accounts:signup_activation_sent')
     template_name = 'registration/signup.html'
 
     ##同時に親アカウントをつくる
+    @transaction.atomic
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
         if form.is_valid():
             login_user = form.save(commit=False)
             puser = Parent.objects.create()
             login_user.puser = puser
+            login_user.is_active = False
             login_user.save()
-            login(self.request, login_user)
-            return redirect(reverse_lazy('home'))
-        else:
-            return redirect(reverse_lazy('home'))
+            self.send_activation_mail(request, login_user)
+            return redirect(self.success_url)
+
+        return render(request, self.template_name, {'form': form})
+
+    def send_activation_mail(self, request, user):
+        activation_url = request.build_absolute_uri(reverse('accounts:activate', kwargs={
+            'uidb64': urlsafe_base64_encode(force_bytes(user.pk)),
+            'token': account_activation_token.make_token(user),
+        }))
+        message = (
+            'いえぺいへのご登録ありがとうございます。\n\n'
+            '以下のURLをクリックして、登録を完了してください。\n\n'
+            '{activation_url}\n\n'
+            'このURLに心当たりがない場合は、このメールを破棄してください。'
+        ).format(activation_url=activation_url)
+
+        send_mail(
+            subject='【いえぺい】登録を完了してください',
+            message=message,
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=[user.email],
+            fail_silently=False,
+        )
+
+
+class SignupActivationSentView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'registration/signup_activation_sent.html')
+
+
+class AccountActivateView(View):
+    def get_user(self, uidb64):
+        try:
+            uid = force_text(urlsafe_base64_decode(uidb64))
+            return LoginUsers.objects.get(pk=uid)
+        except (TypeError, ValueError, OverflowError, LoginUsers.DoesNotExist):
+            return None
+
+    def get(self, request, *args, **kwargs):
+        user = self.get_user(kwargs['uidb64'])
+        token = kwargs['token']
+
+        if user is None or not account_activation_token.check_token(user, token):
+            return redirect(reverse('accounts:activate_invalid'))
+
+        if LoginUsers.objects.exclude(pk=user.pk).filter(email=user.email, is_active=True).exists():
+            return redirect(reverse('accounts:activate_invalid'))
+
+        user.is_active = True
+        user.save(update_fields=['is_active'])
+        return redirect(reverse('accounts:activate_done'))
+
+
+class AccountActivateDoneView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'registration/signup_activate_done.html')
+
+
+class AccountActivateInvalidView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'registration/signup_activate_invalid.html')
 
 
 class ChildStatusListView(LoginRequiredMixin, ListView):

@@ -7,9 +7,17 @@ from users.models import Child
 
 
 class SignupParentForm(UserCreationForm):
+    email = forms.EmailField(label='メールアドレス', required=True)
+
     class Meta(UserCreationForm.Meta):
         model = LoginUsers
         fields = ('username', 'email')
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if LoginUsers.objects.filter(email=email, is_active=True).exists():
+            raise forms.ValidationError('このメールアドレスはすでに使われています。')
+        return email
 
 
 class SignupChildForm(UserCreationForm):

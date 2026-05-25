@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}登録確認メールを送信しました{% endblock %}
+
+{% block content %}
+<style>
+.signup-result-page {
+    min-height: 78vh;
+    background:
+        linear-gradient(90deg, rgba(255,255,255,0.90), rgba(255,255,255,0.55)),
+        url('/static/Yiepay2.png') center center / cover no-repeat;
+    display: flex;
+    align-items: center;
+    padding: 48px 0;
+}
+
+.signup-result-card {
+    background: rgba(255,255,255,0.80);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 24px;
+    border: 1px solid rgba(255,255,255,0.45);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(255,255,255,0.35) inset;
+    padding: 34px;
+    max-width: 520px;
+    margin: 0 auto;
+}
+
+.signup-result-title {
+    font-size: 1.7rem;
+    font-weight: 900;
+    color: #222;
+    margin-bottom: 14px;
+}
+
+.signup-result-text {
+    color: #5f6368;
+    line-height: 1.8;
+    margin-bottom: 22px;
+}
+
+.signup-result-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    padding: 12px 22px;
+    background: rgba(255,255,255,0.86);
+    color: #0d6efd;
+    font-weight: 800;
+    text-decoration: none;
+    border: 1px solid rgba(13,110,253,0.18);
+}
+
+.signup-result-link:hover {
+    color: #1f8fff;
+    text-decoration: none;
+}
+</style>
+
+<div class="signup-result-page">
+    <div class="container">
+        <div class="signup-result-card">
+            <h1 class="signup-result-title">確認メールを送信しました</h1>
+            <p class="signup-result-text">
+                入力されたメールアドレスに、登録を完了するためのURLを送りました。
+                メール内のURLをクリックすると、いえぺいにログインできるようになります。
+            </p>
+            <a href="{% url 'login' %}" class="signup-result-link">ログイン画面へ</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
