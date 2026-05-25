@@ -215,9 +215,21 @@ class SignupParentView(CreateView):
     success_url = reverse_lazy('accounts:signup_activation_sent')
     template_name = 'registration/signup.html'
 
+    def delete_inactive_users_by_email(self, email):
+        inactive_users = list(LoginUsers.objects.select_related('puser').filter(email=email, is_active=False))
+        for inactive_user in inactive_users:
+            parent = inactive_user.puser
+            inactive_user.delete()
+            if parent:
+                parent.delete()
+
     ##同時に親アカウントをつくる
     @transaction.atomic
     def post(self, request, *args, **kwargs):
+        email = request.POST.get('email')
+        if email:
+            self.delete_inactive_users_by_email(email)
+
         form = self.form_class(request.POST)
         if form.is_valid():
             login_user = form.save(commit=False)
