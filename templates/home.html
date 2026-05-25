@@ -6,18 +6,67 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "いえぺい",
-  "alternateName": "yiepay",
-  "url": "https://www.yiepay.net/",
-  "applicationCategory": "EducationalApplication",
-  "operatingSystem": "Web",
-  "description": "いえぺいは、家族向けのおこづかい・お手伝い管理Webアプリです。子どものお手伝いを「ままコイン」として記録し、ごほうびチケットと交換できます。毎日の小さな「できた」を、家族で楽しく見える化できます。",
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "JPY"
-  }
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "いえぺい",
+      "alternateName": "yiepay",
+      "url": "https://www.yiepay.net/",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "Web",
+      "description": "いえぺいは、家族向けのおこづかい・お手伝い管理Webアプリです。子どものお手伝いを「ままコイン」として記録し、ごほうびチケットと交換できます。毎日の小さな「できた」を、家族で楽しく見える化できます。",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "JPY"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "いえぺいは何のアプリですか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "いえぺいは、子どものお手伝いとごほうびを家族で管理するWebアプリです。お手伝いを記録し、ままコインをためて、ごほうびチケットと交換できます。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "ままコインとは何ですか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "ままコインは、家庭内で使うごほうび用のポイントです。子どもがお手伝いをして、親が承認するとコインとして記録されます。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "いえぺいはPayPayなどの決済サービスですか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "いいえ。いえぺいはQRコード決済や送金サービスではありません。家庭内のお手伝いとごほうびを管理するためのアプリです。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "子どもも使えますか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "はい。子ども用の画面から、お手伝いの申請やチケットの利用ができます。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "何に使えますか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "お手伝いの習慣づけ、おこづかいの代わりのポイント管理、ごほうびチケットの管理などに使えます。"
+          }
+        }
+      ]
+    }
+  ]
 }
 </script>
 {% endblock %}
@@ -130,6 +179,72 @@
 .feature-card p {
     color: #5f6368;
     line-height: 1.7;
+    margin: 0;
+}
+
+.public-info {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+    gap: 18px;
+    align-items: start;
+    margin-top: 18px;
+    padding-bottom: 48px;
+}
+
+.about-panel,
+.faq-panel {
+    background: rgba(255,255,255,0.84);
+    border: 1px solid rgba(255,255,255,0.55);
+    border-radius: 8px;
+    box-shadow: 0 10px 26px rgba(15,23,42,0.08);
+    padding: 24px;
+}
+
+.public-section-title {
+    font-size: 1.24rem;
+    font-weight: 900;
+    color: #1f2937;
+    margin-bottom: 14px;
+}
+
+.about-panel p,
+.faq-answer {
+    color: #4b5563;
+    line-height: 1.85;
+}
+
+.about-panel p {
+    margin-bottom: 14px;
+}
+
+.about-panel p:last-child {
+    margin-bottom: 0;
+}
+
+.faq-list {
+    display: grid;
+    gap: 16px;
+    margin: 0;
+}
+
+.faq-item {
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(13,110,253,0.12);
+}
+
+.faq-item:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
+}
+
+.faq-question {
+    font-size: 1rem;
+    font-weight: 900;
+    color: #1f2937;
+    margin-bottom: 7px;
+}
+
+.faq-answer {
     margin: 0;
 }
 
@@ -308,6 +423,16 @@
         grid-template-columns: 1fr;
     }
 
+    .public-info {
+        grid-template-columns: 1fr;
+        padding-bottom: 32px;
+    }
+
+    .about-panel,
+    .faq-panel {
+        padding: 18px;
+    }
+
     .home-hero,
     .child-card,
     .notice-card {
@@ -476,6 +601,50 @@
                     <div class="feature-card">
                         <h2>チケット</h2>
                         <p>ためたコインをごほうびチケットに変えて、楽しく使えます。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="public-info" aria-label="いえぺいの説明とよくある質問">
+            <div class="about-panel">
+                <h2 class="public-section-title">いえぺいとは</h2>
+                <p>
+                    いえぺいは、家族向けのおこづかい・お手伝い管理Webアプリです。
+                    子どものお手伝いを「ままコイン」として記録し、ためたコインをごほうびチケットと交換できます。
+                </p>
+                <p>
+                    家庭内のお手伝い、約束、ごほうびを見える化することで、
+                    毎日の小さな「できた」を家族で楽しく続けられるようにします。
+                </p>
+                <p>
+                    いえぺいは、PayPayなどのQRコード決済サービスではありません。
+                    実際のお金を送金するアプリではなく、家庭内で使うごほうび管理アプリです。
+                </p>
+            </div>
+
+            <div class="faq-panel">
+                <h2 class="public-section-title">よくある質問</h2>
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <h3 class="faq-question">Q. いえぺいは何のアプリですか？</h3>
+                        <p class="faq-answer">A. いえぺいは、子どものお手伝いとごほうびを家族で管理するWebアプリです。お手伝いを記録し、ままコインをためて、ごほうびチケットと交換できます。</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3 class="faq-question">Q. ままコインとは何ですか？</h3>
+                        <p class="faq-answer">A. ままコインは、家庭内で使うごほうび用のポイントです。子どもがお手伝いをして、親が承認するとコインとして記録されます。</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3 class="faq-question">Q. いえぺいはPayPayなどの決済サービスですか？</h3>
+                        <p class="faq-answer">A. いいえ。いえぺいはQRコード決済や送金サービスではありません。家庭内のお手伝いとごほうびを管理するためのアプリです。</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3 class="faq-question">Q. 子どもも使えますか？</h3>
+                        <p class="faq-answer">A. はい。子ども用の画面から、お手伝いの申請やチケットの利用ができます。</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3 class="faq-question">Q. 何に使えますか？</h3>
+                        <p class="faq-answer">A. お手伝いの習慣づけ、おこづかいの代わりのポイント管理、ごほうびチケットの管理などに使えます。</p>
                     </div>
                 </div>
             </div>
