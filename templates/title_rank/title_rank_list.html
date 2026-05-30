@@ -1,0 +1,206 @@
+{% extends "base.html" %}
+
+{% block title %}称号ランク管理{% endblock %}
+
+{% block content %}
+<style>
+.rank-page {
+    min-height: 100vh;
+    background:
+        linear-gradient(180deg, rgba(255,255,255,0.88), rgba(255,255,255,0.72)),
+        url('/static/Yiepay2.png') center top / cover no-repeat;
+    padding: 28px 0 48px;
+}
+
+.rank-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+.rank-header,
+.rank-card,
+.rank-note {
+    background: rgba(255,255,255,0.86);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 24px;
+    border: 1px solid rgba(255,255,255,0.50);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+}
+
+.rank-header {
+    padding: 28px;
+    margin-bottom: 20px;
+}
+
+.rank-title {
+    font-weight: 900;
+    color: #222;
+    font-size: 1.6rem;
+    margin: 0;
+}
+
+.rank-subtitle {
+    margin: 12px 0 0;
+    color: #5f6368;
+    line-height: 1.7;
+}
+
+.rank-note {
+    padding: 16px 20px;
+    margin-bottom: 22px;
+    color: #92400e;
+    background: rgba(255,243,205,0.92);
+    font-weight: 800;
+}
+
+.rank-card {
+    overflow: hidden;
+    margin-bottom: 22px;
+}
+
+.rank-item {
+    display: grid;
+    grid-template-columns: 1fr 150px 140px;
+    gap: 12px;
+    align-items: center;
+    padding: 18px 22px;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+.rank-item:last-child {
+    border-bottom: none;
+}
+
+.rank-name {
+    font-weight: 900;
+    color: #222;
+}
+
+.rank-coin {
+    color: #0d6efd;
+    font-weight: 900;
+}
+
+.rank-muted {
+    color: #6c757d;
+    font-weight: 700;
+}
+
+.rank-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+}
+
+.rank-action-link,
+.rank-action-button,
+.rank-add-button,
+.rank-back-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    padding: 10px 16px;
+    border: none;
+    font-weight: 800;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.rank-action-link,
+.rank-add-button {
+    background: linear-gradient(135deg, #1f8fff, #0d6efd);
+    color: #fff;
+}
+
+.rank-action-link:hover,
+.rank-add-button:hover {
+    color: #fff;
+    text-decoration: none;
+    transform: translateY(-1px);
+}
+
+.rank-action-button {
+    background: rgba(220,38,38,0.10);
+    color: #dc2626;
+    cursor: pointer;
+}
+
+.rank-back-button {
+    background: rgba(255,255,255,0.86);
+    color: #0d6efd;
+    border: 1px solid rgba(13,110,253,0.18);
+}
+
+.rank-button-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.rank-empty {
+    padding: 40px 24px;
+    text-align: center;
+    color: #6c757d;
+    font-weight: 800;
+}
+
+@media (max-width: 860px) {
+    .rank-item {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .rank-actions {
+        justify-content: flex-start;
+    }
+
+    .rank-button-row {
+        flex-direction: column;
+    }
+}
+</style>
+
+<div class="rank-page">
+    <div class="rank-container">
+        <div class="rank-header">
+            <h1 class="rank-title">称号ランク管理</h1>
+            <p class="rank-subtitle">
+                こども画面に表示される称号を家庭ごとに設定できます。
+                ランクは現在残高ではなく、累計獲得コインで判定されます。
+            </p>
+        </div>
+
+        <div class="rank-note">
+            必要累計コイン数が 0 の称号を最低1つ用意しておくと、はじめて使うこどもにも称号が表示されます。
+        </div>
+
+        <div class="rank-card">
+            {% if rank_list %}
+                {% for rank in rank_list %}
+                    <div class="rank-item">
+                        <div class="rank-name">{{ rank.title }}</div>
+                        <div class="rank-coin">{{ rank.required_total_coin }}コイン</div>
+                        <div class="rank-actions">
+                            <a href="{% url 'title_rank_update' rank.id %}" class="rank-action-link">編集</a>
+                            <form method="post" action="{% url 'title_rank_delete' rank.id %}" onsubmit="return confirm('この称号ランクを削除しますか？');">
+                                {% csrf_token %}
+                                <button type="submit" class="rank-action-button">削除</button>
+                            </form>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="rank-empty">称号ランクがまだありません。</div>
+            {% endif %}
+        </div>
+
+        <div class="rank-button-row">
+            <a href="{% url 'title_rank_regist' %}" class="rank-add-button">＋ 称号ランクを追加</a>
+            <a href="{% url 'admin_home' %}" class="rank-back-button">← 管理画面にもどる</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

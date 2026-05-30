@@ -2,7 +2,7 @@ from django.views.generic import TemplateView
 from django.urls import path
 
 from accounts.views import ChildStatusGetView, ApproveTaskView, ApproveTaskDeleteView
-from users.views import ChildListView, ChildInputView, ChildUpdateView, ChildHomeView, ChildApplyView, TaskApplyView, TaskApplyCompView, ChildHistoryView, ChildDeleteView
+from users.views import ChildListView, ChildInputView, ChildUpdateView, ChildHomeView, ChildApplyView, TaskApplyView, TaskApplyCompView, ChildHistoryView, ChildDeleteView, TitleRankListView, TitleRankCreateView, TitleRankUpdateView, TitleRankDeleteView
 
 urlpatterns = [
 
@@ -19,4 +19,8 @@ urlpatterns = [
     path('child/home/apply_task/<int:pk>', ChildApplyView.as_view(), name='apply_task'),
     path('child/home/apply_task/task_apply_update', TaskApplyView.as_view(), name='task_apply_update'),
     path('child/home/apply_complete', TaskApplyCompView.as_view(), name='apply_task_complete'),
+    path('ranks/', TitleRankListView.as_view(), name='title_rank_list'),
+    path('ranks/regist/', TitleRankCreateView.as_view(), name='title_rank_regist'),
+    path('ranks/update/<int:pk>/', TitleRankUpdateView.as_view(), name='title_rank_update'),
+    path('ranks/delete/<int:pk>/', TitleRankDeleteView.as_view(), name='title_rank_delete'),
 ]

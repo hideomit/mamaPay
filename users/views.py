@@ -21,8 +21,9 @@ from django.views.generic import ListView, CreateView, DetailView, UpdateView
 from accounts.forms import SignupChildForm
 from accounts.models import LoginUsers
 from task.models import Task
-from users.forms import ChildModelForm
-from users.models import Child, History, Balance, Request
+from users.forms import ChildModelForm, TitleRankForm
+from users.models import Child, History, Balance, Request, TitleRank
+from users.services import get_child_rank_status
 
 
 class ChildListView(LoginRequiredMixin, ListView):
@@ -426,6 +427,7 @@ class ChildHomeView(LoginRequiredMixin, View):
             'child_data': child_data,
             'balance_data': balance_data,
             'recent_status_messages': self.get_recent_status_messages(child_data),
+            'rank_status': get_child_rank_status(child_data),
         }
         context.update(self.get_monthly_summary(child_data.id))
 
@@ -610,3 +612,112 @@ class ChildDeleteView(LoginRequiredMixin, View):
         Child.objects.filter(id__in=delete_list).delete()
 
         return redirect(reverse_lazy('status'))
+
+
+class TitleRankListView(LoginRequiredMixin, ListView):
+    model = TitleRank
+    template_name = 'title_rank/title_rank_list.html'
+    context_object_name = 'rank_list'
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.puser_id:
+            raise PermissionDenied
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_queryset(self):
+        return TitleRank.objects.filter(
+            puser=self.request.user.puser,
+            is_active=True,
+            delete_flg=False,
+        ).order_by(
+            'required_total_coin',
+            'id',
+        )
+
+
+class TitleRankCreateView(LoginRequiredMixin, View):
+    template_name = 'title_rank/title_rank_form.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.puser_id:
+            raise PermissionDenied
+        return super().dispatch(request, *args, **kwargs)
+
+    def get(self, request, *args, **kwargs):
+        form = TitleRankForm(request.user.puser)
+        return render(request, self.template_name, {'form': form, 'is_create': True})
+
+    def post(self, request, *args, **kwargs):
+        form = TitleRankForm(request.user.puser, request.POST)
+        if not form.is_valid():
+            return render(request, self.template_name, {'form': form, 'is_create': True})
+
+        rank = form.save(commit=False)
+        rank.puser = request.user.puser
+        deleted_rank = TitleRank.objects.filter(
+            puser=request.user.puser,
+            required_total_coin=rank.required_total_coin,
+            is_active=False,
+            delete_flg=True,
+        ).order_by('id').first()
+        if deleted_rank:
+            deleted_rank.title = rank.title
+            deleted_rank.is_active = True
+            deleted_rank.delete_flg = False
+            deleted_rank.save(update_fields=['title', 'is_active', 'delete_flg', 'update_datetime'])
+            return redirect(reverse('title_rank_list'))
+
+        rank.save()
+        return redirect(reverse('title_rank_list'))
+
+
+class TitleRankUpdateView(LoginRequiredMixin, View):
+    template_name = 'title_rank/title_rank_form.html'
+
+    def get_rank(self):
+        return get_object_or_404(
+            TitleRank,
+            id=self.kwargs['pk'],
+            puser=self.request.user.puser,
+            is_active=True,
+            delete_flg=False,
+        )
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.puser_id:
+            raise PermissionDenied
+        return super().dispatch(request, *args, **kwargs)
+
+    def get(self, request, *args, **kwargs):
+        rank = self.get_rank()
+        form = TitleRankForm(request.user.puser, instance=rank)
+        return render(request, self.template_name, {'form': form, 'rank': rank, 'is_create': False})
+
+    def post(self, request, *args, **kwargs):
+        rank = self.get_rank()
+        form = TitleRankForm(request.user.puser, request.POST, instance=rank)
+        if not form.is_valid():
+            return render(request, self.template_name, {'form': form, 'rank': rank, 'is_create': False})
+
+        form.save()
+        return redirect(reverse('title_rank_list'))
+
+
+class TitleRankDeleteView(LoginRequiredMixin, View):
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.puser_id:
+            raise PermissionDenied
+        return super().dispatch(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        rank = get_object_or_404(
+            TitleRank,
+            id=self.kwargs['pk'],
+            puser=request.user.puser,
+            is_active=True,
+            delete_flg=False,
+        )
+        rank.is_active = False
+        rank.delete_flg = True
+        rank.save(update_fields=['is_active', 'delete_flg', 'update_datetime'])
+        return redirect(reverse('title_rank_list'))

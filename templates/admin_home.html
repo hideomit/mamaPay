@@ -174,6 +174,7 @@
 .action-card:nth-child(2) .action-icon { color: #16a34a; }
 .action-card:nth-child(3) .action-icon { color: #dc2626; }
 .action-card:nth-child(4) .action-icon { color: #f59e0b; }
+.action-card:nth-child(5) .action-icon { color: #8b5cf6; }
 
 .action-name {
     font-weight: 800;
@@ -307,6 +308,11 @@
                     <span class="action-icon"><i class="fas fa-user-cog"></i></span>
                     <div class="action-name">ステータス管理</div>
                     <div class="action-desc">こどもの情報を管理</div>
+                </a>
+                <a href="{% url 'title_rank_list' %}" class="action-card">
+                    <span class="action-icon"><i class="fas fa-crown"></i></span>
+                    <div class="action-name">称号ランク管理</div>
+                    <div class="action-desc">こども画面に表示する称号を管理</div>
                 </a>
             </div>
         </div>

@@ -1,6 +1,6 @@
 from django import forms
 
-from users.models import Child, Request
+from users.models import Child, Request, TitleRank
 
 
 class ChildModelForm(forms.ModelForm):
@@ -24,3 +24,34 @@ class ApplyTaskForm(forms.ModelForm):
     class Meta:
         model = Request
         fields = ('cuser', 'puser', 'task', 'status')
+
+
+class TitleRankForm(forms.ModelForm):
+    class Meta:
+        model = TitleRank
+        fields = ('title', 'required_total_coin')
+        labels = {
+            'title': '称号名',
+            'required_total_coin': '必要累計コイン数',
+        }
+        widgets = {
+            'required_total_coin': forms.NumberInput(attrs={'min': 0}),
+        }
+
+    def __init__(self, puser, *args, **kwargs):
+        self.puser = puser
+        super().__init__(*args, **kwargs)
+
+    def clean_required_total_coin(self):
+        required_total_coin = self.cleaned_data['required_total_coin']
+        queryset = TitleRank.objects.filter(
+            puser=self.puser,
+            required_total_coin=required_total_coin,
+            is_active=True,
+            delete_flg=False,
+        )
+        if self.instance.pk:
+            queryset = queryset.exclude(pk=self.instance.pk)
+        if queryset.exists():
+            raise forms.ValidationError('同じ必要累計コイン数の称号がすでにあります。')
+        return required_total_coin

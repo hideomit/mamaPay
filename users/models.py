@@ -47,10 +47,28 @@ class Child(CommonColumnModel):
     puser = models.ForeignKey(Parent, verbose_name='親ユーザーID', on_delete=models.CASCADE)
     name = models.CharField(verbose_name='名前', max_length=255)
     photo = models.ImageField(verbose_name='写真', null=True, max_length=255, upload_to='Child/')
+    total_earned_coin = models.PositiveIntegerField(verbose_name='累計獲得コイン', default=0)
  #   thumbnail = ImageSpecField(source='photo', processors=[ResizeToFill(200, 100)], format='JPEG', options={'quality': 80})
 
     def __str__(self):
         return str(self.name)
+
+
+class TitleRank(CommonColumnModel):
+    """家庭ごとの称号ランク"""
+
+    class Meta:
+        db_table = 'title_rank'
+        unique_together = ('puser', 'required_total_coin')
+        ordering = ('required_total_coin', 'id')
+
+    puser = models.ForeignKey(Parent, verbose_name='親ユーザーID', on_delete=models.CASCADE)
+    title = models.CharField(verbose_name='称号名', max_length=100)
+    required_total_coin = models.PositiveIntegerField(verbose_name='必要累計コイン数')
+    is_active = models.BooleanField(verbose_name='有効', default=True)
+
+    def __str__(self):
+        return '{}: {}'.format(self.required_total_coin, self.title)
 
 
 class Balance(CommonColumnModel):

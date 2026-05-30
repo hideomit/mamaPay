@@ -302,6 +302,10 @@
     transition: all 0.2s ease;
 }
 
+.child-card-clickable {
+    cursor: pointer;
+}
+
 .child-card:hover {
     transform: translateY(-2px);
     box-shadow: 0 16px 36px rgba(0,0,0,0.14);
@@ -358,10 +362,33 @@
 }
 
 .child-name {
+    display: block;
     font-size: 1.2rem;
     font-weight: 800;
-    color: #0d6efd;
+    color: #222;
     text-decoration: none;
+}
+
+.child-card-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.rank-badge-label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    border: 1px solid rgba(139,92,246,0.22);
+    border-radius: 999px;
+    background: rgba(255,255,255,0.72);
+    color: #7c3aed;
+    font-size: 0.82rem;
+    font-weight: 900;
+    padding: 5px 11px;
+    margin-bottom: 8px;
+    box-shadow: 0 5px 14px rgba(139,92,246,0.10);
 }
 
 .balance-label {
@@ -482,16 +509,23 @@
         <div class="row">
             {% for data in object_list %}
             <div class="col-xl-4 col-md-6 mb-4">
-                <div class="child-card h-100">
+                <div class="child-card child-card-clickable h-100" onclick="window.location.href='{% url 'child_home' data.cuser.id %}'" role="link" tabindex="0" onkeydown="if (event.key === 'Enter') { window.location.href='{% url 'child_home' data.cuser.id %}'; }">
                     <div class="d-flex align-items-center">
                         <div class="mr-3">
                             <img class="child-photo" src="/media/{{ data.cuser.photo }}" alt="">
                         </div>
 
-                        <div class="flex-grow-1 text-center">
-                            <a class="child-name" href="{% url 'child_home' data.cuser.id %}">
+                        <div class="child-card-main flex-grow-1 text-center">
+                            {% if data.rank_status %}
+                                <div class="rank-badge-label">
+                                    <i class="fas fa-crown"></i>
+                                    {{ data.rank_status.current_title }}
+                                </div>
+                            {% endif %}
+
+                            <div class="child-name">
                                 {{ data.cuser }}
-                            </a>
+                            </div>
 
                             <div class="mt-3">
                                 <div class="balance-label">ままコイン残高</div>
@@ -504,21 +538,16 @@
 
                             {% if data.pending_request_count %}
                                 <div>
-                                    <a href="{% url 'child_status' data.cuser.id %}" class="pending-alert">
+                                    <a href="{% url 'child_status' data.cuser.id %}" class="pending-alert" onclick="event.stopPropagation();">
                                         <i class="fas fa-exclamation-circle"></i>
                                         OK待ちが{{ data.pending_request_count }}件あります
                                     </a>
                                 </div>
                             {% endif %}
-
-                            <div class="mt-3">
-                                <a href="{% url 'child_home' data.cuser.id %}" class="btn btn-primary detail-btn">
-                                    くわしくみる &raquo;
-                                </a>
-                            </div>
                         </div>
                     </div>
                 </div>
+
             </div>
             {% empty %}
                 {% if not user.cuser_id %}

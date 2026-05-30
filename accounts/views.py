@@ -6,7 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
 from django.db import transaction
-from django.db.models import Count
+from django.db.models import Count, F
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy, reverse
@@ -19,6 +19,7 @@ from django.views.generic import CreateView, ListView, UpdateView, DetailView
 from task.models import Task
 from users.forms import ChildModelForm
 from users.models import Child, Balance, Request, History, Parent
+from users.services import create_default_title_ranks, get_child_rank_status
 from .forms import SignupParentForm, ChildStatusModelForm, ContactForm, EmailChangeForm, ChildPasswordChangeForm
 from .models import LoginUsers
 from .tokens import account_activation_token
@@ -234,6 +235,7 @@ class SignupParentView(CreateView):
         if form.is_valid():
             login_user = form.save(commit=False)
             puser = Parent.objects.create()
+            create_default_title_ranks(puser)
             login_user.puser = puser
             login_user.is_active = False
             login_user.save()
@@ -384,6 +386,7 @@ class HomeListView(ListView):
 
         for balance in balances:
             balance.pending_request_count = pending_count_map.get(balance.cuser_id, 0)
+            balance.rank_status = get_child_rank_status(balance.cuser)
 
         context['object_list'] = balances
         return context
@@ -456,6 +459,9 @@ class ApproveTaskView(LoginRequiredMixin, View):
             else:
                 child_balance = Balance(cuser_id=request_child_id, balance=request_task.price)
             child_balance.save()
+            Child.objects.filter(id=request_child_id).update(
+                total_earned_coin=F('total_earned_coin') + request_task.price
+            )
 
             createHistory = History(cuser_id=request_child_id, task_id=request_task_id, task_name=request_task.task_name, amount=request_task.price, kind=1)
             createHistory.ymd = timezone.now()

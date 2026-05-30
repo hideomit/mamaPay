@@ -54,6 +54,66 @@
     color: #222;
 }
 
+.rank-badge-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    border: 1px solid rgba(139,92,246,0.22);
+    border-radius: 999px;
+    background: rgba(255,255,255,0.72);
+    color: #7c3aed;
+    font-size: 0.92rem;
+    font-weight: 900;
+    padding: 7px 14px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    box-shadow: 0 6px 16px rgba(139,92,246,0.10);
+    transition: all 0.2s ease;
+}
+
+.rank-badge-button:hover {
+    background: rgba(255,255,255,0.95);
+    color: #6d28d9;
+    transform: translateY(-1px);
+}
+
+.rank-modal-title {
+    font-weight: 900;
+}
+
+.rank-modal-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.rank-modal-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    border-radius: 16px;
+    background: rgba(13,110,253,0.06);
+    padding: 12px 14px;
+}
+
+.rank-modal-label {
+    color: #6c757d;
+    font-weight: 800;
+}
+
+.rank-modal-value {
+    color: #222;
+    font-weight: 900;
+    text-align: right;
+}
+
+.rank-modal-current {
+    color: #7c3aed;
+}
+
 .summary-card {
     background: rgba(255,255,255,0.74);
     backdrop-filter: blur(8px);
@@ -348,6 +408,10 @@
                 </div>
 
                 <div class="flex-grow-1 text-center">
+                    <button type="button" class="rank-badge-button" data-toggle="modal" data-target="#rankDetailModal">
+                        <i class="fas fa-crown"></i>
+                        {{ rank_status.current_title }}
+                    </button>
                     <div class="child-name">{{ child_data.name }}</div>
 
                     <div class="balance-label">ままコイン残高</div>
@@ -360,6 +424,55 @@
                 </div>
             </div>
         </section>
+
+        <div class="modal fade" id="rankDetailModal" tabindex="-1" role="dialog" aria-labelledby="rankDetailModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title rank-modal-title" id="rankDetailModalLabel">称号ランク</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="閉じる">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="rank-modal-list">
+                            <div class="rank-modal-row">
+                                <span class="rank-modal-label">現在の称号</span>
+                                <span class="rank-modal-value rank-modal-current">{{ rank_status.current_title }}</span>
+                            </div>
+                            <div class="rank-modal-row">
+                                <span class="rank-modal-label">累計獲得コイン</span>
+                                <span class="rank-modal-value">{{ rank_status.total_earned_coin|intcomma }}コイン</span>
+                            </div>
+                            <div class="rank-modal-row">
+                                <span class="rank-modal-label">次の称号</span>
+                                <span class="rank-modal-value">
+                                    {% if rank_status.next_title %}
+                                        {{ rank_status.next_title }}
+                                    {% elif rank_status.is_highest %}
+                                        最高ランクです
+                                    {% else %}
+                                        未設定
+                                    {% endif %}
+                                </span>
+                            </div>
+                            <div class="rank-modal-row">
+                                <span class="rank-modal-label">次まで</span>
+                                <span class="rank-modal-value">
+                                    {% if rank_status.remaining_coin != None %}
+                                        あと{{ rank_status.remaining_coin|intcomma }}コイン
+                                    {% elif rank_status.is_highest %}
+                                        最高ランクです
+                                    {% else %}
+                                        -
+                                    {% endif %}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <section class="monthly-card">
             <div class="monthly-header">

@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+
+{% block title %}{% if is_create %}称号ランク追加{% else %}称号ランク編集{% endif %}{% endblock %}
+
+{% block content %}
+<style>
+.rank-form-page {
+    min-height: 100vh;
+    background:
+        linear-gradient(180deg, rgba(255,255,255,0.88), rgba(255,255,255,0.72)),
+        url('/static/Yiepay2.png') center top / cover no-repeat;
+    padding: 28px 0 48px;
+}
+
+.rank-form-container {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+.rank-form-card {
+    background: rgba(255,255,255,0.86);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 24px;
+    border: 1px solid rgba(255,255,255,0.50);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+    padding: 28px;
+}
+
+.rank-form-title {
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: #222;
+    margin-bottom: 12px;
+}
+
+.rank-form-subtitle {
+    color: #5f6368;
+    line-height: 1.7;
+    margin-bottom: 24px;
+}
+
+.rank-form-card label {
+    font-weight: 800;
+    color: #222;
+}
+
+.rank-form-card input[type="text"],
+.rank-form-card input[type="number"] {
+    width: 100%;
+    border-radius: 14px;
+    border: 1px solid rgba(13,110,253,0.18);
+    background: rgba(255,255,255,0.95);
+    padding: 12px 14px;
+}
+
+.rank-form-card p {
+    margin-bottom: 18px;
+}
+
+.rank-form-card .errorlist {
+    color: #dc2626;
+    font-weight: 800;
+    padding-left: 18px;
+}
+
+.rank-form-buttons {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 14px;
+    margin-top: 24px;
+}
+
+.rank-save-button,
+.rank-back-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    padding: 14px 20px;
+    border: none;
+    font-weight: 900;
+    text-decoration: none;
+}
+
+.rank-save-button {
+    background: linear-gradient(135deg, #1f8fff, #0d6efd);
+    color: #fff;
+}
+
+.rank-back-button {
+    background: rgba(255,255,255,0.90);
+    color: #0d6efd;
+    border: 1px solid rgba(13,110,253,0.18);
+}
+
+@media (max-width: 640px) {
+    .rank-form-buttons {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+
+<div class="rank-form-page">
+    <div class="rank-form-container">
+        <div class="rank-form-card">
+            <h1 class="rank-form-title">{% if is_create %}称号ランクを追加{% else %}称号ランクを編集{% endif %}</h1>
+            <p class="rank-form-subtitle">
+                累計獲得コインが必要累計コイン数以上になったこどもに、この称号が表示されます。
+                同じ家庭内で同じ必要累計コイン数は登録できません。
+            </p>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="rank-form-buttons">
+                    <button type="submit" class="rank-save-button">{% if is_create %}登録する{% else %}変更する{% endif %}</button>
+                    <a href="{% url 'title_rank_list' %}" class="rank-back-button">戻る</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
