@@ -19,7 +19,7 @@ from django.urls import include, path
 from django.views.generic import TemplateView
 from django.contrib.auth import views
 
-from accounts.views import ChildStatusListView, ChildStatusDetailView, ChildStatusUpdateView, HomeListView, ContactView, ContactDoneView, EmailChangeView, EmailChangeDoneView, ChildPasswordChangeView, ChildPasswordChangeDoneView, AccountDeactivateView, AccountDeactivateDoneView
+from accounts.views import ChildStatusListView, ChildStatusDetailView, ChildStatusUpdateView, HomeListView, ContactView, ContactDoneView, EmailChangeView, EmailChangeDoneView, ChildPasswordChangeView, ChildPasswordChangeDoneView, ChildLoginCreateView, AccountDeactivateView, AccountDeactivateDoneView
 from config import settings
 from config.views import robots_txt, sitemap_xml
 from users.views import ChildDeleteView
@@ -40,6 +40,7 @@ urlpatterns = [
     path('switch/', TemplateView.as_view(template_name='switch.html'), name='switch'),
     path('status/', ChildStatusListView.as_view(), name='status'),
     path('status/change/<int:pk>/', ChildStatusDetailView.as_view(), name='status_change'),
+    path('status/change/<int:pk>/login/', ChildLoginCreateView.as_view(), name='child_login_create'),
     path('status/change/<int:pk>/password/', ChildPasswordChangeView.as_view(), name='child_password_change'),
     path('status/change/<int:pk>/password/done/', ChildPasswordChangeDoneView.as_view(), name='child_password_change_done'),
     path('status/delete/', ChildDeleteView.as_view(), name='selected_child_delete'),

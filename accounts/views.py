@@ -20,7 +20,7 @@ from task.models import Task
 from users.forms import ChildModelForm
 from users.models import Child, Balance, Request, History, Parent
 from users.services import create_default_title_ranks, get_child_rank_status
-from .forms import SignupParentForm, ChildStatusModelForm, ContactForm, EmailChangeForm, ChildPasswordChangeForm
+from .forms import SignupParentForm, SignupChildForm, ChildStatusModelForm, ContactForm, EmailChangeForm, ChildPasswordChangeForm
 from .models import LoginUsers
 from .tokens import account_activation_token
 
@@ -211,6 +211,45 @@ class ChildPasswordChangeDoneView(LoginRequiredMixin, View):
         return render(request, self.template_name, {'child': child})
 
 
+class ChildLoginCreateView(LoginRequiredMixin, View):
+    template_name = 'children/child_login_create.html'
+
+    def get_child(self):
+        child = get_object_or_404(Child, id=self.kwargs['pk'])
+
+        if self.request.user.puser_id and child.puser_id == self.request.user.puser_id:
+            return child
+
+        raise PermissionDenied
+
+    def get_existing_login_user(self, child):
+        return LoginUsers.objects.filter(cuser=child).first()
+
+    def get(self, request, *args, **kwargs):
+        child = self.get_child()
+        login_user = self.get_existing_login_user(child)
+        if login_user:
+            return redirect(reverse('child_password_change', args=[child.id]))
+
+        form = SignupChildForm(initial={'username': child.name})
+        return render(request, self.template_name, {'form': form, 'child': child})
+
+    def post(self, request, *args, **kwargs):
+        child = self.get_child()
+        login_user = self.get_existing_login_user(child)
+        if login_user:
+            return redirect(reverse('child_password_change', args=[child.id]))
+
+        form = SignupChildForm(request.POST)
+        if not form.is_valid():
+            return render(request, self.template_name, {'form': form, 'child': child})
+
+        login_user = form.save(commit=False)
+        login_user.cuser = child
+        login_user.save()
+        return redirect(reverse('status_change', args=[child.id]))
+
+
 class SignupParentView(CreateView):
     form_class = SignupParentForm
     success_url = reverse_lazy('accounts:signup_activation_sent')
@@ -344,13 +383,22 @@ class ChildStatusDetailView(LoginRequiredMixin, DetailView):
   #  form_class = ChildModelForm
     model = Child
 
+    def get_child(self, child_id):
+        child = get_object_or_404(Child, id=child_id)
+
+        if self.request.user.puser_id and child.puser_id == self.request.user.puser_id:
+            return child
+
+        raise PermissionDenied
+
     def get(self, request, *args, **kwargs):
-        child = Child.objects.get(id=kwargs['pk']) ##getは1件⇒1レコード、filterは複数⇒query set
+        child = self.get_child(kwargs['pk']) ##getは1件⇒1レコード、filterは複数⇒query set
         form = ChildModelForm(initial={'name': child.name, 'photo': child.photo})
         return render(request, self.template_name, {
             'form': form,
             'data': child,
             'default_child_photo': random.choice(self.default_child_photos),
+            'child_login_user_exists': LoginUsers.objects.filter(cuser=child).exists(),
         })
 
 

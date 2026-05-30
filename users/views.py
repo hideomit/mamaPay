@@ -106,7 +106,8 @@ class ChildInputView(LoginRequiredMixin, View):
 
     def post(self, request, *args, **kwargs):
         c_form = ChildModelForm(request.POST, request.FILES)
-        s_form = SignupChildForm(request.POST)
+        create_child_login = request.POST.get('create_child_login') == '1'
+        s_form = SignupChildForm(request.POST) if create_child_login else SignupChildForm()
         default_child_photo = self.get_default_child_photo(request)
 
         if self.kwargs.get('pk') is not None:  # 更新動作
@@ -114,8 +115,14 @@ class ChildInputView(LoginRequiredMixin, View):
                 context = {'c_form': c_form}
                 return render(request, 'children/children_regist.html', context)
         else:
-            if not c_form.is_valid() or not s_form.is_valid():  ##is_validはフォームに入った値にエラーがないかバリデートするメソッド。バリデートがエラーになった場合にエラーを返す
-                context = {'c_form': c_form, 's_form': s_form, 'default_child_photo': default_child_photo}
+            child_login_valid = (not create_child_login) or s_form.is_valid()
+            if not c_form.is_valid() or not child_login_valid:  ##is_validはフォームに入った値にエラーがないかバリデートするメソッド。バリデートがエラーになった場合にエラーを返す
+                context = {
+                    'c_form': c_form,
+                    's_form': s_form,
+                    'default_child_photo': default_child_photo,
+                    'create_child_login': create_child_login,
+                }
                 return render(request, 'children/children_regist.html', context)
 
         child = c_form.save(commit=False)
@@ -143,9 +150,10 @@ class ChildInputView(LoginRequiredMixin, View):
             balance = Balance(cuser_id=child.id, balance=0)
             balance.save()
 
-            login_user = s_form.save(commit=False)
-            login_user.cuser = child
-            login_user.save()
+            if create_child_login:
+                login_user = s_form.save(commit=False)
+                login_user.cuser = child
+                login_user.save()
 
         return redirect(reverse('status'))
 

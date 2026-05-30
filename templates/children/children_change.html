@@ -297,7 +297,13 @@
                 </div>
 
                 <div class="password-help">
-                    <a href="{% url 'child_password_change' data.id %}" class="password-help-link">こどものパスワード変更はこちら</a>
+                    {% if child_login_user_exists %}
+                        <a href="{% url 'child_password_change' data.id %}" class="password-help-link">こどものパスワード変更はこちら</a>
+                    {% else %}
+                        <a href="{% url 'child_login_create' data.id %}" class="password-help-link">
+                            こどものスマホや、かぞくのパソコンで、こども自身がはいれるようにする
+                        </a>
+                    {% endif %}
                 </div>
             </form>
         </div>

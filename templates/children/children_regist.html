@@ -116,6 +116,49 @@
     margin: 0;
 }
 
+.login-option-card {
+    border: 1px solid rgba(13,110,253,0.16);
+    border-radius: 18px;
+    background: rgba(13,110,253,0.06);
+    padding: 16px 18px;
+    margin-bottom: 22px;
+}
+
+.login-option-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin: 0;
+    color: #222;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.login-option-label input {
+    margin-top: 4px;
+    width: 18px;
+    height: 18px;
+    accent-color: #0d6efd;
+    flex-shrink: 0;
+}
+
+.login-option-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.login-option-description {
+    color: #5f6368;
+    font-size: 0.88rem;
+    font-weight: 700;
+    line-height: 1.7;
+}
+
+.child-login-fields[hidden] {
+    display: none;
+}
+
 .default-photo-card {
     display: flex;
     align-items: center;
@@ -258,7 +301,7 @@
     <div class="child-regist-container">
         <div class="child-regist-header">
             <h1 class="child-regist-title">こどもを登録する</h1>
-            <p class="child-regist-subtitle">こどもの名前、写真、ログインIDとパスワードを設定します（名前、写真、パスワードはあとから変更できます）。</p>
+            <p class="child-regist-subtitle">こどもの名前と写真を設定します。こども自身でログインする機能は、必要なときだけ設定できます。</p>
         </div>
 
         <div class="child-card">
@@ -303,28 +346,40 @@
                 {% if s_form %}
                     <div class="form-section">
                         <h2 class="form-section-title">ログイン情報</h2>
-                        <p class="form-help-text section-help-text">こどもがじぶんでログインするときのIDとパスワードです。</p>
+                        <div class="login-option-card">
+                            <label class="login-option-label" for="createChildLogin">
+                                <input type="checkbox" id="createChildLogin" name="create_child_login" value="1" {% if create_child_login %}checked{% endif %}>
+                                <span class="login-option-text">
+                                    <span>こども用ログインを設定する</span>
+                                    <span class="login-option-description">
+                                        こどものスマホや、かぞくのパソコンで、こども自身がいえぺいに入れる機能です。今は使わない場合、あとから設定できます。
+                                    </span>
+                                </span>
+                            </label>
+                        </div>
                         {{ s_form.non_field_errors }}
 
-                        {% for field in s_form %}
-                            <div class="form-group">
-                                <label class="form-label" for="{{ field.id_for_label }}">
-                                    {% if field.name == 'username' %}
-                                        ログインID
-                                    {% elif field.name == 'password1' %}
-                                        パスワード
-                                    {% elif field.name == 'password2' %}
-                                        パスワード（確認）
-                                    {% else %}
-                                        {{ field.label }}
-                                    {% endif %}
-                                </label>
-                                <input id="{{ field.id_for_label }}" class="form-input" name="{{ field.name }}" value="{{ field.value|default:'' }}" {% if field.name == 'password1' or field.name == 'password2' %}type="password"{% else %}type="text"{% endif %}>
-                                {% for error in field.errors %}
-                                    <p class="form-error">{{ error }}</p>
-                                {% endfor %}
-                            </div>
-                        {% endfor %}
+                        <div class="child-login-fields" id="childLoginFields" {% if not create_child_login %}hidden{% endif %}>
+                            {% for field in s_form %}
+                                <div class="form-group">
+                                    <label class="form-label" for="{{ field.id_for_label }}">
+                                        {% if field.name == 'username' %}
+                                            ログインID
+                                        {% elif field.name == 'password1' %}
+                                            パスワード
+                                        {% elif field.name == 'password2' %}
+                                            パスワード（確認）
+                                        {% else %}
+                                            {{ field.label }}
+                                        {% endif %}
+                                    </label>
+                                    <input id="{{ field.id_for_label }}" class="form-input child-login-input" name="{{ field.name }}" value="{{ field.value|default:'' }}" {% if field.name == 'password1' or field.name == 'password2' %}type="password"{% else %}type="text"{% endif %} {% if not create_child_login %}disabled{% endif %}>
+                                    {% for error in field.errors %}
+                                        <p class="form-error">{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                            {% endfor %}
+                        </div>
                     </div>
                 {% endif %}
 
@@ -346,7 +401,23 @@ document.addEventListener('DOMContentLoaded', function () {
     var nameInput = document.getElementById('id_name');
     var usernameInput = document.getElementById('id_username');
     var fileInput = document.getElementById('id_photo');
+    var createChildLogin = document.getElementById('createChildLogin');
+    var childLoginFields = document.getElementById('childLoginFields');
+    var childLoginInputs = document.querySelectorAll('.child-login-input');
     var usernameTouched = false;
+
+    function updateChildLoginFields() {
+        var enabled = createChildLogin && createChildLogin.checked;
+        if (childLoginFields) {
+            childLoginFields.hidden = !enabled;
+        }
+        childLoginInputs.forEach(function (input) {
+            input.disabled = !enabled;
+        });
+        if (enabled && usernameInput && nameInput && !usernameTouched && !usernameInput.value) {
+            usernameInput.value = nameInput.value;
+        }
+    }
 
     function resizeSelectedPhoto(input, preview) {
         var file = input.files && input.files[0];
@@ -405,6 +476,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 usernameInput.value = nameInput.value;
             }
         });
+    }
+
+    if (createChildLogin) {
+        createChildLogin.addEventListener('change', updateChildLoginFields);
+        updateChildLoginFields();
     }
 
     if (refreshButton && photoInput && photoPreview) {

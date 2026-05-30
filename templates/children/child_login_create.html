@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+
+{% block title %}こども用ログイン設定{% endblock %}
+
+{% block content %}
+<style>
+.child-login-page {
+    min-height: 78vh;
+    background:
+        linear-gradient(90deg, rgba(255,255,255,0.90), rgba(255,255,255,0.58)),
+        url('/static/Yiepay2.png') center center / cover no-repeat;
+    display: flex;
+    align-items: center;
+    padding: 48px 0;
+}
+
+.child-login-card {
+    max-width: 560px;
+    background: rgba(255,255,255,0.84);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 24px;
+    border: 1px solid rgba(255,255,255,0.50);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+    padding: 34px;
+}
+
+.child-login-title {
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: #222;
+    margin-bottom: 12px;
+}
+
+.child-login-text {
+    color: #5f6368;
+    line-height: 1.8;
+    margin-bottom: 24px;
+}
+
+.child-profile {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: rgba(13,110,253,0.08);
+    border: 1px solid rgba(13,110,253,0.16);
+    border-radius: 18px;
+    padding: 14px 16px;
+    margin-bottom: 24px;
+}
+
+.child-profile img {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #fff;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+}
+
+.child-name {
+    font-weight: 900;
+    color: #222;
+}
+
+.child-login-help {
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.form-label {
+    font-weight: 700;
+    color: #222;
+}
+
+.form-input {
+    width: 100%;
+    border-radius: 14px;
+    border: 1px solid rgba(13,110,253,0.20);
+    background: rgba(255,255,255,0.95);
+    padding: 13px 15px;
+    color: #222;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 4px rgba(13,110,253,0.10);
+}
+
+.form-error,
+.errorlist {
+    color: #dc3545;
+    font-size: 0.88rem;
+    font-weight: 700;
+    margin: 0 0 8px;
+    padding-left: 18px;
+}
+
+.child-login-button {
+    width: 100%;
+    border: none;
+    border-radius: 999px;
+    padding: 14px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #1f8fff, #0d6efd);
+    color: white;
+    box-shadow: 0 8px 20px rgba(13,110,253,0.24);
+}
+
+.child-login-link {
+    display: inline-block;
+    margin-top: 18px;
+    color: #6c757d;
+    font-weight: 700;
+}
+</style>
+
+<div class="child-login-page">
+    <div class="container">
+        <div class="child-login-card">
+            <h1 class="child-login-title">こども用ログインを設定</h1>
+            <p class="child-login-text">
+                こどものスマホや、かぞくのパソコンで、こども自身がいえぺいに入れるようにします。
+                ログインIDとパスワードを設定してください。
+            </p>
+
+            <div class="child-profile">
+                <img src="/media/{{ child.photo }}" alt="{{ child.name }} の写真">
+                <div>
+                    <div class="child-name">{{ child.name }}</div>
+                    <div class="child-login-help">あとからパスワード変更もできます。</div>
+                </div>
+            </div>
+
+            <form method="post">
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+
+                {% for field in form %}
+                    <div class="form-group">
+                        <label class="form-label" for="{{ field.id_for_label }}">
+                            {% if field.name == 'username' %}
+                                ログインID
+                            {% elif field.name == 'password1' %}
+                                パスワード
+                            {% elif field.name == 'password2' %}
+                                パスワード（確認）
+                            {% else %}
+                                {{ field.label }}
+                            {% endif %}
+                        </label>
+                        <input id="{{ field.id_for_label }}" class="form-input" name="{{ field.name }}" value="{{ field.value|default:'' }}" {% if field.name == 'password1' or field.name == 'password2' %}type="password"{% else %}type="text"{% endif %}>
+                        {% for error in field.errors %}
+                            <p class="form-error">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+
+                <button class="child-login-button" type="submit">こども用ログインを設定する</button>
+            </form>
+
+            <a class="child-login-link" href="{% url 'status_change' child.id %}">こども情報に戻る</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
