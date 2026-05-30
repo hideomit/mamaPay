@@ -89,4 +89,4 @@ class TitleRankServiceTests(TestCase):
 
         self.assertEqual(TitleRank.objects.filter(puser=self.parent).count(), len(DEFAULT_TITLE_RANKS))
         self.assertTrue(TitleRank.objects.filter(puser=self.parent, required_total_coin=0, title='みならい').exists())
-        self.assertTrue(TitleRank.objects.filter(puser=self.parent, required_total_coin=100000, title='いえぺい殿堂入り').exists())
+        self.assertTrue(TitleRank.objects.filter(puser=self.parent, required_total_coin=200000, title='いえ神様').exists())
