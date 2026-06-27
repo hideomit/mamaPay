@@ -67,6 +67,7 @@ def get_child_rank_status(child):
         return {
             'current_rank': None,
             'current_title': '称号未設定',
+            'current_character_image': None,
             'total_earned_coin': child.total_earned_coin,
             'next_rank': None,
             'next_title': None,
@@ -85,12 +86,15 @@ def get_child_rank_status(child):
 
     if current_rank is None:
         current_title = '称号未設定'
+        current_character_image = None
     else:
         current_title = current_rank.title
+        current_character_image = 'rank_characters/rank_{}.png'.format(current_rank.required_total_coin)
 
     return {
         'current_rank': current_rank,
         'current_title': current_title,
+        'current_character_image': current_character_image,
         'total_earned_coin': child.total_earned_coin,
         'next_rank': next_rank,
         'next_title': next_rank.title if next_rank else None,

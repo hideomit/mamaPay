@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load bootstrap4 humanize %}
+{% load bootstrap4 humanize static %}
 
 {% block title %}こどもホーム{% endblock %}
 
@@ -112,6 +112,21 @@
 
 .rank-modal-current {
     color: #7c3aed;
+}
+
+.rank-character {
+    text-align: center;
+    margin: 4px 0 18px;
+}
+
+.rank-character-image {
+    width: 190px;
+    max-width: 72%;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    height: auto;
+    border-radius: 18px;
+    filter: drop-shadow(0 10px 20px rgba(0,0,0,0.10));
 }
 
 .summary-card {
@@ -435,6 +450,14 @@
                         </button>
                     </div>
                     <div class="modal-body">
+                        {% if rank_status.current_character_image %}
+                            <div class="rank-character">
+                                <img class="rank-character-image"
+                                     src="{% static rank_status.current_character_image %}"
+                                     alt="{{ rank_status.current_title }}"
+                                     onerror="this.style.display='none';">
+                            </div>
+                        {% endif %}
                         <div class="rank-modal-list">
                             <div class="rank-modal-row">
                                 <span class="rank-modal-label">現在の称号</span>
